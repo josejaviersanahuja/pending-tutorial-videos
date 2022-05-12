@@ -1,13 +1,30 @@
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: "Courier New", source-code-pro, Menlo, Monaco, Consolas, monospace;
 }
+
+/* 
+    MIXINS PARA RESPONSIVENESS
+*/
+/*@forward './tarjeta_del_curso';
+@forward './footer';
+@forward './menu';
+@forward './boton_up';
+@forward './header';
+@forward './listOfGifs';
+@forward './searchForm';
+@forward './footer'; */
+
+/*# sourceMappingURL=index.css.map */

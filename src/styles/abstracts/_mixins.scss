@@ -1,0 +1,59 @@
+
+@use './var' as *;
+
+@mixin cleanBotonStyle {
+    isolation: isolate;
+    position:relative;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+@mixin linkButtonHover {
+    box-shadow: 2px 2px 0 0 $primeColor;
+}
+
+@mixin linkDefaultStyle {
+        text-decoration: none;
+        border-radius: 5px;
+        padding: 0.25em;
+        @include smoothTransition;
+        &:hover {
+            @include linkButtonHover;
+        }
+}
+
+@mixin btn1 {
+    border: none;
+    background-color: $thirdColor;
+    color: $secondColor;
+}
+
+@mixin btn2 {
+    border: 1px solid $thirdColor;
+    background-color: $secondColor;
+    color: $thirdColor;
+}
+
+@mixin smoothTransition {
+    transition: all 0.5s ease-in-out;
+}
+
+/* 
+    MIXINS PARA RESPONSIVENESS
+*/
+@mixin media-m {
+    @media screen and (min-width:768px) {
+     @content;   
+    }
+}
+@mixin media-l {
+    @media screen and (min-width:1200px) {
+     @content;   
+    }
+}
