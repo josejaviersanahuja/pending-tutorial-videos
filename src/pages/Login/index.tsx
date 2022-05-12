@@ -1,11 +1,19 @@
+interface ILogin {
 
+}
 
-function Login() {
+export default function Login({}:ILogin) {
   return (
     <div className="login__page">
-      <h1>Mis Videos</h1>
+      <header>
+        <h1>Videos Aún Por Ver</h1>
+      </header>
+      <main>
+        <h3>Únete con tu cuenta de google, facebook o twitter</h3>
+        <button>Google</button>
+        <button>Facebook</button>
+        <button>Twitter</button>
+      </main>
     </div>
   );
 }
-
-export default Login;

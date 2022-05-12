@@ -1,0 +1,14 @@
+@use '../abstracts/' as *;
+
+.login__page {
+    min-height: calc(100vh - 2rem);
+    text-align: center;
+    & header {
+        background-color: $thirdColor;
+        color: $secondColor;;
+        padding: 1rem 0;
+    }
+    & main {
+        padding: 1rem 2rem;
+    }
+}

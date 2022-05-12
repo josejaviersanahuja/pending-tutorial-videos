@@ -8,7 +8,6 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.1",
     "@types/node": "^16.11.34",
-    "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.3",
     "firebase": "^9.8.1",
     "react": "^18.1.0",
@@ -43,6 +42,8 @@
     ]
   },
   "devDependencies": {
+    "@types/react": "^18.0.9",
+    "@types/sass": "^1.43.1",
     "sass": "^1.51.0"
   }
 }
