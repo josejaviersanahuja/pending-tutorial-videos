@@ -1,3 +1,5 @@
+import LoginButtons from "./LoginButtons";
+
 interface ILogin {
 
 }
@@ -10,9 +12,7 @@ export default function Login({}:ILogin) {
       </header>
       <main>
         <h3>Únete con tu cuenta de google, facebook o twitter</h3>
-        <button>Google</button>
-        <button>Facebook</button>
-        <button>Twitter</button>
+        <LoginButtons />
       </main>
     </div>
   );

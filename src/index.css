@@ -121,9 +121,35 @@ code {
   background-color: hsl(0deg, 67%, 47%);
   color: #eeeeee;
   padding: 1rem 0;
+  min-height: 4.5rem;
 }
 .login__page main {
   padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 6.5rem);
+}
+.login__page__btns {
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+}
+.login__page__btns button {
+  margin: auto;
+  isolation: isolate;
+  position: relative;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  background-color: lightgreen;
 }
 
 /*@forward './notFound';
