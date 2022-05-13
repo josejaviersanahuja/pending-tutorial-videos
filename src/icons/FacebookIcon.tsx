@@ -6,8 +6,8 @@ export default function FacebookIcon (props: React.SVGProps<SVGSVGElement>) : Re
         aria-hidden="true"
         data-prefix="fab"
         data-icon="facebook-square"
-        width={21}
-        height= {21}
+        width={38}
+        height= {38}
         className="prefix__svg-inline--fa prefix__fa-facebook-square prefix__fa-w-14"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 448 512"

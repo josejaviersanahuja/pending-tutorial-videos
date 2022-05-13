@@ -6,8 +6,8 @@ export default function GoogleIcon (props: React.SVGProps<SVGSVGElement>) : Reac
         aria-hidden="true"
         data-prefix="fab"
         data-icon="google"
-        width={21}
-        height= {21}
+        width={32}
+        height= {32}
         className="prefix__svg-inline--fa prefix__fa-google prefix__fa-w-16"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 488 512"

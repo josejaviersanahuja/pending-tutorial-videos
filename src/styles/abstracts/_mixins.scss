@@ -42,8 +42,21 @@
 
 @mixin loginBtn {
     background-color: lightgreen;
-
-    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid $thirdColor;
+    border-radius: 10px;
+    padding: 1em;
+    font-size: 1.5em;
+    font-weight: 700;
+    min-width: 100%;
+    & svg {
+        margin-left: .5em;
+    }
+    &:hover {
+        @include linkButtonHover;
+    }
 }
 
 @mixin smoothTransition {

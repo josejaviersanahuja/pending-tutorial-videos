@@ -11,7 +11,7 @@ export default function Login({}:ILogin) {
         <h1>Videos Aún Por Ver</h1>
       </header>
       <main>
-        <h3>Únete con tu cuenta de google, facebook o twitter</h3>
+        <h2>Únete con tu cuenta de google, facebook o github</h2>
         <LoginButtons />
       </main>
     </div>

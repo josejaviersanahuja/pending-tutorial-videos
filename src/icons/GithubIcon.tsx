@@ -6,8 +6,8 @@ export default function GithubIcon (props: React.SVGProps<SVGSVGElement>) : Reac
         aria-hidden="true"
         data-prefix="fab"
         data-icon="github-square"
-        width={21}
-        height= {21}
+        width={40}
+        height= {40}
         className="prefix__svg-inline--fa prefix__fa-github-square prefix__fa-w-14"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 448 512"
