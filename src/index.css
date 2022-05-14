@@ -115,15 +115,6 @@ code {
 }
 .login__page {
   min-height: calc(100vh - 2rem);
-  text-align: center;
-}
-.login__page main {
-  padding: 1rem 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 6.5rem);
 }
 .login__page__btns {
   margin: auto 0;
@@ -187,6 +178,16 @@ header {
   color: #eeeeee;
   padding: 1rem 0;
   min-height: 4.5rem;
+  text-align: center;
+}
+
+main {
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 6.5rem);
 }
 
 /*# sourceMappingURL=index.css.map */
