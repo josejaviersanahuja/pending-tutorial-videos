@@ -2,7 +2,7 @@ import React from 'react'
 import FacebookIcon from '../../icons/FacebookIcon'
 import GithubIcon from '../../icons/GithubIcon'
 import GoogleIcon from '../../icons/GoogleIcon'
-import {handleGoogleLogIn, handleGithubLogIn, handleFacebookLogIn} from '../../firebase/auth'
+import {handleGoogleLogIn, handleGithubLogIn, handleFacebookLogIn, logout} from '../../firebase/auth'
 
 type Props = {}
 

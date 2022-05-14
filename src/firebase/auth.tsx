@@ -1,12 +1,12 @@
 import { getAuth, onAuthStateChanged, GithubAuthProvider, GoogleAuthProvider, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
+import { TwoFunctionsInOne } from "../interfaces";
 import {app as firebaseApp} from './init'
 
 const auth = getAuth(firebaseApp);
 
-onAuthStateChanged(auth, user => {
-  // Check for user status
-  console.log(user);
-});
+export const authStateChanged = (useUserCallback : TwoFunctionsInOne) => {
+    return onAuthStateChanged(auth, user => {user? useUserCallback(user): useUserCallback(undefined)}); 
+}
 
 export const handleGithubLogIn = () => {
     const githubProvider = new GithubAuthProvider()

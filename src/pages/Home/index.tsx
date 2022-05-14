@@ -1,8 +1,14 @@
+import { logout } from "../../firebase/auth";
+import useUser from "../../hooks/useUser";
+
 interface IHome {
 
 }
 
 export default function Home({}:IHome) {
+
+  const {loginUser} = useUser()
+
   return (
     <div className="home__page">
       <header>
@@ -10,6 +16,7 @@ export default function Home({}:IHome) {
       </header>
       <main>
         <h2>Esto es la Home</h2>
+        <button onClick={()=>{logout()}}>logout</button>
       </main>
     </div>
   );
