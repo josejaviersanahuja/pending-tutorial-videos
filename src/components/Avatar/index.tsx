@@ -7,7 +7,7 @@ type Props = {
 
 export default function Avatar({size = 48}: Props) {
     const {loginUser} = useUser()
-
+    
     if (!loginUser) {
         return null
     } else {

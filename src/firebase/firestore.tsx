@@ -9,12 +9,11 @@ export const db = getFirestore(app)
 /**
  * CRUD users
  */
- export const gettingUserFromDB = (luser: User, UseUserCallback : (value: React.SetStateAction<IUser | null| undefined>) => void) => {
-
+ export const gettingUserFromDB = (luser: User, UseUserCallback : (value: SetStateAction<IUser | null| undefined>) => void) => {
     const docRef = doc(db, "users", luser.uid)
-    UseUserCallback(undefined)
+    UseUserCallback(undefined) // gestión del isloading user
     return getDoc(docRef)
-            .then( docSnap => {
+            .then( docSnap => {               
                 const userToStore : IUser = {
                     uid : luser.uid,
                     name : luser.displayName? luser.displayName :"" ,
@@ -29,12 +28,21 @@ export const db = getFirestore(app)
                     userToStore.following = docSnap.data().following;
                     userToStore.videoCollections = docSnap.data().videoCollections;                    
                 } else {
-                    // @TODO store the new user
+                    // store the new user
+                    setDoc(doc(db, "users", userToStore.uid), userToStore)
+                        .then(() => {
+                            console.log("entor aqui esta vez?");
+                            alert("user stored")
+                        })
+                        .catch(onrejected => {
+                            console.error(onrejected)
+                            alert(`El nuevo usuario no se pudo crear en nuestra base de datos. Haga logout y vuelva a intentarlo`)
+                        })
                 }
                 UseUserCallback(userToStore);
             })
             .catch(err=>{
                 console.error(err);
-                UseUserCallback(null)
+                UseUserCallback(null) // ante el error, damos logout al user
             })
   }
