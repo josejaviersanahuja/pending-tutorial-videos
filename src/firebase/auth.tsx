@@ -5,7 +5,7 @@ import {app as firebaseApp} from './init'
 const auth = getAuth(firebaseApp);
 
 export const authStateChanged = (useUserCallback : TwoFunctionsInOne) => {
-    return onAuthStateChanged(auth, user => {user? useUserCallback(user): useUserCallback(undefined)}); 
+    return onAuthStateChanged(auth, user => { useUserCallback(user)}); 
 }
 
 export const handleGithubLogIn = () => {

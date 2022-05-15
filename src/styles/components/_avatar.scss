@@ -1,0 +1,9 @@
+@use '../abstracts/' as *;
+
+.avatar {
+    position: absolute;
+    left: 2rem;
+    top: 1.93rem;
+    border-radius: 50%;
+    border: 3px solid $secondColor;
+}

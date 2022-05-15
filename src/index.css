@@ -50,8 +50,8 @@ code {
 }
 .home__login__or__menu__btn {
   position: absolute;
-  right: 0.5rem;
-  top: 1.75rem;
+  right: 2rem;
+  top: 2.75rem;
 }
 .home__login__or__menu__btn button {
   isolation: isolate;
@@ -180,6 +180,14 @@ code {
 
 /*@forward './notFound';
  */
+.avatar {
+  position: absolute;
+  left: 2rem;
+  top: 1.93rem;
+  border-radius: 50%;
+  border: 3px solid #eeeeee;
+}
+
 .footer {
   background-color: #181818;
   color: #eeeeee;
@@ -193,17 +201,15 @@ code {
 }
 
 /*@forward './tarjeta_del_curso';
-@forward './footer';
 @forward './menu';
 @forward './boton_up';
 @forward './header';
-@forward './listOfGifs';
-@forward './searchForm';*/
+@forward './listOfGifs';*/
 header {
   background-color: hsl(0deg, 67%, 47%);
   color: #eeeeee;
-  padding: 1rem 3rem;
-  min-height: 4.75rem;
+  padding: 1rem 6rem;
+  min-height: 6.75rem;
   text-align: center;
 }
 
@@ -213,7 +219,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 6.75rem);
+  min-height: calc(100vh - 8.75rem);
 }
 
 /*# sourceMappingURL=index.css.map */

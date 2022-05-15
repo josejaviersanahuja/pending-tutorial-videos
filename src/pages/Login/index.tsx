@@ -13,8 +13,6 @@ export default function Login({}:ILogin) {
   const navigate = useNavigate()
 
   useEffect(() => {
-    console.log('1 ', loginUser);
-    
     if(loginUser) navigate('/')
   }, [loginUser])
      
