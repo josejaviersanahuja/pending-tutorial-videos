@@ -19,7 +19,7 @@ export default function OtherUser({id, loginUser}: Props) {
       if (id === undefined) {
           navigate('/')
       } else {
-          getAnotherUser(id, setOtherUser)
+          getAnotherUser(id, setOtherUser, navigate)
       }
       return () => {
         

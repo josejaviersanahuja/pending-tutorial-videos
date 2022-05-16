@@ -1,6 +1,7 @@
 import { User } from "firebase/auth";
 import { getFirestore, collection, addDoc, doc, setDoc, getDoc, query, where, getDocs } from "firebase/firestore";
 import { SetStateAction } from "react";
+import { NavigateFunction } from "react-router-dom";
 import { IUser } from "../interfaces";
 import { logout } from "./auth";
 import {app} from './init'
@@ -26,10 +27,7 @@ export const db = getFirestore(app)
                     videoCollections:[]
                   }
                 if (docSnap.exists()) {
-                    userToStore.followers = docSnap.data().followers;
-                    userToStore.following = docSnap.data().following;
-                    userToStore.videoCollections = docSnap.data().videoCollections;  
-                    UseUserCallback(userToStore);                  
+                    UseUserCallback(userConverter(docSnap));                  
                 } else {
                     // store the new user
                     setDoc(doc(db, "users", userToStore.uid), userToStore)
@@ -70,7 +68,7 @@ export const db = getFirestore(app)
   
   }
   
-export const getAnotherUser = (uid : string, callbackUser: (value : SetStateAction<IUser | null | undefined>)=> void) => {
+export const getAnotherUser = (uid : string, callbackUser: (value : SetStateAction<IUser | null | undefined>)=> void, navigate : NavigateFunction) => {
     const docRef = doc(db, "users", uid)
     callbackUser(undefined) // gestión del isloading user
     return getDoc(docRef)
@@ -79,6 +77,7 @@ export const getAnotherUser = (uid : string, callbackUser: (value : SetStateActi
                     callbackUser(userConverter(docData))
                 } else {
                     callbackUser(null)
+                    navigate("/notfound")
                 }
             })
             .catch(err=>{
