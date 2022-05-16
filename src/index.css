@@ -48,29 +48,6 @@ code {
   left: 1px;
   top: 4px;
 }
-.home__login__or__menu__btn {
-  position: absolute;
-  right: 2rem;
-  top: 2.75rem;
-}
-.home__login__or__menu__btn button {
-  isolation: isolate;
-  position: relative;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border: none;
-  background: none;
-  cursor: pointer;
-  border: 3px solid none;
-  background-color: #eeeeee;
-  color: #181818;
-  border-radius: 5px;
-  font-weight: 700;
-  padding: 0.15rem;
-}
 
 .header {
   background-color: hsl(0deg, 67%, 47%);
@@ -180,45 +157,102 @@ code {
 
 /*@forward './notFound';
  */
+.login__logout__btn button {
+  isolation: isolate;
+  position: relative;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border: 3px solid none;
+  background-color: #eeeeee;
+  color: #181818;
+  border-radius: 5px;
+  font-weight: 700;
+  padding: 0.15rem;
+}
+
 header {
   background-color: hsl(0deg, 67%, 47%);
   color: #eeeeee;
-  padding: 1rem 6rem;
   min-height: 6.75rem;
+  display: grid;
+  grid-template-columns: 25vw 50vw 20vw;
+  align-items: center;
+  justify-content: space-evenly;
+  place-items: center;
   text-align: center;
+}
+header h1 {
+  grid-column: 2/3;
+}
+header .login__logout__btn {
+  grid-column: 3/4;
 }
 
 .avatar {
-  position: absolute;
-  left: 2rem;
-  top: 1.93rem;
   border-radius: 50%;
   border: 3px solid #eeeeee;
 }
 
 .footer {
-  background-color: #181818;
-  color: #eeeeee;
+  background-color: #bbbbbb;
+  color: hsl(0deg, 67%, 47%);
   text-align: center;
-  height: 2rem;
+  height: 4rem;
 }
-.footer h3 {
+.footer .createdby {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #eeeeee;
+  display: none;
+}
+.footer__btns {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
 }
+.footer__btns a {
+  color: hsl(0deg, 67%, 47%);
+}
+.footer__btns a :hover {
+  background-color: #eeeeee;
+  padding: 0.25rem;
+  border-radius: 50%;
+}
 
+@media screen and (min-width: 768px) {
+  .footer {
+    background-color: #181818;
+    color: #eeeeee;
+  }
+  .footer .createdby {
+    display: block;
+  }
+  .footer__btns {
+    display: none;
+  }
+}
 /*@forward './tarjeta_del_curso';
 @forward './menu';
 @forward './boton_up';
-@forward './listOfGifs';*/
+*/
 main {
   padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 8.75rem);
+  min-height: calc(100vh - 10.75rem);
+  overflow-y: scroll;
 }
 
 /*# sourceMappingURL=index.css.map */

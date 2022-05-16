@@ -14,10 +14,7 @@ export default function Home() {
       />
       <main>
         <h2>Esto es la Home</h2>
-        {user === undefined && <p>undefined</p>}
-        {user === null && <p>null</p>}
-        {user && <p>{user.uid}</p>}
-        <Link to={"/allusers"}>All Users</Link>
+        {user === undefined && <p>Loading...</p>}
       </main>
     </div>
   );

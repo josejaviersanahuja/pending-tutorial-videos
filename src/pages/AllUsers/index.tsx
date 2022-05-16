@@ -11,12 +11,7 @@ export default function AllUsers() {
     const {loginUser} = useUser()
 
     useEffect(() => {
-      
         getAllUsers(setAllUsers, setIsLoading)
-    
-      return () => {
-        
-      }
     }, [])
     
 

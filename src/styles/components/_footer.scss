@@ -1,13 +1,49 @@
 @use '../abstracts/' as *;
 
 .footer {
-    background-color: $primeColor;
-    color: $secondColor;
-    text-align: center;
-    height: 2rem;
-    & h3{
-        position: relative;
-        top:50%;
-        transform: translateY(-50%);
-    }
+	background-color: darken($color: $secondColor, $amount: 20%);
+	color: $thirdColor;
+	text-align: center;
+	height: 4rem;
+
+	& .createdby {
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
+
+		color: $secondColor;
+		display: none;
+	}
+
+	&__btns{
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
+		& a {
+			color: $thirdColor;
+			
+			& :hover {
+				background-color: $secondColor;
+				padding: .25rem;
+				border-radius: 50%;
+			}
+		}
+	}
+}
+
+@include media-m {
+	.footer {
+		background-color: $primeColor;
+		color: $secondColor;
+		& .createdby {
+			display: block;
+		}
+		&__btns {
+			display: none;
+		}
+	}		
 }

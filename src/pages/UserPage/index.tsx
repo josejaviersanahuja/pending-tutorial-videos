@@ -11,13 +11,9 @@ export default function UserPage() {
     const {user, loginUser} = useUser()
     const {id} = useParams()
     
-  // @TODO debemos sacar por params del rectrouterdom el id y hacer un getDoc a firebase
     useEffect( ()=> {
       if (user===null) {
           logout()
-            .then( ()=>{
-              alert("Error al conectar con la base de datos. Disculpe las molestias")
-            })
       }
     }, [user])
 
@@ -30,7 +26,7 @@ export default function UserPage() {
             user === undefined ? <p>Loading...</p>
             : <>
                 <Header
-                  title={`Perfil de ${user?.name}`}
+                  title={`Perfil de ${user?.name.substring(0,10)}...`}
                   loginUser={loginUser}
                 />
                 <CurrentUser user={user} />

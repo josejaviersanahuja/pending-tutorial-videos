@@ -21,16 +21,13 @@ export default function OtherUser({ id, loginUser }: Props) {
 		} else {
 			getAnotherUser(id, setOtherUser, navigate)
 		}
-		return () => {
-
-		}
 	}, [id, navigate])
 
 
 	return (
 		<div className="home__page">
 			<Header
-				title={`Perfil de ${otherUser?.name}`}
+				title={`Perfil de ${otherUser?.name.substring(0,10)}...`}
 				loginUser={loginUser}
 			/>
 			{

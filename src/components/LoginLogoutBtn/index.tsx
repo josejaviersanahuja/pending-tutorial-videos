@@ -11,7 +11,7 @@ export default function LoginLogoutBtn({ user }: Props) {
 
   const navigate = useNavigate()
 
-  return (<div className='home__login__or__menu__btn'>
+  return (<div className='login__logout__btn'>
     {
       user ? <button onClick={() => { logout() }}>Logout</button>
         : <button onClick={() => { navigate('/login') }}>login</button>

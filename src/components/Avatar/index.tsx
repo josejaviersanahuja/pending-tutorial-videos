@@ -8,9 +8,7 @@ type Props = {
 }
 
 export default function Avatar({ size = 48, user }: Props) {
-
-  console.log(user?.photoURL);
-  
+ 
   if (!user) {
     return null
   } else {

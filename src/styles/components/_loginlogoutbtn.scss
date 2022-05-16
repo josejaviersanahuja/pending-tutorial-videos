@@ -1,0 +1,9 @@
+@use '../abstracts/' as *;
+
+.login__logout__btn {
+
+  & button {
+    @include cleanBotonStyle;
+    @include btn2;
+  }
+}

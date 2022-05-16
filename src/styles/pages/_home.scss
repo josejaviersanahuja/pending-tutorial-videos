@@ -29,15 +29,6 @@
             }
         }
     }
-    &__login__or__menu__btn{
-        position: absolute;
-        right: 2rem;
-        top: 2.75rem;
-        & button {
-            @include cleanBotonStyle;
-            @include btn2;
-        }
-    }
 }
 
 .header {

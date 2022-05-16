@@ -9,5 +9,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 8.75rem); // 2rem de footer y 6.75 de header
+    min-height: calc(100vh - 10.75rem); // 4rem de footer y 6.75 de header
+
+    overflow-y: scroll;
 }
