@@ -1,18 +1,19 @@
+import { User } from 'firebase/auth';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { logout } from "../../firebase/auth";
-import useUser from '../../hooks/useUser';
 
-type Props = {}
+type Props = {
+   user: User | null
+}
 
-export default function HomeLoginBtn({}: Props) {
+export default function HomeLoginBtn({user}: Props) {
 
-    const {loginUser} = useUser()
     const navigate = useNavigate()
     // @TODO eliminar funcion logout y convertirla en el toggle menu
   return (<div className='home__login__or__menu__btn'>
     {
-        loginUser ? <button onClick={()=>{logout()}}>menu</button>
+        user ? <button onClick={()=>{logout()}}>menu</button>
                 :   <button onClick={()=>{navigate('/login')}}>login</button>
     }
   </div>)

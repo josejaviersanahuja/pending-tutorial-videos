@@ -9,7 +9,7 @@ interface ILogin {
 
 export default function Login({}:ILogin) {
 
-  const {user, loginUser} = useUser()
+  const {loginUser} = useUser()
   const navigate = useNavigate()
 
   useEffect(() => {

@@ -6,7 +6,7 @@ import { IUser } from '../interfaces'
 
 export default function useUser () {
   const [loginUser, setLoginUser] = useState<User | null>(null)
-  const [user, setUser] = useState<IUser | null | undefined>(null)
+  const [user, setUser] = useState<IUser | null | undefined>(undefined)
  
   const twoFunctionsInOne = (loginUser : User | null ) => { 
     if (loginUser !== null) {
