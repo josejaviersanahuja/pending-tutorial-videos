@@ -70,9 +70,9 @@ export const db = getFirestore(app)
   
   }
   
-export const getAnotherUser = (uid : string, callbackUser: (value : SetStateAction<IUser | null | undefined>)=> void, callbackLoading : (value:SetStateAction<boolean>) => void) => {
+export const getAnotherUser = (uid : string, callbackUser: (value : SetStateAction<IUser | null | undefined>)=> void) => {
     const docRef = doc(db, "users", uid)
-    callbackLoading(true) // gestión del isloading user
+    callbackUser(undefined) // gestión del isloading user
     return getDoc(docRef)
             .then((docData)=>{
                 if (docData.exists()) {
@@ -80,11 +80,9 @@ export const getAnotherUser = (uid : string, callbackUser: (value : SetStateActi
                 } else {
                     callbackUser(null)
                 }
-                callbackLoading(false)
             })
             .catch(err=>{
                 console.error(err);
-                callbackUser(undefined)
-                callbackLoading(false)
+                callbackUser(null)
             })
 }

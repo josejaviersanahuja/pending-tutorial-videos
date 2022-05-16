@@ -13,14 +13,13 @@ type Props = {
 export default function OtherUser({id, loginUser}: Props) {
 
     const [otherUser, setOtherUser] = useState<IUser | null | undefined>(undefined)
-    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
 
     useEffect(() => {
       if (id === undefined) {
           navigate('/')
       } else {
-          getAnotherUser(id, setOtherUser, setIsLoading)
+          getAnotherUser(id, setOtherUser)
       }
       return () => {
         
