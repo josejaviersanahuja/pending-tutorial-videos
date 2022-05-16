@@ -6,10 +6,10 @@ type Props = {
 }
 
 export default function CurrentUser({user}: Props) {
-  return (
+  return (<>
     <main>
         <h2>Usuario {user?.name}</h2>
         <p>Email {user?.email}</p>
     </main> 
-  )
+  </>)
 }

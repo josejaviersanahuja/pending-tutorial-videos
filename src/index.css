@@ -180,6 +180,14 @@ code {
 
 /*@forward './notFound';
  */
+header {
+  background-color: hsl(0deg, 67%, 47%);
+  color: #eeeeee;
+  padding: 1rem 6rem;
+  min-height: 6.75rem;
+  text-align: center;
+}
+
 .avatar {
   position: absolute;
   left: 2rem;
@@ -203,16 +211,7 @@ code {
 /*@forward './tarjeta_del_curso';
 @forward './menu';
 @forward './boton_up';
-@forward './header';
 @forward './listOfGifs';*/
-header {
-  background-color: hsl(0deg, 67%, 47%);
-  color: #eeeeee;
-  padding: 1rem 6rem;
-  min-height: 6.75rem;
-  text-align: center;
-}
-
 main {
   padding: 1rem 2rem;
   display: flex;

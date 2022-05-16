@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import Avatar from '../../components/Avatar';
+import Header from '../../components/Header';
 import { logout } from '../../firebase/auth';
 import useUser from '../../hooks/useUser';
 import CurrentUser from './CurrentUser';
@@ -26,13 +26,15 @@ export default function UserPage() {
     }
     return (
         <div className="home__page">
-          <header>
-            <Avatar user={loginUser}/>
-            <h1>Perfil</h1>
-          </header>
           {
             user === undefined ? <p>Loading...</p>
-            : <CurrentUser user={user} />
+            : <>
+                <Header
+                  title={`Perfil de ${user?.name}`}
+                  loginUser={loginUser}
+                />
+                <CurrentUser user={user} />
+              </>
           }
         </div>
       );

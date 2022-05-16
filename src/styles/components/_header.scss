@@ -1,0 +1,9 @@
+@use '../abstracts/' as *;
+
+header {
+    background-color: $thirdColor;
+    color: $secondColor;;
+    padding: 1rem 6rem;
+    min-height: 6.75rem;
+    text-align: center;
+}
