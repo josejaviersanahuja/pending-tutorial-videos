@@ -16,13 +16,7 @@ export default function CurrentUser({ user }: Props) {
   }
   return (<>
     <main>
-      <Routes>
-        <Route path='/' element={<FullPresentationCard iuser={user} isCurrentUser />} >
-          <Route path='/followers' element={<Followers />} />
-          <Route path='/following' element={<Following />} />
-        </Route>
-      </Routes>
-
+      <FullPresentationCard iuser={user} isCurrentUser />
       <ShowUserCollection iuser={user} />
     </main>
   </>)

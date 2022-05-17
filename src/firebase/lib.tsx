@@ -14,6 +14,22 @@ export const userConverter = (doc : DocumentData) : IUser => {
         following: Array.isArray(doc.data().following) ?  doc.data().following : [],
         videoCollections: Array.isArray(doc.data().videoCollections) ?  doc.data().videoCollections : []
     }
+    return iuser
+}
+
+/**
+ * Convierte doc : any  en IUser
+ */
+export const userConverterFromAny = (doc : any) : IUser => {
+    const iuser : IUser = {
+        email: typeof doc.email == 'string' ?  doc.email : "",
+        name: typeof doc.name == 'string' ?  doc.name : "",
+        photoURL: typeof doc.photoURL == 'string' ?  doc.photoURL : "",
+        uid: typeof doc.uid == 'string' ?  doc.uid : "",
+        followers: Array.isArray(doc.followers) ?  doc.followers : [],
+        following: Array.isArray(doc.following) ?  doc.following : [],
+        videoCollections: Array.isArray(doc.videoCollections) ?  doc.videoCollections : []
+    }
 
     return iuser
 }

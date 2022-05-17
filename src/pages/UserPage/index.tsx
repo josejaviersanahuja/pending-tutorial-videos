@@ -35,7 +35,7 @@ export default function UserPage() {
 const ChoosingWichComponentToRender = (iuser : IUser | null | undefined, shouldRenderOtherUser:boolean, id: string | undefined) => {
   if (iuser === undefined) return <p>Loading...</p>
   
-  if (shouldRenderOtherUser) return <OtherUser id={id}/>
+  if (shouldRenderOtherUser) return <OtherUser id={id} />
 
   return <CurrentUser user={iuser}/>
 }

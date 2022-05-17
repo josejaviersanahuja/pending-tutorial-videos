@@ -30,12 +30,7 @@ export default function OtherUser({ id }: Props) {
 			{
 				otherUser === undefined ? <p>Loading...</p>
 					: <main>
-						{otherUser && <Routes>
-														<Route path="/" element={<FullPresentationCard iuser={otherUser} isCurrentUser={false}/>} >
-															<Route path='followers' element={<Followers/>}/>
-															<Route path='following' element={<Following/>}/>
-														</Route>
-													</Routes>}
+						{otherUser && <FullPresentationCard iuser={otherUser} isCurrentUser={false} />}
 						<ShowUserCollection iuser={otherUser} />
 					</main>
 			}

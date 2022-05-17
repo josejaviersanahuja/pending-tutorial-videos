@@ -1,18 +1,33 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import Header from '../../components/Header'
+import PresentationCard from '../../components/PresentationCard'
+import { getUsersInList } from '../../firebase/firestore'
+import { userConverterFromAny } from '../../firebase/lib'
 import useUser from '../../hooks/useUser'
+import { IUser } from '../../interfaces'
 
 export default function Following() {
 
-  const {id} = useParams()
-  const {loginUser} = useUser()
-
+  const {loginUser}=useUser()
+  const {state } = useLocation()
+  const iuser = userConverterFromAny(state)
+  const [fullDataOfFollowing, setFullDataOffFollowing] = useState<IUser[]>([]) 
+  
+  useEffect(() => {
+    iuser.following.length > 0 && getUsersInList(iuser.followers, setFullDataOffFollowing)
+  }, [])
+  
   return (
     <div className='following__page'>
       <Header title='Following' loginUser={loginUser} />
       <main>
-        Following de id: {id}
+        <p>Following {iuser.name}</p>
+        <p>{iuser.following.length}</p>
+        {
+          fullDataOfFollowing.length > 0 
+          && fullDataOfFollowing.map((u,i)=> <PresentationCard key={u.uid} genericUser={u}/>)
+        }
       </main>
     </div>
   )
