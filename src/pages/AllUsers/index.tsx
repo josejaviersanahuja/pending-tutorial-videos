@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header'
+import PresentationCard from '../../components/PresentationCard'
 import { getAllUsers } from '../../firebase/firestore'
 import useUser from '../../hooks/useUser'
 import { IUser } from '../../interfaces'
@@ -21,10 +22,10 @@ export default function AllUsers() {
         title='Todos los usuarios'
         loginUser={loginUser}
       />
-      <main>
-        <p>AllUsers</p>
+      <main className='main__allusers'>
+        <h3>AllUsers</h3>
         {isLoading && <p>Loading...</p>}
-        {allUsers.length > 0 && allUsers.map((u,i)=> <p key={u.uid}>{u.email}</p>)}
+        {allUsers.length > 0 && allUsers.map((u,i)=> <PresentationCard key={u.uid} genericUser={u}/>)}
       </main>
     </div>
   )

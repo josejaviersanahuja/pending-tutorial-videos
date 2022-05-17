@@ -8,7 +8,7 @@ export default function FooterBtns() {
   return (
     <div className='footer__btns'>
       <Link to={"/"}><HomeIcon/>.</Link>
-      <Link to={"/"}><DashBoardIcon/>.</Link>
+      <Link to={"/dashboard"}><DashBoardIcon/>.</Link>
       <Link to={"/allusers"}><WorldGlobeIcon/>.</Link>
     </div>
   )

@@ -3,35 +3,39 @@ import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import { logout } from '../../firebase/auth';
 import useUser from '../../hooks/useUser';
+import { IUser } from '../../interfaces';
 import CurrentUser from './CurrentUser';
 import OtherUser from './OtherUser';
 
 export default function UserPage() {
 
-    const {user, loginUser} = useUser()
-    const {id} = useParams()
-    
-    useEffect( ()=> {
-      if (user===null) {
-          logout()
-      }
-    }, [user])
-
-    if (user !== undefined && id !== user?.uid) {
-        return <OtherUser id={id} loginUser={loginUser}/>
+  const { user, loginUser } = useUser()
+  const { id } = useParams()
+  const shouldRenderOtherUser = user !== undefined && id !== user?.uid
+  useEffect(() => {
+    if (user === null) {
+      logout()
     }
-    return (
-        <div className="home__page">
-          {
-            user === undefined ? <p>Loading...</p>
-            : <>
-                <Header
-                  title={`Perfil de ${user?.name.substring(0,10)}...`}
-                  loginUser={loginUser}
-                />
-                <CurrentUser user={user} />
-              </>
-          }
-        </div>
-      );
+  }, [user])
+
+  return (
+    <div className="user__page">
+      <Header
+        title={`Perfil de ${user?.name.substring(0, 10)}...`}
+        loginUser={loginUser}
+      />
+      {
+        ChoosingWichComponentToRender(user, shouldRenderOtherUser, id)
+      }
+      {/* @TODO Componente con colecciones */}
+    </div>
+  );
+}
+
+const ChoosingWichComponentToRender = (iuser : IUser | null | undefined, shouldRenderOtherUser:boolean, id: string | undefined) => {
+  if (iuser === undefined) return <p>Loading...</p>
+  
+  if (shouldRenderOtherUser) return <OtherUser id={id}/>
+
+  return <CurrentUser user={iuser}/>
 }

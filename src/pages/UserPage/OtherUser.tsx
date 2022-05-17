@@ -1,16 +1,17 @@
-import { User } from 'firebase/auth'
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Header from '../../components/Header'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import { getAnotherUser } from '../../firebase/firestore'
 import { IUser } from '../../interfaces'
+import Followers from '../Followers'
+import Following from '../Following'
+import FullPresentationCard from './FullPresentationCard'
+import ShowUserCollection from './ShowUserCollection'
 
 type Props = {
 	id: string | undefined
-	loginUser: User | null
 }
 
-export default function OtherUser({ id, loginUser }: Props) {
+export default function OtherUser({ id }: Props) {
 
 	const [otherUser, setOtherUser] = useState<IUser | null | undefined>(undefined)
 	const navigate = useNavigate()
@@ -23,20 +24,21 @@ export default function OtherUser({ id, loginUser }: Props) {
 		}
 	}, [id, navigate])
 
-
+	if (otherUser === null) return null
 	return (
-		<div className="home__page">
-			<Header
-				title={`Perfil de ${otherUser?.name.substring(0,10)}...`}
-				loginUser={loginUser}
-			/>
+		<>
 			{
 				otherUser === undefined ? <p>Loading...</p>
 					: <main>
-						<h2>Usuario {otherUser?.name}</h2>
-						<p>Email {otherUser?.email}</p>
+						{otherUser && <Routes>
+														<Route path="/" element={<FullPresentationCard iuser={otherUser} isCurrentUser={false}/>} >
+															<Route path='followers' element={<Followers/>}/>
+															<Route path='following' element={<Following/>}/>
+														</Route>
+													</Routes>}
+						<ShowUserCollection iuser={otherUser} />
 					</main>
 			}
-		</div>
+		</>
 	)
 }

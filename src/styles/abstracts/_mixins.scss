@@ -29,9 +29,11 @@
 }
 
 @mixin btn1 {
-    border: 3px solid $primeColor;
     background-color: $thirdColor;
     color: $secondColor;
+    border-radius: 5px;
+    font-weight: 700;
+    padding: .25rem;
 }
 
 // btn del home__login__or__menu__btn
