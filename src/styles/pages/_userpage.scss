@@ -8,7 +8,7 @@
 
     & .full__presentation__card {
         display: grid;
-        grid-template-rows: 48px 48px 1fr;
+        grid-template-rows: 48px 48px 48px;
         grid-template-columns: 48px 48px 2fr;
         place-items: center;
 
@@ -54,7 +54,7 @@
 .full__presentation__card__following, .full__presentation__card__followers {
     text-decoration: none;
     color: $primeColor;
-    font-size: .6em;
+    font-size: .67em;
     text-align: center;
 }
 

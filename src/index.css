@@ -166,7 +166,7 @@ code {
 }
 .user__page .full__presentation__card {
   display: grid;
-  grid-template-rows: 48px 48px 1fr;
+  grid-template-rows: 48px 48px 48px;
   grid-template-columns: 48px 48px 2fr;
   place-items: center;
   border: 2px solid hsl(0deg, 67%, 47%);
@@ -221,7 +221,7 @@ code {
 .full__presentation__card__following, .full__presentation__card__followers {
   text-decoration: none;
   color: #181818;
-  font-size: 0.6em;
+  font-size: 0.67em;
   text-align: center;
 }
 

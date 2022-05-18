@@ -11,13 +11,9 @@ type Props = {
 }
 
 export default function CurrentUser({ user }: Props) {
-  if (user === null) {
-    return null
-  }
+  if (user === null)  return null
   return (<>
-    <main>
       <FullPresentationCard iuser={user} isCurrentUser />
       <ShowUserCollection iuser={user} />
-    </main>
   </>)
 }

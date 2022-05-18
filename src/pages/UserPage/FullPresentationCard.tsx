@@ -8,12 +8,13 @@ import { IUser } from '../../interfaces'
 type Props = {
   iuser : IUser
   isCurrentUser : boolean
+  currentUser ? : IUser // falty cuando iuser === currentUser. Cuando viene de CurrentUser Component
+  setStateAction ? : ()=>void // faulty cuando iuser === currentUser no hay follow unfollow btn
 }
 
-export default function FullPresentationCard({iuser, isCurrentUser}: Props) {
+export default function FullPresentationCard({iuser, isCurrentUser, currentUser, setStateAction}: Props) {
 // paralizamos esto
-  const {loginUser} = useUser()
-  const id = loginUser?.uid
+  const id = currentUser?.uid
   const [userFromThisCard, setuserFromThisCard] = useState<IUser>(iuser)
   const alreadyFollow = id? userFromThisCard.followers.includes(id) : false
   console.log(id, userFromThisCard);

@@ -9,13 +9,21 @@ import ShowUserCollection from './ShowUserCollection'
 
 type Props = {
 	id: string | undefined
+	currentUser : IUser
+	setStateAction : () => void
 }
 
-export default function OtherUser({ id }: Props) {
+export default function OtherUser({ id, currentUser, setStateAction }: Props) {
 
 	const [otherUser, setOtherUser] = useState<IUser | null | undefined>(undefined)
 	const navigate = useNavigate()
 
+	/** useEffect va a buscar el usuario con uid= id en firestore
+	 * si id es undefined, redirige a la home, no tiene sentido renderizar un usuario vacio
+	 * 		Luego. obtnemos otherUser que es el perfil del usuario id. 
+	 * 				otherUser = undefined sirve para mostrar spinner
+	 * 				otherUser = null ayuda a redirigir a notfound404 por error de get user e firestore
+	 */
 	useEffect(() => {
 		if (id === undefined) {
 			navigate('/')
@@ -24,15 +32,15 @@ export default function OtherUser({ id }: Props) {
 		}
 	}, [id, navigate])
 
-	if (otherUser === null) return null
+	if (otherUser === null) return null // esto solo ayuda a typescrit a leer otherUser truthy
 	return (
 		<>
 			{
 				otherUser === undefined ? <p>Loading...</p>
-					: <main>
-						{otherUser && <FullPresentationCard iuser={otherUser} isCurrentUser={false} />}
+					: <>
+						{otherUser && <FullPresentationCard iuser={otherUser} isCurrentUser={false} currentUser = {currentUser} />}
 						<ShowUserCollection iuser={otherUser} />
-					</main>
+					</>
 			}
 		</>
 	)
