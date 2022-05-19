@@ -26,9 +26,9 @@ export default function UserPage() {
     shouldRenderOtherUser === false : Header con user -> title, FullPrensentationCard sin id, Collection sin id
     shouldRenderOtherUser truthy: Header con otherUser -> title, otherUser -> FullPresentationCard con id, otherUser -> Collection sin id
   */
-  if (!loginUser && user === null) return <Navigate to={`/`} />
-  if (!loginUser || user === null) return null
+  //if (!loginUser && user === null) return <Navigate to={`/`} />
+  //if (!loginUser || user === null) return null
   if (user === undefined ) return <LoadingComponent loginUser={loginUser}/>
-  if (shouldRenderOtherUser && user ) return <OtherUserComponent currentUser={user} id={id} loginUser={loginUser} setStateAction={setUser}/>
+  if (shouldRenderOtherUser || user === null) return <OtherUserComponent currentUser={user} id={id} loginUser={loginUser} setStateAction={setUser}/>
   return <CurrentUserComponent currentUser={user} loginUser={loginUser}/>
 }

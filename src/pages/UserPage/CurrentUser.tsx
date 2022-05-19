@@ -10,7 +10,7 @@ import ShowUserCollection from './ShowUserCollection'
 
 type Props = {
   user: IUser | null
-  loginUser : User
+  loginUser : User | null
 }
 
 export default function CurrentUser({ user, loginUser }: Props) {

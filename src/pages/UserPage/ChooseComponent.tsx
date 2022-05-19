@@ -1,6 +1,7 @@
 import { User } from 'firebase/auth'
 import React, { Dispatch, SetStateAction } from 'react'
 import Header from '../../components/Header'
+import useOtherUser from '../../hooks/useOtherUser'
 import { IUser } from '../../interfaces'
 import CurrentUser from './CurrentUser'
 import OtherUser from './OtherUser'
@@ -16,18 +17,19 @@ import OtherUser from './OtherUser'
  */
 interface IOtherUserComponent {
   id : string | undefined,
-  loginUser : User
-  currentUser : IUser 
+  loginUser : User | null
+  currentUser : IUser | null
   setStateAction : Dispatch<SetStateAction<IUser|null|undefined>>
 }
 export const OtherUserComponent = ({id, currentUser, setStateAction, loginUser} : IOtherUserComponent) => {
+  const {otherUser} = useOtherUser(id)
   return <div className='user__page'>
     <Header
-        title={`Perfil de ${currentUser.name.substring(0, 10)}...`}
+        title={`Perfil de ${otherUser?.name.substring(0, 10)}...`}
         loginUser={loginUser}
     />
     <main>
-      <OtherUser id={id} currentUser={currentUser} setStateAction={setStateAction}/>
+      <OtherUser otherUser={otherUser} currentUser={currentUser} setStateAction={setStateAction}/>
     </main>
   </div>
 }
@@ -38,7 +40,7 @@ export const OtherUserComponent = ({id, currentUser, setStateAction, loginUser} 
  */
 
 interface ICurrentUserComponent {
-  loginUser : User
+  loginUser : User | null
   currentUser : IUser
 }
 export const CurrentUserComponent = ({currentUser, loginUser} : ICurrentUserComponent) => {
@@ -54,7 +56,7 @@ export const CurrentUserComponent = ({currentUser, loginUser} : ICurrentUserComp
 }
 
 interface ILoadingComponent {
-  loginUser: User
+  loginUser: User | null
 }
 export const LoadingComponent =({loginUser}:ILoadingComponent) => {
   return <div className='user__page'>
