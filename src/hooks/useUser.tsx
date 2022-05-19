@@ -23,5 +23,5 @@ export default function useUser () {
    }, [])
 
 
-  return { user, loginUser}
+  return { user, loginUser, setUser}
 }

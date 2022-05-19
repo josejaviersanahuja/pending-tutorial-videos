@@ -1,5 +1,5 @@
 import { User } from 'firebase/auth'
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import Header from '../../components/Header'
 import { IUser } from '../../interfaces'
 import CurrentUser from './CurrentUser'
@@ -18,7 +18,7 @@ interface IOtherUserComponent {
   id : string | undefined,
   loginUser : User
   currentUser : IUser 
-  setStateAction : () => void
+  setStateAction : Dispatch<SetStateAction<IUser|null|undefined>>
 }
 export const OtherUserComponent = ({id, currentUser, setStateAction, loginUser} : IOtherUserComponent) => {
   return <div className='user__page'>
@@ -48,7 +48,7 @@ export const CurrentUserComponent = ({currentUser, loginUser} : ICurrentUserComp
         loginUser={loginUser}
     />
     <main>
-      <CurrentUser user={currentUser}/>
+      <CurrentUser user={currentUser} loginUser={loginUser}/>
     </main>
   </div>
 }

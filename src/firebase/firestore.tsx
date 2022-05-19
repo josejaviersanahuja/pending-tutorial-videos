@@ -99,20 +99,7 @@ export const getUsersInList = (list: string[], ComponentCallBack: (value: SetSta
     })
 }
 
-export const UpdateUsersWhenFollow = (iuser: IUser, id: string) => {
-console.log(iuser, id);
+export const UpdateUser = (iuser: IUser) => {
 
   return setDoc(doc(db, "users", iuser.uid), iuser)
-    .then(() => {
-      const docRef = doc(db, "users", id);
-      getDoc(docRef)
-        .then((snapShot)=>{
-          if (snapShot.exists()) {
-            const followerUser = userConverter(snapShot)
-            followerUser.following.push(iuser.uid)
-            setDoc(doc(db, "users", followerUser.uid), followerUser)
-          }
-        })
-
-    })
 }

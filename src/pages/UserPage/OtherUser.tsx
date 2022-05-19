@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Dispatch, SetStateAction } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { getAnotherUser } from '../../firebase/firestore'
 import { IUser } from '../../interfaces'
@@ -10,7 +10,7 @@ import ShowUserCollection from './ShowUserCollection'
 type Props = {
 	id: string | undefined
 	currentUser : IUser
-	setStateAction : () => void
+	setStateAction : Dispatch<SetStateAction<IUser|null|undefined>>
 }
 
 export default function OtherUser({ id, currentUser, setStateAction }: Props) {
@@ -38,7 +38,7 @@ export default function OtherUser({ id, currentUser, setStateAction }: Props) {
 			{
 				otherUser === undefined ? <p>Loading...</p>
 					: <>
-						{otherUser && <FullPresentationCard iuser={otherUser} isCurrentUser={false} currentUser = {currentUser} />}
+						{otherUser && <FullPresentationCard iuser={otherUser} isCurrentUser={false} currentUser = {currentUser} setStateAction={setStateAction}/>}
 						<ShowUserCollection iuser={otherUser} />
 					</>
 			}
