@@ -24,8 +24,8 @@ export default function UserPage() {
   */
   //if (!loginUser && user === null) return <Navigate to={`/`} />
   //if (!loginUser || user === null) return null
-  if (true) return <LoadingComponent loginUser={loginUser} />
-  //if (user === undefined ) return <LoadingComponent loginUser={loginUser}/>
-  //if (shouldRenderOtherUser || user === null) return <OtherUserComponent currentUser={user} id={id} loginUser={loginUser} setStateAction={setUser}/>
-  //return <CurrentUserComponent currentUser={user} loginUser={loginUser}/>
+  
+  if (user === undefined ) return <LoadingComponent loginUser={loginUser}/>
+  if (shouldRenderOtherUser || user === null) return <OtherUserComponent currentUser={user} id={id} loginUser={loginUser} setStateAction={setUser}/>
+  return <CurrentUserComponent currentUser={user} loginUser={loginUser}/>
 }

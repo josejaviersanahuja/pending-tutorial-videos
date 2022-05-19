@@ -348,16 +348,16 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 10.75rem);
+  height: calc(100vh - 10.75rem);
   overflow-y: scroll;
 }
 
 .spinner {
   width: 90%;
-  background: linear-gradient(to right, whithe, lightgray, white);
+  background: linear-gradient(to right, white, lightgray, white);
   background-size: 300%;
   background-position: left;
-  animation: loadingEffect 1s infinite ease;
+  animation: loadingEffect 2s infinite ease;
   color: transparent;
 }
 

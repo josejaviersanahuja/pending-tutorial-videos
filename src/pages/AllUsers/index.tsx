@@ -4,6 +4,7 @@ import PresentationCard from '../../components/PresentationCard'
 import { getAllUsers } from '../../firebase/firestore'
 import useUser from '../../hooks/useUser'
 import { IUser } from '../../interfaces'
+import SpinnerAllUsers from './SpinnerAllUsers'
 
 export default function AllUsers() {
 
@@ -24,7 +25,7 @@ export default function AllUsers() {
       />
       <main className='main__allusers'>
         <h3>AllUsers</h3>
-        {isLoading && <p>Loading...</p>}
+        {isLoading && <SpinnerAllUsers />}
         {allUsers.length > 0 && allUsers.map((u,i)=> <PresentationCard key={u.uid} genericUser={u}/>)}
       </main>
     </div>

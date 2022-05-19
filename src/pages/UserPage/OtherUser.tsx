@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { IUser } from '../../interfaces'
 import FullPresentationCard from './FullPresentationCard'
 import ShowUserCollection from './ShowUserCollection'
+import SpinnerFullPresentationCard from './SpinnerFullPresentationCard'
 
 type Props = {
 	otherUser : IUser | null | undefined
@@ -15,7 +16,7 @@ export default function OtherUser({ otherUser, currentUser, setStateAction }: Pr
 	return (
 		<>
 			{
-				otherUser === undefined ? <p>Loading...</p>
+				otherUser === undefined ? <SpinnerFullPresentationCard/>
 					: <>
 						{otherUser && <FullPresentationCard iuser={otherUser} isCurrentUser={false} currentUser = {currentUser} setStateAction={setStateAction}/>}
 						<ShowUserCollection iuser={otherUser} />
