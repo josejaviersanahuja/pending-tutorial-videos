@@ -352,4 +352,22 @@ main {
   overflow-y: scroll;
 }
 
+.spinner {
+  width: 90%;
+  background: linear-gradient(to right, whithe, lightgray, white);
+  background-size: 300%;
+  background-position: left;
+  animation: loadingEffect 1s infinite ease;
+  color: transparent;
+}
+
+@keyframes loadingEffect {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
+}
+
 /*# sourceMappingURL=index.css.map */

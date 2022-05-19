@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import Header from '../../components/Header'
 import PresentationCard from '../../components/PresentationCard'
 import { getUsersInList } from '../../firebase/firestore'
@@ -16,14 +16,14 @@ export default function Followers() {
   
   useEffect(() => {
     iuser.followers.length > 0 && getUsersInList(iuser.followers, setFullDataOffFollowers)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
   return (
     <div className='followers__page'>
       <Header title='Followers' loginUser={loginUser} />
-      <main>
-        <p>Followers de {iuser.name}</p>
-        <p> {iuser.followers.length}</p>
+      <main className='main__allusers'>
+        <h4>Followers de {iuser.name}</h4>
         {
           fullDataOfFollowers.length > 0 
           && fullDataOfFollowers.map((u,i)=> <PresentationCard key={u.uid} genericUser={u}/>)

@@ -9,13 +9,20 @@ interface Props{
 }
 export default function useFollowUnFollowBtn ({userFromThisCard, currentUser, setStateAction}:Props) {
   const [userToRender, setUserToRender] = useState<IUser>(userFromThisCard)
-  const showFollowBtn = currentUser !== null && 
+  /**
+   * currentUser puede null, porque los perfiles son públicos. En cuyo caso no debe haber botones
+   * el userToRender puede ser nuestro mismo perfil. Tmp debe haber botones
+   * si userToRender !== de currentUser verificamos si ya lo seguimos o no. 
+   *    En este caso mostramos follow btn o unfollow btn
+   */
+  const showFollowBtn = currentUser !== null && userToRender.uid !== currentUser.uid && 
                         !userToRender.followers.includes(currentUser.uid) && 
                         !currentUser.following.includes(userToRender.uid)
-  const showUnFollowBtn = currentUser !== null && 
+  const showUnFollowBtn = currentUser !== null && userToRender.uid !== currentUser.uid  && 
                           userToRender.followers.includes(currentUser.uid) && 
                           currentUser.following.includes(userToRender.uid)
-    //@TODO handleClick to follow
+  
+    
   const handleClickFollow = () => {
     if (currentUser !== null) {
       const newUserToRender = {...userToRender, followers: userToRender.followers.concat([currentUser.uid])}

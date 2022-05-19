@@ -5,6 +5,7 @@ import useOtherUser from '../../hooks/useOtherUser'
 import { IUser } from '../../interfaces'
 import CurrentUser from './CurrentUser'
 import OtherUser from './OtherUser'
+import SpinnerFullPresentationCard from './SpinnerFullPresentationCard'
 
 /**
  * Esto tres componentes van a añadir el Layout con Headers distintos
@@ -64,6 +65,8 @@ export const LoadingComponent =({loginUser}:ILoadingComponent) => {
         title={`Perfil de ...`}
         loginUser={loginUser}
     />
-    <main>Loading...</main>
+    <main>
+      <SpinnerFullPresentationCard />
+    </main>
   </div>
 }

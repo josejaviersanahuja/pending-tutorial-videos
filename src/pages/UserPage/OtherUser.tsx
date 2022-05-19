@@ -1,10 +1,5 @@
-import React, { useEffect, useState, Dispatch, SetStateAction } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
-import { getAnotherUser } from '../../firebase/firestore'
-import useOtherUser from '../../hooks/useOtherUser'
+import React, { Dispatch, SetStateAction } from 'react'
 import { IUser } from '../../interfaces'
-import Followers from '../Followers'
-import Following from '../Following'
 import FullPresentationCard from './FullPresentationCard'
 import ShowUserCollection from './ShowUserCollection'
 

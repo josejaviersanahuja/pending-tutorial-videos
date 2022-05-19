@@ -1,6 +1,6 @@
 import { User } from 'firebase/auth';
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { logout } from "../../firebase/auth";
 
 type Props = {
@@ -10,11 +10,12 @@ type Props = {
 export default function LoginLogoutBtn({ user }: Props) {
 
   const navigate = useNavigate()
+  const location = useLocation()
 
   return (<div className='login__logout__btn'>
     {
       user ? <button onClick={() => { logout() }}>Logout</button>
-        : <button onClick={() => { navigate('/login') }}>login</button>
+        : <button onClick={() => { navigate('/login', {state:location.pathname}) }}>login</button>
     }
   </div>)
 }

@@ -1,12 +1,8 @@
 import React, { useEffect } from 'react'
-import { Navigate, useParams } from 'react-router-dom';
-import Header from '../../components/Header';
+import { useParams } from 'react-router-dom';
 import { logout } from '../../firebase/auth';
 import useUser from '../../hooks/useUser';
-import { IUser } from '../../interfaces';
 import { CurrentUserComponent, LoadingComponent, OtherUserComponent } from './ChooseComponent';
-import CurrentUser from './CurrentUser';
-import OtherUser from './OtherUser';
 
 export default function UserPage() {
 
@@ -28,7 +24,8 @@ export default function UserPage() {
   */
   //if (!loginUser && user === null) return <Navigate to={`/`} />
   //if (!loginUser || user === null) return null
-  if (user === undefined ) return <LoadingComponent loginUser={loginUser}/>
-  if (shouldRenderOtherUser || user === null) return <OtherUserComponent currentUser={user} id={id} loginUser={loginUser} setStateAction={setUser}/>
-  return <CurrentUserComponent currentUser={user} loginUser={loginUser}/>
+  if (true) return <LoadingComponent loginUser={loginUser} />
+  //if (user === undefined ) return <LoadingComponent loginUser={loginUser}/>
+  //if (shouldRenderOtherUser || user === null) return <OtherUserComponent currentUser={user} id={id} loginUser={loginUser} setStateAction={setUser}/>
+  //return <CurrentUserComponent currentUser={user} loginUser={loginUser}/>
 }

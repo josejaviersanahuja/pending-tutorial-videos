@@ -15,15 +15,15 @@ export default function Following() {
   const [fullDataOfFollowing, setFullDataOffFollowing] = useState<IUser[]>([]) 
   
   useEffect(() => {
-    iuser.following.length > 0 && getUsersInList(iuser.followers, setFullDataOffFollowing)
-  }, [])
+    iuser.following.length > 0 && getUsersInList(iuser.following, setFullDataOffFollowing)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
   
   return (
     <div className='following__page'>
       <Header title='Following' loginUser={loginUser} />
-      <main>
-        <p>Following {iuser.name}</p>
-        <p>{iuser.following.length}</p>
+      <main className='main__allusers'>
+        <h4>Following {iuser.name}</h4>
         {
           fullDataOfFollowing.length > 0 
           && fullDataOfFollowing.map((u,i)=> <PresentationCard key={u.uid} genericUser={u}/>)

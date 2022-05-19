@@ -1,5 +1,4 @@
 
-type Props = {}
 
 export default function PrivacyPolicy(){
 

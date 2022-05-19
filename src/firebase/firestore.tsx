@@ -1,5 +1,5 @@
 import { User } from "firebase/auth";
-import { getFirestore, collection, addDoc, doc, setDoc, getDoc, query, where, getDocs } from "firebase/firestore";
+import { getFirestore, collection, doc, setDoc, getDoc, query, where, getDocs } from "firebase/firestore";
 import { SetStateAction } from "react";
 import { NavigateFunction } from "react-router-dom";
 import { IUser } from "../interfaces";
@@ -93,7 +93,7 @@ export const getUsersInList = (list: string[], ComponentCallBack: (value: SetSta
     .then(qSnapShot => {
       const arr: IUser[] = []
       qSnapShot.forEach((doc) => {
-        arr.push(userConverter(doc.data()))
+        arr.push(userConverter(doc))
       })
       ComponentCallBack(arr)
     })

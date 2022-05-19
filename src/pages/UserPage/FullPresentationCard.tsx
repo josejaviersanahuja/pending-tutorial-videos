@@ -1,8 +1,7 @@
-import React, { useState, Dispatch, SetStateAction } from 'react'
-import { Link, Navigate, Outlet, Route, Routes, useNavigate, useParams } from 'react-router-dom'
+import React, { Dispatch, SetStateAction } from 'react'
+import { Link } from 'react-router-dom'
 import Avatar from '../../components/Avatar'
 import useFollowUnFollowBtn from '../../hooks/useFollowUnFollowBtn'
-import useUser from '../../hooks/useUser'
 import { IUser } from '../../interfaces'
 
 type Props = {
