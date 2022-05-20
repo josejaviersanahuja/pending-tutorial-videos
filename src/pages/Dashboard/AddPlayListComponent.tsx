@@ -7,12 +7,12 @@ type Props = {}
 export default function AddPlayListComponent({ }: Props) {
 
   const { value, toggleValue } = useToggle(false)
-
+  
   return (
     <>
       {value && <div className="dashboard__playlist__modal__wrapper">
         <div className="dashboard__playlist__modal">
-          <form>
+          <form onSubmit={(e)=>{e.preventDefault()}}>
             <legend>Agrega una nueva playlist</legend>
             <input
               type="text"
