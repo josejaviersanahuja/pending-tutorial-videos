@@ -270,6 +270,14 @@ code {
   background-color: #d5d5d5;
   z-index: 1;
 }
+.dashboard__playlist__modal form {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.dashboard__playlist__modal form input, .dashboard__playlist__modal form button, .dashboard__playlist__modal form textarea {
+  margin: 0.5rem;
+}
 
 .open {
   display: block;
@@ -277,6 +285,15 @@ code {
 
 .closed {
   display: none;
+}
+
+.dashboard__playlist__modal__wrapper {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(200, 40, 40, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 /*@forward './notFound';

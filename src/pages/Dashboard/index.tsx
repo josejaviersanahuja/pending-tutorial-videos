@@ -9,6 +9,8 @@ export default function Dashboard() {
     const {loginUser, user} = useUser()
     const navigate = useNavigate()
     const location = useLocation()
+    console.log('que hay aqui', loginUser);
+    
     useTimeout(()=>{
         if (loginUser === null) {
             navigate("/login" , {state: location.pathname})
