@@ -7,6 +7,6 @@ type Props = {
 
 export default function ShowUserCollection({iuser}: Props) {
   return (
-    <h2>ShowUserCollection, {iuser.videoCollections.length}</h2>
+    <h2>ShowUserCollection, {iuser.videoPlayLists.length}</h2>
   )
 }

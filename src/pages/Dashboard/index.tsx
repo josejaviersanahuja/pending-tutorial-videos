@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import Header from '../../components/Header'
 import useTimeout from '../../hooks/useTimeout'
 import useUser from '../../hooks/useUser'
+import DashboardComponent from './DashboardComponent'
 
 export default function Dashboard() {
 
@@ -17,10 +18,10 @@ export default function Dashboard() {
   return (
     <div className='dashboard__page'>
         <Header title="Dashboard" loginUser={loginUser} />
-        <main>
+        <main className='main__dashboard'>
             {!loginUser && <h4>Debes estar logueado para crear tus colecciones.</h4>}
             { user === undefined && <p>Loading...</p>}
-            { user && <h4>Colecciones</h4>}
+            { user && <DashboardComponent iuser={user}/>}
         </main>
     </div>
   )

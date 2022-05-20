@@ -12,7 +12,8 @@ export const userConverter = (doc : DocumentData) : IUser => {
         uid: typeof doc.data().uid == 'string' ?  doc.data().uid : "",
         followers: Array.isArray(doc.data().followers) ?  doc.data().followers : [],
         following: Array.isArray(doc.data().following) ?  doc.data().following : [],
-        videoCollections: Array.isArray(doc.data().videoCollections) ?  doc.data().videoCollections : []
+        videoPlayLists: Array.isArray(doc.data().videoCollections) ?  doc.data().videoCollections : [],
+        likedPlayLists: Array.isArray(doc.data().likedPlayLists) ? doc.data().likedPlayLists : []
     }
     return iuser
 }
@@ -28,7 +29,8 @@ export const userConverterFromAny = (doc : any) : IUser => {
         uid: typeof doc.uid == 'string' ?  doc.uid : "",
         followers: Array.isArray(doc.followers) ?  doc.followers : [],
         following: Array.isArray(doc.following) ?  doc.following : [],
-        videoCollections: Array.isArray(doc.videoCollections) ?  doc.videoCollections : []
+        videoPlayLists: Array.isArray(doc.data().videoCollections) ?  doc.data().videoCollections : [],
+        likedPlayLists: Array.isArray(doc.data().likedPlayLists) ? doc.data().likedPlayLists : []
     }
 
     return iuser

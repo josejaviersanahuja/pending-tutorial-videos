@@ -20,7 +20,7 @@ function App() {
       <Route path="/followers/:id" element={<><Followers /><Footer/></>}/>
       <Route path="/following/:id" element={<><Following /><Footer/></>}/>
       <Route path="/allusers" element={<><AllUsers /><Footer/></>}/>
-      <Route path="/dashboard" element={<><Dashboard /><Footer/></>}/>
+      <Route path="/dashboard/*" element={<><Dashboard /><Footer/></>}/>
       <Route path="*" element={<><NotFound /><Footer/></>}/>
     </Routes>
   </BrowserRouter>

@@ -10,7 +10,8 @@ export interface IUser {
     photoURL : string,
     following: string[],
     followers: string[],
-    videoCollections:string[]
+    videoPlayLists:string[],
+    likedPlayLists:string[]
 }
 
 /**

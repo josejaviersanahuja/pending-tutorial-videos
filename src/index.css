@@ -230,6 +230,55 @@ code {
   font-weight: 700;
 }
 
+.main__dashboard {
+  display: block;
+  text-align: center;
+}
+.main__dashboard h4 {
+  margin-bottom: 0.5rem;
+}
+
+.dashboard__playlist__btn {
+  isolation: isolate;
+  position: relative;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  background-color: hsl(0deg, 67%, 47%);
+  color: #eeeeee;
+  border-radius: 5px;
+  font-weight: 700;
+  padding: 0.25rem;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  bottom: 6rem;
+  right: 2rem;
+}
+.dashboard__playlist__modal {
+  width: 90vw;
+  height: 80vh;
+  position: fixed;
+  top: 10vh;
+  left: 5vw;
+  background-color: #d5d5d5;
+  z-index: 1;
+}
+
+.open {
+  display: block;
+}
+
+.closed {
+  display: none;
+}
+
 /*@forward './notFound';
  */
 .presentation__card {

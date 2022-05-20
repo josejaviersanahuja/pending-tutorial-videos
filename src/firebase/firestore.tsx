@@ -24,7 +24,8 @@ export const gettingUserFromDB = (luser: User, UseUserCallback: (value: SetState
         photoURL: luser.photoURL ? luser.photoURL : "",
         following: [],
         followers: [],
-        videoCollections: []
+        videoPlayLists: [],
+        likedPlayLists:[]
       }
       if (docSnap.exists()) {
         UseUserCallback(userConverter(docSnap));

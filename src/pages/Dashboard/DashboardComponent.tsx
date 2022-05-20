@@ -1,5 +1,8 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 import { IUser } from '../../interfaces'
+import DashboardPlayList from './DashboardPlayList'
+import DashboardVideos from './DashboardVideos'
 
 type Props = {
     iuser : IUser
@@ -7,6 +10,9 @@ type Props = {
 
 export default function DashboardComponent({iuser}: Props) {
   return (
-    <div>DashboardComponent</div>
+    <Routes>
+      <Route index element={<DashboardPlayList iuser = {iuser}/>}/>
+      <Route path=':id' element={<DashboardVideos/>}/>
+    </Routes>
   )
 }
