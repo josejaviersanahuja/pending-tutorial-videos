@@ -6,10 +6,9 @@ import DashboardComponent from './DashboardComponent'
 
 export default function Dashboard() {
 
-    const {loginUser, user} = useUser()
+    const {loginUser, user, setUser} = useUser()
     const navigate = useNavigate()
     const location = useLocation()
-    console.log('que hay aqui', loginUser);
     
     useTimeout(()=>{
         if (loginUser === null) {
@@ -23,7 +22,7 @@ export default function Dashboard() {
         <main className='main__dashboard'>
             {!loginUser && <h4>Debes estar logueado para crear tus colecciones.</h4>}
             { user === undefined && <p>Loading...</p>}
-            { user && <DashboardComponent iuser={user}/>}
+            { user && <DashboardComponent iuser={user} setUser={setUser} />}
         </main>
     </div>
   )

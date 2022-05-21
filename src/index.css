@@ -268,7 +268,6 @@ code {
   top: 10vh;
   left: 5vw;
   background-color: #d5d5d5;
-  z-index: 1;
 }
 .dashboard__playlist__modal form {
   padding: 0.5rem;
@@ -277,6 +276,29 @@ code {
 }
 .dashboard__playlist__modal form input, .dashboard__playlist__modal form button, .dashboard__playlist__modal form textarea {
   margin: 0.5rem;
+  border-radius: 5px;
+  padding: 0.25rem;
+}
+.dashboard__playlist__modal form legend {
+  font-weight: 700;
+}
+.dashboard__playlist__modal form button {
+  border: 3px solid none;
+  background-color: #eeeeee;
+  color: #181818;
+  border-radius: 5px;
+  font-weight: 700;
+  padding: 0.15rem;
+}
+.dashboard__playlist__modal form textarea {
+  min-height: 5.5em;
+}
+.dashboard__playlist__input__submit {
+  background-color: hsl(0deg, 67%, 47%);
+  color: #eeeeee;
+  border-radius: 5px;
+  font-weight: 700;
+  padding: 0.25rem;
 }
 
 .open {
@@ -294,6 +316,7 @@ code {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
 }
 
 /*@forward './notFound';

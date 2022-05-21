@@ -26,15 +26,29 @@
     top: 10vh;
     left: 5vw;
     background-color: darken($color: $secondColor, $amount: 10%);
-    z-index: 1;
+ 
     & form {
       padding: .5rem;
       display: flex;
       flex-direction: column;
       & input, button, textarea {
         margin: .5rem;
+        border-radius: 5px;
+        padding: .25rem;
+      }
+      & legend {
+        font-weight: 700;
+      }
+      & button {
+        @include btn2;
+      }
+      & textarea {
+        min-height: 5.5em;
       }
     }
+  }
+  &__input__submit{
+    @include btn1;
   }
 }
 .open {
@@ -50,4 +64,5 @@
   position: fixed;
   top:0;
   left:0;
+  z-index: 1;
 }

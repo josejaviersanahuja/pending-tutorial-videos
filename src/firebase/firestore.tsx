@@ -1,11 +1,11 @@
 import { User } from "firebase/auth";
-import { getFirestore, collection, doc, setDoc, getDoc, query, where, getDocs } from "firebase/firestore";
-import { SetStateAction } from "react";
+import { getFirestore, collection, doc, setDoc, getDoc, query, where, getDocs, addDoc, updateDoc, onSnapshot } from "firebase/firestore";
+import { Dispatch, SetStateAction } from "react";
 import { NavigateFunction } from "react-router-dom";
-import { IUser } from "../interfaces";
+import { IPlayList, IUser } from "../interfaces";
 import { logout } from "./auth";
 import { app } from './init'
-import { userConverter } from "./lib";
+import { playlistConverter, userConverter } from "./lib";
 
 export const db = getFirestore(app)
 
@@ -103,4 +103,34 @@ export const getUsersInList = (list: string[], ComponentCallBack: (value: SetSta
 export const UpdateUser = (iuser: IUser) => {
 
   return setDoc(doc(db, "users", iuser.uid), iuser)
+}
+
+/**
+ * CRUD playlists
+ */
+
+export const addNewPlayList = (
+  playlist : IPlayList, 
+  callBackModal : (b:boolean)=>void,
+  SetUserCallBack : Dispatch<SetStateAction<IUser|null|undefined>>,
+  iuser :IUser
+) => {
+  return addDoc(collection(db, 'playlists'), playlist)
+          .then((snapShot)=>{
+            const ref = doc(db, 'playlists', snapShot.id)
+            updateDoc(ref, {plid: snapShot.id})            
+            callBackModal(true)
+            const updatedUser :IUser = {
+              ...iuser,
+              videoPlayLists:iuser.videoPlayLists.concat([snapShot.id])
+            } 
+            SetUserCallBack(updatedUser)
+            UpdateUser(updatedUser)          
+          })
+} 
+
+export const sincronizePlayList = (plid : string, SetStateCallBack : Dispatch<IPlayList|null|undefined>) => {
+  return onSnapshot(doc(db, 'playlists', plid), (doc)=> {
+    SetStateCallBack(playlistConverter(doc))
+  }) 
 }
