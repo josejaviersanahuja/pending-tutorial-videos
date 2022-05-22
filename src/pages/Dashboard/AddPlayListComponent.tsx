@@ -7,7 +7,7 @@ import { IPlayList, IUser } from '../../interfaces'
 
 type Props = {
   iuser: IUser,
-  setUser: Dispatch<SetStateAction<IUser|null|undefined>>
+  setUser: Dispatch<SetStateAction<IUser|null>>
 }
 
 export default function AddPlayListComponent({ iuser, setUser }: Props) {

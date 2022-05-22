@@ -1,17 +1,17 @@
 import { User } from 'firebase/auth'
-import { IUser } from '../../interfaces'
+import { EMPTY_USER_TYPE, IUser } from '../../interfaces'
 import { LoadingComponent } from './ChooseComponent'
 import FullPresentationCard from './FullPresentationCard'
 import ShowUserCollection from './ShowUserCollection'
 
 type Props = {
   user: IUser | null
-  loginUser : User | null
+  loginUser : User | null| EMPTY_USER_TYPE
 }
 
-export default function CurrentUser({ user, loginUser }: Props) {
+export default function CurrentUser({ user, loginUser}: Props) {
   if (user === null)  return null
-  if (user === undefined) return <LoadingComponent loginUser={loginUser}/>
+  //if (isAuthLoading) return <LoadingComponent loginUser={loginUser}/>
   return (<>
       <FullPresentationCard iuser={user} isCurrentUser currentUser={user}/>
       <ShowUserCollection iuser={user} />

@@ -8,7 +8,7 @@ type Props = {
   iuser : IUser
   isCurrentUser : boolean
   currentUser : IUser | null // cuando iuser === currentUser. Cuando viene de CurrentUser Component
-  setStateAction ? : Dispatch<SetStateAction<IUser|null|undefined>>// faulty cuando iuser === currentUser no hay follow unfollow btn
+  setStateAction ? : Dispatch<SetStateAction<IUser|null>>// faulty cuando iuser === currentUser no hay follow unfollow btn
 }
 
 export default function FullPresentationCard({iuser, isCurrentUser, currentUser, setStateAction}: Props) {

@@ -6,9 +6,10 @@ import { CurrentUserComponent, LoadingComponent, OtherUserComponent } from './Ch
 
 export default function UserPage() {
 
-  const { user, loginUser, setUser } = useUser()
+  const { user, loginUser, setUser, isAuthLoading } = useUser()
   const { id } = useParams()
   const shouldRenderOtherUser = user !== undefined && id !== user?.uid
+  
   useEffect(() => {
     if (user === null) {
       logout()
@@ -25,7 +26,7 @@ export default function UserPage() {
   //if (!loginUser && user === null) return <Navigate to={`/`} />
   //if (!loginUser || user === null) return null
   
-  if (user === undefined ) return <LoadingComponent loginUser={loginUser}/>
+  if (isAuthLoading ) return <LoadingComponent loginUser={loginUser}/>
   if (shouldRenderOtherUser || user === null) return <OtherUserComponent currentUser={user} id={id} loginUser={loginUser} setStateAction={setUser}/>
   return <CurrentUserComponent currentUser={user} loginUser={loginUser}/>
 }

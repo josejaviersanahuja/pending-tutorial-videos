@@ -2,7 +2,7 @@ import { User } from 'firebase/auth'
 import React, { Dispatch, SetStateAction } from 'react'
 import Header from '../../components/Header'
 import useOtherUser from '../../hooks/useOtherUser'
-import { IUser } from '../../interfaces'
+import { EMPTY_USER_TYPE, IUser } from '../../interfaces'
 import CurrentUser from './CurrentUser'
 import OtherUser from './OtherUser'
 import SpinnerFullPresentationCard from './SpinnerFullPresentationCard'
@@ -18,9 +18,9 @@ import SpinnerFullPresentationCard from './SpinnerFullPresentationCard'
  */
 interface IOtherUserComponent {
   id : string | undefined,
-  loginUser : User | null
+  loginUser : User | null | EMPTY_USER_TYPE
   currentUser : IUser | null
-  setStateAction : Dispatch<SetStateAction<IUser|null|undefined>>
+  setStateAction : Dispatch<SetStateAction<IUser|null>>
 }
 export const OtherUserComponent = ({id, currentUser, setStateAction, loginUser} : IOtherUserComponent) => {
   const {otherUser} = useOtherUser(id)
@@ -41,7 +41,7 @@ export const OtherUserComponent = ({id, currentUser, setStateAction, loginUser} 
  */
 
 interface ICurrentUserComponent {
-  loginUser : User | null
+  loginUser : User | null| EMPTY_USER_TYPE
   currentUser : IUser
 }
 export const CurrentUserComponent = ({currentUser, loginUser} : ICurrentUserComponent) => {
@@ -57,7 +57,7 @@ export const CurrentUserComponent = ({currentUser, loginUser} : ICurrentUserComp
 }
 
 interface ILoadingComponent {
-  loginUser: User | null
+  loginUser: User | null| EMPTY_USER_TYPE
 }
 export const LoadingComponent =({loginUser}:ILoadingComponent) => {
   return <div className='user__page'>

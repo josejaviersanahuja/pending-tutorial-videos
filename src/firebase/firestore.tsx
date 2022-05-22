@@ -2,7 +2,7 @@ import { User } from "firebase/auth";
 import { getFirestore, collection, doc, setDoc, getDoc, query, where, getDocs, addDoc, updateDoc, onSnapshot } from "firebase/firestore";
 import { Dispatch, SetStateAction } from "react";
 import { NavigateFunction } from "react-router-dom";
-import { IPlayList, IUser } from "../interfaces";
+import { EMPTY_USER_TYPE, IPlayList, IUser } from "../interfaces";
 import { logout } from "./auth";
 import { app } from './init'
 import { playlistConverter, userConverter } from "./lib";
@@ -12,9 +12,13 @@ export const db = getFirestore(app)
 /**
  * CRUD users
  */
-export const gettingUserFromDB = (luser: User, UseUserCallback: (value: SetStateAction<IUser | null | undefined>) => void) => {
+export const gettingUserFromDB = (
+  luser: User| EMPTY_USER_TYPE, 
+  UseUserCallback: (value: SetStateAction<IUser | null>) => void,
+  IsAuthLoadingCallBack: (value: SetStateAction<boolean>) => void
+  ) => {
   const docRef = doc(db, "users", luser.uid)
-  UseUserCallback(undefined) // gestión del isloading user
+  IsAuthLoadingCallBack(true) // gestión del isloading user
   return getDoc(docRef)
     .then(docSnap => {
       const userToStore: IUser = {
@@ -29,17 +33,20 @@ export const gettingUserFromDB = (luser: User, UseUserCallback: (value: SetState
       }
       if (docSnap.exists()) {
         UseUserCallback(userConverter(docSnap));
+        IsAuthLoadingCallBack(false)
       } else {
         // store the new user
         setDoc(doc(db, "users", userToStore.uid), userToStore)
           .then(() => {
             UseUserCallback(userToStore);
+            IsAuthLoadingCallBack(false)
           })
           .catch(onrejected => {
             console.error(onrejected)
             alert("Error conectando en la base de datos")
             logout()
-            UseUserCallback(null) // ante el error, damos logout al user
+            UseUserCallback(null)
+            IsAuthLoadingCallBack(false) // ante el error, damos logout al user
           })
       }
     })
@@ -69,21 +76,29 @@ export const getAllUsers = (callbackAU: (value: SetStateAction<IUser[]>) => void
 
 }
 
-export const getAnotherUser = (uid: string, callbackUser: (value: SetStateAction<IUser | null | undefined>) => void, navigate: NavigateFunction) => {
+export const getAnotherUser = (
+  uid: string, 
+  callbackUser: (value: SetStateAction<IUser | null>) => void, 
+  IsOtherUserCallback: (value: SetStateAction<boolean>) => void,
+  navigate: NavigateFunction
+  ) => {
   const docRef = doc(db, "users", uid)
-  callbackUser(undefined) // gestión del isloading user
+  IsOtherUserCallback(true) // gestión del isloading user
   return getDoc(docRef)
     .then((docData) => {
       if (docData.exists()) {
         callbackUser(userConverter(docData))
+        IsOtherUserCallback(false)
       } else {
         callbackUser(null)
+        IsOtherUserCallback(false)
         navigate("/notfound")
       }
     })
     .catch(err => {
       console.error(err);
       callbackUser(null)
+      IsOtherUserCallback(false)
     })
 }
 
@@ -112,7 +127,7 @@ export const UpdateUser = (iuser: IUser) => {
 export const addNewPlayList = (
   playlist : IPlayList, 
   callBackModal : (b:boolean)=>void,
-  SetUserCallBack : Dispatch<SetStateAction<IUser|null|undefined>>,
+  SetUserCallBack : Dispatch<SetStateAction<IUser|null>>,
   iuser :IUser
 ) => {
   return addDoc(collection(db, 'playlists'), playlist)
@@ -131,6 +146,8 @@ export const addNewPlayList = (
 
 export const sincronizePlayList = (plid : string, SetStateCallBack : Dispatch<IPlayList|null|undefined>) => {
   return onSnapshot(doc(db, 'playlists', plid), (doc)=> {
-    SetStateCallBack(playlistConverter(doc))
+    if(doc.exists()) {
+      SetStateCallBack(playlistConverter(doc.data()))
+    }
   }) 
 }

@@ -5,7 +5,7 @@ import {IUser} from '../interfaces'
 interface Props{
   userFromThisCard : IUser,
   currentUser: IUser | null
-  setStateAction ? : Dispatch<SetStateAction<IUser|null|undefined>>
+  setStateAction ? : Dispatch<SetStateAction<IUser|null>>
 }
 export default function useFollowUnFollowBtn ({userFromThisCard, currentUser, setStateAction}:Props) {
   const [userToRender, setUserToRender] = useState<IUser>(userFromThisCard)

@@ -6,7 +6,7 @@ import DashboardVideos from './DashboardVideos'
 
 type Props = {
     iuser : IUser
-    setUser: Dispatch<SetStateAction<IUser | null | undefined>>
+    setUser: Dispatch<SetStateAction<IUser | null>>
 }
 
 export default function DashboardComponent({iuser, setUser}: Props) {

@@ -4,7 +4,8 @@ import { getAnotherUser } from "../firebase/firestore"
 import { IUser } from "../interfaces"
 
 export default function useOtherUser(id : string | undefined) {
-  const [otherUser, setOtherUser] = useState<IUser | null | undefined>(undefined)
+  const [otherUser, setOtherUser] = useState<IUser | null>(null)
+	const [isOtherUserLoading, setIsOtherUserLoading] = useState(false)
 	const navigate = useNavigate()
 
 	/** useEffect va a buscar el usuario con uid= id en firestore
@@ -17,9 +18,9 @@ export default function useOtherUser(id : string | undefined) {
 		if (id === undefined) {
 			navigate('/')
 		} else {
-			getAnotherUser(id, setOtherUser, navigate)
+			getAnotherUser(id, setOtherUser, setIsOtherUserLoading, navigate)
 		}
 	}, [id, navigate])
   
-  return {otherUser}
+  return {otherUser, isOtherUserLoading}
 }

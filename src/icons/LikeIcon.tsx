@@ -3,9 +3,9 @@ import React, { ReactElement } from 'react'
 export default function LikeIcon(props: React.SVGProps<SVGSVGElement>): ReactElement {
   return (
     <svg
-      height={21}
+      height={24}
       viewBox="0 0 21 21"
-      width={21}
+      width={24}
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
@@ -13,6 +13,7 @@ export default function LikeIcon(props: React.SVGProps<SVGSVGElement>): ReactEle
         fill="none"
         fillRule="evenodd"
         stroke="currentColor"
+        strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"
       >

@@ -5,9 +5,9 @@ import ShowUserCollection from './ShowUserCollection'
 import SpinnerFullPresentationCard from './SpinnerFullPresentationCard'
 
 type Props = {
-	otherUser : IUser | null | undefined
+	otherUser : IUser | null
 	currentUser : IUser | null
-	setStateAction : Dispatch<SetStateAction<IUser|null|undefined>>
+	setStateAction : Dispatch<SetStateAction<IUser|null>>
 }
 
 export default function OtherUser({ otherUser, currentUser, setStateAction }: Props) {

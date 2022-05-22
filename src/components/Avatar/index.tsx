@@ -1,11 +1,11 @@
 import React from 'react'
 import { User } from 'firebase/auth'
 import { Link } from 'react-router-dom'
-import { IUser } from '../../interfaces'
+import { EMPTY_USER_TYPE, IUser } from '../../interfaces'
 
 type Props = {
   size?: number
-  user: User | null | IUser
+  user: User | null | IUser| EMPTY_USER_TYPE
 }
 
 export default function Avatar({ size = 48, user }: Props) {

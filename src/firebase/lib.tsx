@@ -1,4 +1,4 @@
-import { DocumentData, DocumentSnapshot } from "firebase/firestore"
+import { DocumentData } from "firebase/firestore"
 import { IPlayList, IUser } from "../interfaces"
 
 /**
@@ -29,22 +29,22 @@ export const userConverterFromAny = (doc: any): IUser => {
     uid: typeof doc.uid == 'string' ? doc.uid : "",
     followers: Array.isArray(doc.followers) ? doc.followers : [],
     following: Array.isArray(doc.following) ? doc.following : [],
-    videoPlayLists: Array.isArray(doc.data().videoCollections) ? doc.data().videoCollections : [],
-    likedPlayLists: Array.isArray(doc.data().likedPlayLists) ? doc.data().likedPlayLists : []
+    videoPlayLists: Array.isArray(doc.videoCollections) ? doc.videoCollections : [],
+    likedPlayLists: Array.isArray(doc.likedPlayLists) ? doc.likedPlayLists : []
   }
 
   return iuser
 }
 
-export const playlistConverter = (doc: DocumentSnapshot<DocumentData>) : IPlayList => {
-  const ipl : IPlayList = {
-    description: typeof doc.data().description == 'string' ? doc.data().description: "",
-    imgUrl: typeof doc.data().imgUrl == 'string' ? doc.data().imgUrl: "",
-    likes: Array.isArray(doc.data().likes) ? doc.data().likes : [],
-    name: typeof doc.data().name == 'string' ? doc.data().name : "",
-    plid: typeof doc.data().plid == 'string' ? doc.data().plid : "",
-    uid: typeof doc.data().uid == 'string'? doc.data().uid : "",
-    videos: Array.isArray(doc.data().videos) ? doc.data().videos: []
+export const playlistConverter = (doc: DocumentData) : IPlayList => {
+  const ipl : IPlayList = { 
+    description: typeof doc.description == 'string' ? doc.description: "",
+    imgUrl: typeof doc.imgUrl == 'string' ? doc.imgUrl: "",
+    likes: Array.isArray(doc.likes) ? doc.likes : [],
+    name: typeof doc.name == 'string' ? doc.name : "",
+    plid: typeof doc.plid == 'string' ? doc.plid : "",
+    uid: typeof doc.uid == 'string'? doc.uid : "",
+    videos: Array.isArray(doc.videos) ? doc.videos: []
   }
   return ipl
 }

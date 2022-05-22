@@ -3,7 +3,7 @@ import useUser from "../../hooks/useUser";
 
 export default function Home() {
 
-  const { user, loginUser } = useUser()
+  const { user, loginUser, isAuthLoading } = useUser()
 
   return (
     <div className="home__page">
@@ -13,7 +13,7 @@ export default function Home() {
       />
       <main>
         <h2>Esto es la Home</h2>
-        {user === undefined && <p>Loading...</p>}
+        {isAuthLoading && <p>Loading...</p>}
       </main>
     </div>
   );

@@ -2,9 +2,10 @@ import { User } from 'firebase/auth';
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { logout } from "../../firebase/auth";
+import { EMPTY_USER_TYPE } from '../../interfaces';
 
 type Props = {
-  user: User | null
+  user: User | null| EMPTY_USER_TYPE
 }
 
 export default function LoginLogoutBtn({ user }: Props) {

@@ -6,7 +6,7 @@ import DashboardComponent from './DashboardComponent'
 
 export default function Dashboard() {
 
-    const {loginUser, user, setUser} = useUser()
+    const {loginUser, user, setUser, isAuthLoading} = useUser()
     const navigate = useNavigate()
     const location = useLocation()
     
@@ -15,13 +15,14 @@ export default function Dashboard() {
             navigate("/login" , {state: location.pathname})
         }
     }, 5000)
+console.log(isAuthLoading, loginUser);
 
   return (
     <div className='dashboard__page'>
         <Header title="Dashboard" loginUser={loginUser} />
         <main className='main__dashboard'>
-            {!loginUser && <h4>Debes estar logueado para crear tus colecciones.</h4>}
-            { user === undefined && <p>Loading...</p>}
+            {!loginUser && !isAuthLoading &&<h4>Debes estar logueado para crear tus colecciones.</h4>}
+            { isAuthLoading && <p>Loading...</p>}
             { user && <DashboardComponent iuser={user} setUser={setUser} />}
         </main>
     </div>

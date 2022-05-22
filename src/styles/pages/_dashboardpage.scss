@@ -51,12 +51,7 @@
     @include btn1;
   }
 }
-.open {
-  display: block;
-}
-.closed {
-  display: none;
-}
+
 .dashboard__playlist__modal__wrapper  {
   width: 100vw;
   height: 100vh;
@@ -65,4 +60,32 @@
   top:0;
   left:0;
   z-index: 1;
+}
+
+.playlistcard {
+  background-color: darken($color: $secondColor, $amount: 10%);
+  margin-bottom: .25rem;
+  border: 2px solid $thirdColor;
+  border-radius: 10px;
+ // width: calc(100% - 2rem);
+  &__wrapper {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    
+  }
+  
+}
+.playlistcard__footer {
+  display: flex;
+  & button {
+      @include cleanBotonStyle;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+  }
 }
