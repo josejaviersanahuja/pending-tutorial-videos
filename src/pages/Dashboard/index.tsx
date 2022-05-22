@@ -9,13 +9,12 @@ export default function Dashboard() {
     const {loginUser, user, setUser, isAuthLoading} = useUser()
     const navigate = useNavigate()
     const location = useLocation()
-    
+     
     useTimeout(()=>{
         if (loginUser === null) {
             navigate("/login" , {state: location.pathname})
         }
     }, 5000)
-console.log(isAuthLoading, loginUser);
 
   return (
     <div className='dashboard__page'>

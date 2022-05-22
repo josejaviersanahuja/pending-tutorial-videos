@@ -313,16 +313,33 @@ code {
 
 .playlistcard {
   background-color: #d5d5d5;
-  margin-bottom: 0.25rem;
-  border: 2px solid hsl(0deg, 67%, 47%);
   border-radius: 10px;
+  aspect-ratio: 7/6;
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-vW17pDUvLc6sijPFuDulj9DZt3QvO0KFAA&usqp=CAU");
+  background-size: cover;
+  padding-top: 2.75rem;
+  display: flex;
+  flex-direction: column;
 }
 .playlistcard__wrapper {
   position: relative;
   left: 50%;
   transform: translateX(-50%);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
+  gap: 2rem;
+}
+.playlistcard h3 {
+  margin-bottom: 2rem;
+  font-size: larger;
+}
+.playlistcard .playlistcard__footer {
+  justify-self: flex-end;
+  margin-top: 1rem;
+}
+.playlistcard p {
+  aspect-ratio: 6/2;
+  padding: 1rem;
 }
 
 .playlistcard__footer {

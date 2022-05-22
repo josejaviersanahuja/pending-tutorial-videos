@@ -7,7 +7,7 @@ import { EMPTY_IUSER, EMPTY_USER, EMPTY_USER_TYPE, IUser } from '../interfaces'
 export default function useUser () {
   const [loginUser, setLoginUser] = useState<User | null | EMPTY_USER_TYPE>(EMPTY_USER)
   const [user, setUser] = useState<IUser | null >(EMPTY_IUSER)
-  const [isAuthLoading, setIsAuthLoading] = useState(false)
+  const [isAuthLoading, setIsAuthLoading] = useState(true)
  
   const twoFunctionsInOne = (loginUser : User | null| EMPTY_USER_TYPE ) => { 
     if (loginUser !== null) {
