@@ -5,7 +5,7 @@ import { NavigateFunction } from "react-router-dom";
 import { EMPTY_USER_TYPE, IPlayList, IUser, IVideos } from "../interfaces";
 import { logout } from "./auth";
 import { app } from './init'
-import { playlistConverter, userConverter } from "./lib";
+import { playlistConverter, userConverter, videoConverter } from "./lib";
 
 export const db = getFirestore(app)
 
@@ -174,12 +174,14 @@ export const sincronizePlayList = (plid : string, SetStateCallBack : Dispatch<IP
 
 export const addNewVideoFromDB = (
   video : IVideos, // ya viene con uid y plid incluido
-  playlist: IPlayList // le falta incluir el vid
+  playlist: IPlayList // ya viene con vid en videos desde FetchYoutubeInfo
 ) => {
   const docRef = doc(db, "videos", video.vid)
   return getDoc(docRef)
   .then(docSnap => {
     if (docSnap.exists()) {
+      const storedvideo = videoConverter(docSnap.data())
+      console.log(storedvideo);
       // setDoc playlist con un nuevo video
       // al final SetIsLoading false
       // toogleValue(true)

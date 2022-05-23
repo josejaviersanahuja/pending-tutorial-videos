@@ -83,7 +83,11 @@ export const FetchYoutubeInfo = (
       const newvideo = convertFetchedYoutubeResult(result.items[0])
       newvideo.plids.push(playlist.plid)
       newvideo.uids.push(playlist.uid)
-      // setNewVideoFromDB
+      const newplaylist : IPlayList= {
+        ...playlist,
+        videos: playlist.videos.concat([newvideo.vid])
+      }
+      // setNewVideoFromDB(newvideo, newplaylist)
     })
     .catch(error => {
       console.error('error', error)
@@ -118,4 +122,17 @@ const convertFetchedYoutubeResult = (algo: any) : IVideos => {
       newvideo.imgUrl= typeof algo.snippet.thumbnails.medium.url == "string"? algo.snippet.thumbnails.medium.url : ""
     }
     return newvideo
+}
+
+export const videoConverter = (doc: DocumentData) : IVideos => {
+  const ivideo : IVideos = { 
+    description: typeof doc.description == 'string' ? doc.description: "",
+    imgUrl: typeof doc.imgUrl == 'string' ? doc.imgUrl: "",
+    plids: Array.isArray(doc.plids) ? doc.plids : [],
+    title: typeof doc.title == 'string' ? doc.title : "",
+    defaultLanguage: typeof doc.deafaultLanguage == 'string' ? doc.deafaultLanguage : "",
+    vid: typeof doc.vid == 'string'? doc.vid : "",
+    uids: Array.isArray(doc.uids) ? doc.uids: []
+  }
+  return ivideo
 }
