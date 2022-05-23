@@ -1,4 +1,4 @@
-import { FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 import { YOUTUBE_API_KEY } from '../../firebase/config'
 import { FetchYoutubeInfo } from '../../firebase/lib'
 import useAddPlayList from '../../hooks/useAddPlayList'
@@ -15,16 +15,25 @@ export default function AddPlayListComponent({ playlist }: Props) {
 
   const { value, toggleValue } = useToggle(false)
   const {nameValue , name2Value, handleName2, handleName, reset } = useAddPlayList()
+  const [isLoading , setisLoading] = useState(false)
   
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     let cod = ""
     if (nameValue.length > 32 && nameValue.substring(0,32) === YOUTUBE_BASE_URL ) {
       cod = nameValue.substring(32,43) 
-      FetchYoutubeInfo(cod) // add playlist, toggleValue
+      if (playlist.videos.includes(cod)) {
+        alert("Ya el video pertenece a este playlist")
+      } else {
+        FetchYoutubeInfo(cod, playlist, toggleValue, setisLoading) 
+      }
     } else if (name2Value.length === 11){
       cod = name2Value
-      FetchYoutubeInfo(cod)
+      if (playlist.videos.includes(cod)) {
+        alert("Ya el video pertenece a este playlist")
+      } else {
+        FetchYoutubeInfo(cod, playlist, toggleValue, setisLoading) 
+      }
     } else {
       alert("El formato introducido no es válido")
       //@TODO info sobre un link valido y/o codigo valido
@@ -56,8 +65,8 @@ export default function AddPlayListComponent({ playlist }: Props) {
               className="dashboard__video__input__name"
               disabled={!!nameValue}
             />
-            <input type="submit" value="Añadir" className="dashboard__video__input__submit" />
-            <button onClick={() => { toggleValue(true) }}>Cerrar</button>
+            <input type="submit" value="Añadir" className="dashboard__video__input__submit" disabled={isLoading}/>
+            <button onClick={() => { toggleValue(true) }} disabled={isLoading}>Cerrar</button>
           </form>
         </div>
       </div>

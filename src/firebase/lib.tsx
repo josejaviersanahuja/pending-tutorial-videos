@@ -1,4 +1,5 @@
 import { DocumentData } from "firebase/firestore"
+import { Dispatch, SetStateAction } from "react"
 import { IPlayList, IUser, IVideos } from "../interfaces"
 import { YOUTUBE_API_KEY } from "./config"
 
@@ -65,8 +66,13 @@ export const playlistConverterFromAny = (doc: any) : IPlayList => {
 
 const YOUTUBE_API_BASE_URL = `https://www.googleapis.com/youtube/v3/videos?part=snippet&key=${YOUTUBE_API_KEY}&id=`
 
-export const FetchYoutubeInfo = (cod:string) => {
-
+export const FetchYoutubeInfo = (
+    cod:string,
+    playlist :IPlayList,
+    ToggleModalCallback : (v:boolean) => void,
+    SetIsLoadingCallback : Dispatch<SetStateAction<boolean>>
+  ) => {
+  SetIsLoadingCallback(true)
   const requestOptions : RequestInit= {
     method: 'GET',
     redirect: 'follow'
@@ -74,9 +80,16 @@ export const FetchYoutubeInfo = (cod:string) => {
   return  fetch(YOUTUBE_API_BASE_URL+cod, requestOptions)
     .then(response => response.json())
     .then(result => {
-      convertFetchedYoutubeResult(result.items[0])
+      const newvideo = convertFetchedYoutubeResult(result.items[0])
+      newvideo.plids.push(playlist.plid)
+      newvideo.uids.push(playlist.uid)
+      // setNewVideoFromDB
     })
-    .catch(error => console.log('error', error));
+    .catch(error => {
+      console.error('error', error)
+      SetIsLoadingCallback(false)
+      alert("Error retriving data from youtube")
+    });
 }
 
 const convertFetchedYoutubeResult = (algo: any) : IVideos => {
@@ -104,7 +117,5 @@ const convertFetchedYoutubeResult = (algo: any) : IVideos => {
       newvideo.description= typeof algo.snippet.description == "string"? algo.snippet.description : ""
       newvideo.imgUrl= typeof algo.snippet.thumbnails.medium.url == "string"? algo.snippet.thumbnails.medium.url : ""
     }
-    console.log(newvideo);
-    
     return newvideo
 }

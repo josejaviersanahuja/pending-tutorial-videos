@@ -2,7 +2,7 @@ import { User } from "firebase/auth";
 import { getFirestore, collection, doc, setDoc, getDoc, query, where, getDocs, addDoc, updateDoc, onSnapshot } from "firebase/firestore";
 import { Dispatch, SetStateAction } from "react";
 import { NavigateFunction } from "react-router-dom";
-import { EMPTY_USER_TYPE, IPlayList, IUser } from "../interfaces";
+import { EMPTY_USER_TYPE, IPlayList, IUser, IVideos } from "../interfaces";
 import { logout } from "./auth";
 import { app } from './init'
 import { playlistConverter, userConverter } from "./lib";
@@ -152,3 +152,40 @@ export const sincronizePlayList = (plid : string, SetStateCallBack : Dispatch<IP
     }
   }) 
 }
+
+/**
+ * CRUD videos
+ */
+ export const addNewVideo = (
+  video : IVideos, 
+  callBackModal : (b:boolean)=>void,
+  SetIsLoadingCallBack : Dispatch<SetStateAction<boolean>>,
+) => {
+  return  setDoc(doc(db, "videos", video.vid), video)
+          .then((snapShot)=>{
+            callBackModal(true)
+            SetIsLoadingCallBack(false)          
+          })
+          .catch( err =>{
+            console.error('error', err);
+            SetIsLoadingCallBack(false)
+          })
+} 
+
+export const addNewVideoFromDB = (
+  video : IVideos, // ya viene con uid y plid incluido
+  playlist: IPlayList // le falta incluir el vid
+) => {
+  const docRef = doc(db, "videos", video.vid)
+  return getDoc(docRef)
+  .then(docSnap => {
+    if (docSnap.exists()) {
+      // setDoc playlist con un nuevo video
+      // al final SetIsLoading false
+      // toogleValue(true)
+    } else {
+      // añadir video 
+    }
+  })
+}
+
