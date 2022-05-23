@@ -25,6 +25,11 @@ export default function AddPlayListComponent({ playlist }: Props) {
       if (playlist.videos.includes(cod)) {
         alert("Ya el video pertenece a este playlist")
       } else {
+        // FetchYoutubeInfo -> addNewVideoFromDB -> (addNewVideo | updateNewVideo ) & updatePlayList
+        // fetch data from youtube
+        // check if the video exists in firestore
+        // if exists, update it and update playlist
+        // if not exists, addNeww and update playlist
         FetchYoutubeInfo(cod, playlist, toggleValue, setisLoading) 
       }
     } else if (name2Value.length === 11){
@@ -38,8 +43,6 @@ export default function AddPlayListComponent({ playlist }: Props) {
       alert("El formato introducido no es válido")
       //@TODO info sobre un link valido y/o codigo valido
     }
-    
-    //addVideo(newvideo, toggleValue, playlist)
     reset()
   }
 

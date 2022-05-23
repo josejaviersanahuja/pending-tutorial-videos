@@ -2,6 +2,7 @@ import { DocumentData } from "firebase/firestore"
 import { Dispatch, SetStateAction } from "react"
 import { IPlayList, IUser, IVideos } from "../interfaces"
 import { YOUTUBE_API_KEY } from "./config"
+import { addNewVideoFromDB } from "./firestore"
 
 /**
  * Convierte doc.data() de firestore en IUser
@@ -87,7 +88,7 @@ export const FetchYoutubeInfo = (
         ...playlist,
         videos: playlist.videos.concat([newvideo.vid])
       }
-      // setNewVideoFromDB(newvideo, newplaylist)
+      addNewVideoFromDB(newvideo, newplaylist, ToggleModalCallback, SetIsLoadingCallback)
     })
     .catch(error => {
       console.error('error', error)

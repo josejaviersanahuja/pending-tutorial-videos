@@ -143,7 +143,11 @@ export const addNewPlayList = (
             SetUserCallBack(updatedUser)
             UpdateUser(updatedUser)          
           })
-} 
+}
+
+export const updatePlayList = (playlist: IPlayList) => {
+  return setDoc(doc(db, "playlists", playlist.plid), playlist)
+}
 
 export const sincronizePlayList = (plid : string, SetStateCallBack : Dispatch<IPlayList|null|undefined>) => {
   return onSnapshot(doc(db, 'playlists', plid), (doc)=> {
@@ -174,20 +178,30 @@ export const sincronizePlayList = (plid : string, SetStateCallBack : Dispatch<IP
 
 export const addNewVideoFromDB = (
   video : IVideos, // ya viene con uid y plid incluido
-  playlist: IPlayList // ya viene con vid en videos desde FetchYoutubeInfo
+  playlist: IPlayList, // ya viene con vid en videos desde FetchYoutubeInfo
+  callBackModal : (b:boolean)=>void,
+  SetIsLoadingCallBack : Dispatch<SetStateAction<boolean>>
 ) => {
   const docRef = doc(db, "videos", video.vid)
   return getDoc(docRef)
   .then(docSnap => {
     if (docSnap.exists()) {
       const storedvideo = videoConverter(docSnap.data())
-      console.log(storedvideo);
-      // setDoc playlist con un nuevo video
-      // al final SetIsLoading false
-      // toogleValue(true)
+      storedvideo.plids.push(playlist.plid)
+      if (!storedvideo.uids.includes(playlist.uid)) {
+        storedvideo.uids.push(playlist.uid)
+      }
+      updatePlayList(playlist)
+      addNewVideo(storedvideo, callBackModal, SetIsLoadingCallBack)
     } else {
-      // añadir video 
+      updatePlayList(playlist)
+      addNewVideo(video, callBackModal, SetIsLoadingCallBack)
     }
+  })
+  .catch(err=>{
+    console.log(err);
+    alert("Error conectando con la colección videos")
+    SetIsLoadingCallBack(false)
   })
 }
 

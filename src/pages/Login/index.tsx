@@ -9,10 +9,11 @@ export default function Login() {
   const {loginUser, setIsAuth, isAuth} = useUser()
   const navigate = useNavigate()
   const location = useLocation()
-  
+  console.log(location.state);
   useEffect(() => {
     if(isAuth) navigate(location.state && typeof location.state == 'string' ? location.state : '/')
   }, [isAuth, navigate, location])
+     
      
   return (
     <div className="login__page">
