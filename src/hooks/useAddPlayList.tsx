@@ -1,10 +1,10 @@
-import React, { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 
 export default function useAddPlayList() {
 
   const [nameValue, setNameValue] = useState("")
   const [textAreaValue, setTextAreaValue] = useState("")
-  const [fileValue, setFileValue] = useState("")
+  const [name2Value, setName2Value] = useState("")
 
   const handleName = (e:ChangeEvent<HTMLInputElement>) => {
     setNameValue(e.target.value)
@@ -14,15 +14,14 @@ export default function useAddPlayList() {
     setTextAreaValue(e.target.value)    
   }
 
-  const handleImage = (e:ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
-    setFileValue(e.target.value)
+  const handleName2 = (e:ChangeEvent<HTMLInputElement>) => {
+    setName2Value(e.target.value)
   }
 
   const reset = () => {
     setNameValue("")
-    setFileValue("")
+    setName2Value("")
     setTextAreaValue("")
   }
-  return {nameValue, textAreaValue, handleName, handleImage, handleTexteArea, reset}
+  return {nameValue, textAreaValue, handleName, handleName2, handleTexteArea, reset, name2Value}
 }

@@ -13,7 +13,7 @@ type Props = {
 export default function AddPlayListComponent({ iuser, setUser }: Props) {
 
   const { value, toggleValue } = useToggle(false)
-  const {nameValue , textAreaValue, handleImage, handleName, handleTexteArea, reset } = useAddPlayList()
+  const {nameValue , textAreaValue, name2Value, handleName2, handleName, handleTexteArea, reset } = useAddPlayList()
   
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -53,8 +53,8 @@ export default function AddPlayListComponent({ iuser, setUser }: Props) {
             <input
               type="file"
               placeholder="imagen"
-              onChange={handleImage}
-              value={""}
+              onChange={handleName2}
+              value={name2Value}
               className="dashboard__playlist__input__imagen"
             />
             <input type="submit" value="Añadir" className="dashboard__playlist__input__submit" />

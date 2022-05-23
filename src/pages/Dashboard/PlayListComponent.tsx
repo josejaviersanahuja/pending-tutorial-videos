@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { sincronizePlayList } from '../../firebase/firestore'
-import FolderIcon from '../../icons/FolderIcon'
 import LikeIcon from '../../icons/LikeIcon'
 import VideosIcon from '../../icons/VideosIcon'
-import { IPlayList } from '../../interfaces'
+import { IPlayList, IUser } from '../../interfaces'
 
 type Props = {
-  plid : string
+  plid : string,
+  iuser: IUser
 }
 
-export default function PlayListComponent({plid}: Props) {
+export default function PlayListComponent({plid, iuser}: Props) {
 
   const [playlist, setPlaylist] = useState<IPlayList| null | undefined>(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const unsuscribe = sincronizePlayList(plid, setPlaylist)
@@ -20,10 +22,13 @@ export default function PlayListComponent({plid}: Props) {
       unsuscribe()
     }
   }, [plid])
-  
+
+  const handleClick = () => {
+    navigate(`${plid}`, {state:playlist})
+  }
 
   return (
-    <div className='playlistcard'>
+    <div className='playlistcard' onClick={handleClick}>
       <h3>{playlist?.name}</h3>
       <p>{playlist?.description}</p>
       <div className='playlistcard__footer'>

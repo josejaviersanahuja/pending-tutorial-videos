@@ -10,7 +10,7 @@ export default function AllUsers() {
 
     const [allUsers, setAllUsers] = useState<IUser[]>([])
     const [isLoading, setIsLoading] = useState(false)
-    const {loginUser} = useUser()
+    const {loginUser, setIsAuth} = useUser()
 
     useEffect(() => {
         getAllUsers(setAllUsers, setIsLoading)
@@ -22,6 +22,7 @@ export default function AllUsers() {
       <Header 
         title='Todos los usuarios'
         loginUser={loginUser}
+        setIsAuth={setIsAuth}
       />
       <main className='main__allusers'>
         <h3>AllUsers</h3>

@@ -6,15 +6,15 @@ import { CurrentUserComponent, LoadingComponent, OtherUserComponent } from './Ch
 
 export default function UserPage() {
 
-  const { user, loginUser, setUser, isAuthLoading } = useUser()
+  const { user, loginUser, setUser, isAuthLoading, setIsAuth } = useUser()
   const { id } = useParams()
-  const shouldRenderOtherUser = user !== undefined && id !== user?.uid
+  const shouldRenderOtherUser = !isAuthLoading && id !== user?.uid
   
   useEffect(() => {
     if (user === null) {
-      logout()
+      logout(setIsAuth)
     }
-  }, [user])
+  }, [user, setIsAuth])
 
   
   
@@ -26,7 +26,13 @@ export default function UserPage() {
   //if (!loginUser && user === null) return <Navigate to={`/`} />
   //if (!loginUser || user === null) return null
   
-  if (isAuthLoading ) return <LoadingComponent loginUser={loginUser}/>
-  if (shouldRenderOtherUser || user === null) return <OtherUserComponent currentUser={user} id={id} loginUser={loginUser} setStateAction={setUser}/>
-  return <CurrentUserComponent currentUser={user} loginUser={loginUser}/>
+  if (isAuthLoading ) return <LoadingComponent loginUser={loginUser} setIsAuth={setIsAuth}/>
+  if (shouldRenderOtherUser || user === null) return <OtherUserComponent 
+                                                        currentUser={user} 
+                                                        id={id} 
+                                                        loginUser={loginUser} 
+                                                        setStateAction={setUser} 
+                                                        setIsAuth={setIsAuth}
+                                                      />
+  return <CurrentUserComponent currentUser={user} loginUser={loginUser} setIsAuth={setIsAuth}/>
 }

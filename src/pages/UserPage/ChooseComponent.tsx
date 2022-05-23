@@ -21,13 +21,15 @@ interface IOtherUserComponent {
   loginUser : User | null | EMPTY_USER_TYPE
   currentUser : IUser | null
   setStateAction : Dispatch<SetStateAction<IUser|null>>
+  setIsAuth : Dispatch<SetStateAction<boolean>>
 }
-export const OtherUserComponent = ({id, currentUser, setStateAction, loginUser} : IOtherUserComponent) => {
+export const OtherUserComponent = ({id, currentUser, setStateAction, loginUser, setIsAuth} : IOtherUserComponent) => {
   const {otherUser} = useOtherUser(id)
   return <div className='user__page'>
     <Header
         title={`Perfil de ${otherUser?.name.substring(0, 10)}...`}
         loginUser={loginUser}
+        setIsAuth={setIsAuth}
     />
     <main>
       <OtherUser otherUser={otherUser} currentUser={currentUser} setStateAction={setStateAction}/>
@@ -43,12 +45,14 @@ export const OtherUserComponent = ({id, currentUser, setStateAction, loginUser} 
 interface ICurrentUserComponent {
   loginUser : User | null| EMPTY_USER_TYPE
   currentUser : IUser
+  setIsAuth : Dispatch<SetStateAction<boolean>>
 }
-export const CurrentUserComponent = ({currentUser, loginUser} : ICurrentUserComponent) => {
+export const CurrentUserComponent = ({currentUser, loginUser, setIsAuth} : ICurrentUserComponent) => {
   return <div className='user__page'>
     <Header
         title={`Perfil de ${currentUser.name.substring(0, 10)}...`}
         loginUser={loginUser}
+        setIsAuth={setIsAuth}
     />
     <main>
       <CurrentUser user={currentUser} loginUser={loginUser}/>
@@ -58,12 +62,14 @@ export const CurrentUserComponent = ({currentUser, loginUser} : ICurrentUserComp
 
 interface ILoadingComponent {
   loginUser: User | null| EMPTY_USER_TYPE
+  setIsAuth : Dispatch<SetStateAction<boolean>>
 }
-export const LoadingComponent =({loginUser}:ILoadingComponent) => {
+export const LoadingComponent =({loginUser, setIsAuth}:ILoadingComponent) => {
   return <div className='user__page'>
     <Header
         title={`Perfil de ...`}
         loginUser={loginUser}
+        setIsAuth={setIsAuth}
     />
     <main>
       <SpinnerFullPresentationCard />

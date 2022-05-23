@@ -8,23 +8,26 @@ export default function useUser () {
   const [loginUser, setLoginUser] = useState<User | null | EMPTY_USER_TYPE>(EMPTY_USER)
   const [user, setUser] = useState<IUser | null >(EMPTY_IUSER)
   const [isAuthLoading, setIsAuthLoading] = useState(true)
+  const [isAuth, setIsAuth] = useState(false)
  
   const twoFunctionsInOne = (loginUser : User | null| EMPTY_USER_TYPE ) => { 
     if (loginUser !== null) {
         setLoginUser(loginUser)
-        gettingUserFromDB(loginUser, setUser, setIsAuthLoading)
+        gettingUserFromDB(loginUser, setUser, setIsAuthLoading, setIsAuth)
+        setIsAuth(true)
     } else {
         setLoginUser(null)
         setUser(null)
+        setIsAuth(false)
+        setIsAuthLoading(false)
     }
-    setIsAuthLoading(false) 
   }
 
    useEffect(() => {
         setIsAuthLoading(true)
-         authStateChanged(twoFunctionsInOne)
+        authStateChanged(twoFunctionsInOne)
    }, [])
 
 
-  return { user, loginUser, setUser, isAuthLoading}
+  return { user, loginUser, setUser, isAuthLoading, isAuth, setIsAuth}
 }

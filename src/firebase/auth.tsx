@@ -1,4 +1,5 @@
 import { getAuth, onAuthStateChanged, GithubAuthProvider, GoogleAuthProvider, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
+import { Dispatch, SetStateAction } from "react";
 import { TwoFunctionsInOne } from "../interfaces";
 import {app as firebaseApp} from './init'
 
@@ -23,6 +24,7 @@ export const handleFacebookLogIn = () => {
     return signInWithPopup(auth, facebookProvider)
 }
 
-export const logout = () => {
+export const logout = (setIsAuth : Dispatch<SetStateAction<boolean>>) => {
+    setIsAuth(false)
     return auth.signOut()
   }

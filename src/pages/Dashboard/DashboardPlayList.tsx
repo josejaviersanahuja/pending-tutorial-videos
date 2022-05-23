@@ -17,7 +17,7 @@ export default function DashboardPlayList({iuser, setUser}: Props) {
     <div className='playlistcard__wrapper'>
     {
       iuser.videoPlayLists.length > 0 
-      ? iuser.videoPlayLists.map((e,i)=> <PlayListComponent key={i} plid={e}/>)
+      ? iuser.videoPlayLists.map((e,i)=> <PlayListComponent key={i} plid={e} iuser={iuser}/>)
       : <h5>No hay listas de reproducción. Haga click en el botón de añadir</h5>
     }
     </div>

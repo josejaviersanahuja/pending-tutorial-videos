@@ -15,7 +15,8 @@ export const db = getFirestore(app)
 export const gettingUserFromDB = (
   luser: User| EMPTY_USER_TYPE, 
   UseUserCallback: (value: SetStateAction<IUser | null>) => void,
-  IsAuthLoadingCallBack: (value: SetStateAction<boolean>) => void
+  IsAuthLoadingCallBack: (value: SetStateAction<boolean>) => void,
+  setIsAuth : (value: SetStateAction<boolean>) => void
   ) => {
   const docRef = doc(db, "users", luser.uid)
   IsAuthLoadingCallBack(true) // gestión del isloading user
@@ -44,7 +45,7 @@ export const gettingUserFromDB = (
           .catch(onrejected => {
             console.error(onrejected)
             alert("Error conectando en la base de datos")
-            logout()
+            logout(setIsAuth)
             UseUserCallback(null)
             IsAuthLoadingCallBack(false) // ante el error, damos logout al user
           })

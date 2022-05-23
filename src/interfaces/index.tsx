@@ -53,3 +53,23 @@ export const EMPTY_USER : EMPTY_USER_TYPE= {
   photoURL:"",
   uid:""
 }
+
+export const EMPTY_PLAYLIST : IPlayList= {
+  plid: "",
+  uid: "",
+  name: "",
+  description: "",
+  imgUrl: "",
+  likes: [],
+  videos: []
+}
+
+export interface IVideos {
+  vid:string,
+  plids: string[] ,
+  uids: string[],
+  title: string,
+  description: string,
+  imgUrl: string // 320x180
+  defaultLanguage: string
+}

@@ -9,7 +9,7 @@ import { IUser } from '../../interfaces'
 
 export default function Following() {
 
-  const {loginUser}=useUser()
+  const {loginUser, setIsAuth}=useUser()
   const {state } = useLocation()
   const iuser = userConverterFromAny(state)
   const [fullDataOfFollowing, setFullDataOffFollowing] = useState<IUser[]>([]) 
@@ -21,7 +21,11 @@ export default function Following() {
   
   return (
     <div className='following__page'>
-      <Header title='Following' loginUser={loginUser} />
+      <Header 
+        title='Following' 
+        loginUser={loginUser} 
+        setIsAuth={setIsAuth}
+      />
       <main className='main__allusers'>
         <h4>Following {iuser.name}</h4>
         {

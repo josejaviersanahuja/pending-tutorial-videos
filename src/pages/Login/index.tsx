@@ -6,13 +6,13 @@ import LoginButtons from "./LoginButtons";
 
 export default function Login() {
 
-  const {loginUser} = useUser()
+  const {loginUser, setIsAuth, isAuth} = useUser()
   const navigate = useNavigate()
   const location = useLocation()
   
   useEffect(() => {
-    if(loginUser) navigate(location.state && typeof location.state == 'string' ? location.state : '/')
-  }, [loginUser, navigate, location])
+    if(isAuth) navigate(location.state && typeof location.state == 'string' ? location.state : '/')
+  }, [isAuth, navigate, location])
      
   return (
     <div className="login__page">
@@ -20,6 +20,7 @@ export default function Login() {
         title="Inicio de Sesión"
         loginUser={loginUser}
         isloginpage
+        setIsAuth={setIsAuth}
       />
       <main>
         <h2>Únete con tu cuenta de google, facebook o github</h2>
