@@ -73,3 +73,13 @@ export interface IVideos {
   imgUrl: string // 320x180
   defaultLanguage: string
 }
+
+export const EMPTY_VIDEO : IVideos = {
+  defaultLanguage:"",
+  description:"",
+  imgUrl:"",
+  plids:[],
+  title:"",
+  uids:[],
+  vid:""
+}

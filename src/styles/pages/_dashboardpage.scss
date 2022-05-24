@@ -160,3 +160,18 @@
   left:0;
   z-index: 1;
 }
+
+.videocard {
+  background-color: darken($color: $secondColor, $amount: 10%);
+  border-radius: 10px;
+  cursor: pointer;
+  &__wrapper {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 400px)); 
+    gap: 2rem;
+  }
+}

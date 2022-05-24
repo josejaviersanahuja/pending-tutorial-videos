@@ -205,3 +205,42 @@ export const addNewVideoFromDB = (
   })
 }
 
+// no usado aún 24/05 02:42
+export const getVideo = (
+  vid: string, 
+  SetVideoCallback: (value: SetStateAction<IVideos>) => void, 
+  IsLoadingCallback: (value: SetStateAction<boolean>) => void
+  ) => {
+  const docRef = doc(db, "videos", vid)
+  IsLoadingCallback(true) // gestión del isloading user
+  return getDoc(docRef)
+    .then((docData) => {
+      if (docData.exists()) {
+        SetVideoCallback(videoConverter(docData.data()))
+        IsLoadingCallback(false)
+      } else {
+        IsLoadingCallback(false)
+        alert(`El video con id ${vid} no existe en firestore`)
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      IsLoadingCallback(false)
+      alert("Error conectando con la colección vídeos")
+    })
+}
+
+// sinc videos en playlist
+export const sincronizeVideosInPlayList = (
+    playlist : IPlayList, 
+    SetStateCallBack : Dispatch<IVideos[]>
+  ) => {
+    const q = query(collection(db, "videos"), where("vid", "in", playlist.videos));
+    return onSnapshot(q, (querySnapshot) => {
+      const videos : IVideos[] = [];
+      querySnapshot.forEach((doc) => {
+          videos.push(videoConverter(doc.data()));
+      });
+      SetStateCallBack(videos)
+    });
+}

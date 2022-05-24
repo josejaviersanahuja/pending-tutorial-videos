@@ -107,9 +107,10 @@ const convertFetchedYoutubeResult = (algo: any) : IVideos => {
     imgUrl: "",
     defaultLanguage:""
   }
+  
   if ( algo && algo.id 
       && algo.snippet 
-      && algo.snippet.defaultLanguage 
+      && (algo.snippet.defaultLanguage || algo.snippet.defaultAudioLanguage) 
       && algo.snippet.title
       && algo.snippet.description
       && algo.snippet.thumbnails
@@ -118,7 +119,7 @@ const convertFetchedYoutubeResult = (algo: any) : IVideos => {
     ) {
       newvideo.vid= typeof algo.id == "string"? algo.id : ""
       newvideo.title= typeof algo.snippet.title == "string"? algo.snippet.title : ""
-      newvideo.defaultLanguage= typeof algo.snippet.defaultLanguage == "string"? algo.snippet.defaultLanguage : ""
+      newvideo.defaultLanguage= (typeof algo.snippet.defaultLanguage == "string" || typeof algo.snippet.defaultAudioLanguage == "string")? algo.snippet.defaultLanguage || algo.snippet.defaultAudioLanguage  : ""
       newvideo.description= typeof algo.snippet.description == "string"? algo.snippet.description : ""
       newvideo.imgUrl= typeof algo.snippet.thumbnails.medium.url == "string"? algo.snippet.thumbnails.medium.url : ""
     }
@@ -131,9 +132,14 @@ export const videoConverter = (doc: DocumentData) : IVideos => {
     imgUrl: typeof doc.imgUrl == 'string' ? doc.imgUrl: "",
     plids: Array.isArray(doc.plids) ? doc.plids : [],
     title: typeof doc.title == 'string' ? doc.title : "",
-    defaultLanguage: typeof doc.deafaultLanguage == 'string' ? doc.deafaultLanguage : "",
+    defaultLanguage: typeof doc.defaultLanguage == 'string' ? doc.defaultLanguage : "",
     vid: typeof doc.vid == 'string'? doc.vid : "",
     uids: Array.isArray(doc.uids) ? doc.uids: []
   }
   return ivideo
+}
+
+export const IDIOMA : {[index:string]: string} = {
+  "es" : "(Español)",
+  "en" : "(Inglés)",
 }

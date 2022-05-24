@@ -1,10 +1,9 @@
 import { FormEvent, useState } from 'react'
-import { YOUTUBE_API_KEY } from '../../firebase/config'
 import { FetchYoutubeInfo } from '../../firebase/lib'
 import useAddPlayList from '../../hooks/useAddPlayList'
 import useToggle from '../../hooks/useToggle'
 import VideosIcon from '../../icons/VideosIcon'
-import { IPlayList, IVideos } from '../../interfaces'
+import { IPlayList } from '../../interfaces'
 
 type Props = {
   playlist: IPlayList,
