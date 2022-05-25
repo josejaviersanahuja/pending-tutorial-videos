@@ -113,7 +113,7 @@
 .dashboard__video {
   &__btn{
     @include cleanBotonStyle;
-    @include btn1;
+    @include btn2;
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -162,10 +162,11 @@
 }
 
 .videocard {
-  background-color: darken($color: $secondColor, $amount: 10%);
+  background-color: darken($color: $thirdColor, $amount: 0%);
   border-radius: 10px;
   cursor: pointer;
   position: relative;
+  color: $secondColor;;
   &__wrapper {
     position: relative;
     left: 50%;
@@ -176,8 +177,17 @@
     gap: 2rem;
   }
   & .subir, .bajar, .eliminar {
-    position: absolute;
+    @include cleanBotonStyle;
+    @include btn2;
     
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+    padding: .2rem;
   }
   & .subir {
     top:.5rem;
@@ -190,5 +200,8 @@
   & .eliminar {
     top:.5rem;
     left:.5rem;
+  }
+  & h4 {
+    padding: 0 1rem;
   }
 }

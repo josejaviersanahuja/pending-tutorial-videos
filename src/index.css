@@ -375,11 +375,12 @@ code {
   border: none;
   background: none;
   cursor: pointer;
-  background-color: hsl(0deg, 67%, 47%);
-  color: #eeeeee;
+  border: 3px solid none;
+  background-color: #eeeeee;
+  color: #181818;
   border-radius: 5px;
   font-weight: 700;
-  padding: 0.25rem;
+  padding: 0.15rem;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -435,10 +436,11 @@ code {
 }
 
 .videocard {
-  background-color: #d5d5d5;
+  background-color: #c82828;
   border-radius: 10px;
   cursor: pointer;
   position: relative;
+  color: #eeeeee;
 }
 .videocard__wrapper {
   position: relative;
@@ -449,7 +451,28 @@ code {
   gap: 2rem;
 }
 .videocard .subir, .videocard .bajar, .videocard .eliminar {
+  isolation: isolate;
+  position: relative;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border: 3px solid none;
+  background-color: #eeeeee;
+  color: #181818;
+  border-radius: 5px;
+  font-weight: 700;
+  padding: 0.15rem;
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 0.2rem;
 }
 .videocard .subir {
   top: 0.5rem;
@@ -462,6 +485,9 @@ code {
 .videocard .eliminar {
   top: 0.5rem;
   left: 0.5rem;
+}
+.videocard h4 {
+  padding: 0 1rem;
 }
 
 /*@forward './notFound';

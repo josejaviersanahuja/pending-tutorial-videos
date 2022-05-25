@@ -1,5 +1,8 @@
 import { Dispatch } from 'react';
 import { IDIOMA } from '../../firebase/lib';
+import ArrowDown from '../../icons/ArrowDown';
+import ArrowUp from '../../icons/ArrowUp';
+import DeleteIcon from '../../icons/DeleteIcon';
 import { IPlayList, IVideos } from '../../interfaces'
 
 type Props = {
@@ -19,12 +22,12 @@ export default function VideoCards({video, playlist, setSincronizedPlaylist, isE
       {
         isEditionMode && 
         <>
-          {getIndex() !== 0 && <button className='subir'>Up</button>}
-          <button className='eliminar'>-</button>
-          {getIndex() !== (playlist.videos.length -1) && <button className='bajar'>Down</button>} 
+          {getIndex() !== 0 && <button className='subir'><ArrowUp/></button>}
+          <button className='eliminar'><DeleteIcon/></button>
+          {getIndex() !== (playlist.videos.length -1) && <button className='bajar'><ArrowDown/></button>} 
         </>
       }
-      <h5>{video.title}</h5>
+      <h4>{video.title}</h4>
       <img src={video.imgUrl} alt={video.vid}/>
       <p>{IDIOMA[video.defaultLanguage]}</p>
     </div>
