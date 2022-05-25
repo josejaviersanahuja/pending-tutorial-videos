@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'
+import { Dispatch, FormEvent, SetStateAction, useState } from 'react'
 import { FetchYoutubeInfo } from '../../firebase/lib'
 import useAddPlayList from '../../hooks/useAddPlayList'
 import useToggle from '../../hooks/useToggle'
@@ -7,6 +7,7 @@ import { IPlayList } from '../../interfaces'
 
 type Props = {
   playlist: IPlayList,
+  //setUpdateEffect: Dispatch<SetStateAction<number>>
 }
 const YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v="
 
@@ -15,6 +16,11 @@ export default function AddPlayListComponent({ playlist }: Props) {
   const { value, toggleValue } = useToggle(false)
   const {nameValue , name2Value, handleName2, handleName, reset } = useAddPlayList()
   const [isLoading , setisLoading] = useState(false)
+  
+  const toggleAndRefresh = (v:boolean) :void => {
+    toggleValue(v)
+    //setUpdateEffect(v=>v+1)
+  }
   
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -29,14 +35,14 @@ export default function AddPlayListComponent({ playlist }: Props) {
         // check if the video exists in firestore
         // if exists, update it and update playlist
         // if not exists, addNeww and update playlist
-        FetchYoutubeInfo(cod, playlist, toggleValue, setisLoading) 
+        FetchYoutubeInfo(cod, playlist, toggleAndRefresh, setisLoading) 
       }
     } else if (name2Value.length === 11){
       cod = name2Value
       if (playlist.videos.includes(cod)) {
         alert("Ya el video pertenece a este playlist")
       } else {
-        FetchYoutubeInfo(cod, playlist, toggleValue, setisLoading) 
+        FetchYoutubeInfo(cod, playlist, toggleAndRefresh, setisLoading) 
       }
     } else {
       alert("El formato introducido no es válido")

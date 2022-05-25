@@ -17,7 +17,6 @@ export default function FullPresentationCard({iuser, isCurrentUser, currentUser,
   const {userToRender, handleClickFollow, handleClickUnFollow, showFollowBtn, showUnFollowBtn} = 
       useFollowUnFollowBtn({userFromThisCard,currentUser, setStateAction})
   
-  // console.log(userToRender, currentUser, 'user to render y current user');
   return (
     <div className='full__presentation__card'>
 			<Avatar user={userToRender} size={90}/>

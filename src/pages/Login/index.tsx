@@ -9,9 +9,9 @@ export default function Login() {
   const {loginUser, setIsAuth, isAuth} = useUser()
   const navigate = useNavigate()
   const location = useLocation()
-  console.log(location.state);
+  
   useEffect(() => {
-    if(isAuth) navigate(location.state && typeof location.state == 'string' ? location.state : '/')
+    if(isAuth) navigate(location.state && typeof location.state == 'string' ? location.state : '/', {replace:true})
   }, [isAuth, navigate, location])
      
      

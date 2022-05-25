@@ -53,6 +53,7 @@ export const playlistConverter = (doc: DocumentData) : IPlayList => {
 }
 
 export const playlistConverterFromAny = (doc: any) : IPlayList => {
+
   const ipl : IPlayList = { 
     description: typeof doc.description == 'string' ? doc.description: "",
     imgUrl: typeof doc.imgUrl == 'string' ? doc.imgUrl: "",

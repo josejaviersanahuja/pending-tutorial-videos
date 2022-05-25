@@ -10,10 +10,14 @@ export default function Dashboard() {
   const { loginUser, user, setUser, isAuthLoading, setIsAuth } = useUser()
   const navigate = useNavigate()
   const location = useLocation()
+  let redirectpath = location.pathname
+  if (redirectpath.substring(0,10)==='/dashboard') {
+    redirectpath = "/"
+  }
 
   useTimeout(() => {
     if (loginUser === null) {
-      navigate("/login", { state: location.pathname })
+      navigate("/login", { state: redirectpath })
     }
   }, 5000)
   

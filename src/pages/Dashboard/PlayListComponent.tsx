@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { sincronizePlayList } from '../../firebase/firestore'
 import LikeIcon from '../../icons/LikeIcon'
 import VideosIcon from '../../icons/VideosIcon'
-import { IPlayList, IUser } from '../../interfaces'
+import { EMPTY_PLAYLIST, IPlayList, IUser } from '../../interfaces'
 
 type Props = {
   plid : string,
@@ -12,11 +12,11 @@ type Props = {
 
 export default function PlayListComponent({plid, iuser}: Props) {
 
-  const [playlist, setPlaylist] = useState<IPlayList| null | undefined>(null)
+  const [playlist, setPlaylist] = useState<IPlayList>(EMPTY_PLAYLIST)
   const navigate = useNavigate()
-
+  
   useEffect(() => {
-    const unsuscribe = sincronizePlayList(plid, setPlaylist)
+    const unsuscribe = sincronizePlayList(plid, setPlaylist, undefined)
   
     return () => {
       unsuscribe()

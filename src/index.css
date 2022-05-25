@@ -438,6 +438,7 @@ code {
   background-color: #d5d5d5;
   border-radius: 10px;
   cursor: pointer;
+  position: relative;
 }
 .videocard__wrapper {
   position: relative;
@@ -446,6 +447,21 @@ code {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
   gap: 2rem;
+}
+.videocard .subir, .videocard .bajar, .videocard .eliminar {
+  position: absolute;
+}
+.videocard .subir {
+  top: 0.5rem;
+  right: 0.5rem;
+}
+.videocard .bajar {
+  bottom: 0.5rem;
+  right: 0.5rem;
+}
+.videocard .eliminar {
+  top: 0.5rem;
+  left: 0.5rem;
 }
 
 /*@forward './notFound';

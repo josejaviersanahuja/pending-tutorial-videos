@@ -165,6 +165,7 @@
   background-color: darken($color: $secondColor, $amount: 10%);
   border-radius: 10px;
   cursor: pointer;
+  position: relative;
   &__wrapper {
     position: relative;
     left: 50%;
@@ -173,5 +174,21 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 400px)); 
     gap: 2rem;
+  }
+  & .subir, .bajar, .eliminar {
+    position: absolute;
+    
+  }
+  & .subir {
+    top:.5rem;
+    right:.5rem;
+  }
+  & .bajar {
+    bottom:.5rem;
+    right:.5rem;
+  }
+  & .eliminar {
+    top:.5rem;
+    left:.5rem;
   }
 }

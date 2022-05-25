@@ -13,11 +13,15 @@ export default function LoginLogoutBtn({ user, setIsAuth }: Props) {
 
   const navigate = useNavigate()
   const location = useLocation()
-
+  let redirectpath = location.pathname
+  if (redirectpath.substring(0,10)==='/dashboard') {
+    redirectpath = "/"
+  }
+  
   return (<div className='login__logout__btn'>
     {
-      user ? <button onClick={() => { logout(setIsAuth) }}>Logout</button>
-        : <button onClick={() => { navigate('/login', {state:location.pathname}) }}>login</button>
+      user ? <button onClick={() => { logout(setIsAuth).then(()=>{navigate(0)}) }}>Logout</button>
+        : <button onClick={() => { navigate('/login', {state:redirectpath}) }}>login</button>
     }
   </div>)
 }

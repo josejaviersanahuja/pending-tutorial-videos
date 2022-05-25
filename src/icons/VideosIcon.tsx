@@ -7,7 +7,7 @@ const VideosIcon = (props: SVGProps<SVGSVGElement>) => (
       fill="none"
       fillRule="evenodd"
       stroke="currentColor"
-      strokeWidth={1.25}
+      strokeWidth={1.15}
       strokeLinecap="round"
       strokeLinejoin="round"
     >

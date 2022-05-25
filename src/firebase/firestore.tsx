@@ -149,10 +149,18 @@ export const updatePlayList = (playlist: IPlayList) => {
   return setDoc(doc(db, "playlists", playlist.plid), playlist)
 }
 
-export const sincronizePlayList = (plid : string, SetStateCallBack : Dispatch<IPlayList|null|undefined>) => {
+export const sincronizePlayList = (
+  plid : string, 
+  SetStateCallBack : Dispatch<IPlayList>,
+  SetVideosFromYoutube : Dispatch<IVideos[]> | undefined
+  ) => {
   return onSnapshot(doc(db, 'playlists', plid), (doc)=> {
     if(doc.exists()) {
-      SetStateCallBack(playlistConverter(doc.data()))
+      const newplaylist = playlistConverter(doc.data())
+      SetStateCallBack(newplaylist)
+      if (SetVideosFromYoutube !== undefined) {
+        getVideosInPlayList(newplaylist, SetVideosFromYoutube)
+      }
     }
   }) 
 }
@@ -199,7 +207,7 @@ export const addNewVideoFromDB = (
     }
   })
   .catch(err=>{
-    console.log(err);
+    console.error(err);
     alert("Error conectando con la colección videos")
     SetIsLoadingCallBack(false)
   })
@@ -231,16 +239,25 @@ export const getVideo = (
 }
 
 // sinc videos en playlist
-export const sincronizeVideosInPlayList = (
+export const getVideosInPlayList = (
     playlist : IPlayList, 
     SetStateCallBack : Dispatch<IVideos[]>
   ) => {
-    const q = query(collection(db, "videos"), where("vid", "in", playlist.videos));
-    return onSnapshot(q, (querySnapshot) => {
-      const videos : IVideos[] = [];
-      querySnapshot.forEach((doc) => {
-          videos.push(videoConverter(doc.data()));
-      });
-      SetStateCallBack(videos)
-    });
+    if (playlist.videos.length !== 0) {
+      const q = query(collection(db, "videos"), where("vid", "in", playlist.videos));
+      return getDocs(q)
+            .then((querySnapshot) => {
+              const videos : IVideos[] = [];
+              querySnapshot.forEach((doc) => {
+                const video = videoConverter(doc.data())
+                const indexInPlayList = playlist.videos.indexOf(video.vid)
+                  videos[indexInPlayList]=video;
+              });
+
+              SetStateCallBack(videos)
+            }); 
+    } else {
+      
+      return ()=>{}
+    }
 }
