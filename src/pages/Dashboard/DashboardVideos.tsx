@@ -1,36 +1,47 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import { sincronizePlayList } from '../../firebase/firestore'
+import React, { Dispatch, useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { deletePlayList, sincronizePlayList } from '../../firebase/firestore'
 import { playlistConverterFromAny } from '../../firebase/lib'
-import EditIcon from '../../icons/EditIcon'
-import SaveIcon from '../../icons/SaveIcon'
-import { EMPTY_PLAYLIST, IPlayList, IVideos } from '../../interfaces'
+import { EMPTY_PLAYLIST, IPlayList, IUser, IVideos } from '../../interfaces'
 import AddVideoComponent from './AddVideoComponent'
+import BackBtn from './BackBtn'
+import EditBtn from './EditBtn'
 import VideoCards from './VideoCards'
 
-export default function DashboardVideos() {
+type Props = {
+  setUser : Dispatch<IUser|null>
+}
+
+export default function DashboardVideos({setUser}:Props) {
 
   const {state} = useLocation()
+  const navigate = useNavigate()
   const playlist = typeof state == 'object' ? playlistConverterFromAny(state) : EMPTY_PLAYLIST
   const [sincronizedPlaylist, setSincronizedPlaylist] = useState<IPlayList>(playlist)
   const [allVideos, setallVideos] = useState<IVideos[]>([])
   const [isEditionMode, setIsEditionMode] = useState(false)
-
+  const isEmptyPlaylist = sincronizedPlaylist.videos.length === 0
   useEffect(() => {
     const unsuscribePlayList = sincronizePlayList(playlist.plid, setSincronizedPlaylist, setallVideos)
-    
+    if (isEmptyPlaylist) {
+      setIsEditionMode(false)
+    }
     return () => {
       unsuscribePlayList()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setallVideos, setSincronizedPlaylist])
-  console.log(allVideos, sincronizedPlaylist);
+
+  const handleDeletePlaylist = ()=>{
+    deletePlayList(playlist, setUser)
+    navigate("/dashboard")
+  }
   
   return (<>
     <h4>Playlist {playlist.name}</h4>
     <div className='videocard__wrapper'>
       {
-        sincronizedPlaylist.videos.length > 0 
+        !isEmptyPlaylist
         ? allVideos.map((e,i)=> {
           return <VideoCards 
             key={i} 
@@ -40,29 +51,12 @@ export default function DashboardVideos() {
             isEditionMode={isEditionMode}
             />
         })
-          : <p>Aún no hay vídeos aquí</p>  
+          : <p>Aún no hay vídeos aquí. Quieres borrar este playlist? <button onClick={handleDeletePlaylist}>Borrar</button></p>  
       }
     </div>
     {!isEditionMode && <AddVideoComponent playlist={sincronizedPlaylist}/>}
-    {
-      !isEditionMode && 
-      <button 
-        className='dashboard__video__btn'
-        style={{left:"2rem"}}
-        onClick={() => {setIsEditionMode(!isEditionMode)}} 
-      >
-        <EditIcon width={48} height={48} />
-      </button>
-    }
-    {
-      isEditionMode &&
-      <button 
-        className='dashboard__video__btn'
-        style={{left:"2rem"}}
-        onClick={() => {setIsEditionMode(!isEditionMode)}} 
-      >
-        <SaveIcon width={48} height={48} />
-      </button> 
-    }
+    {!isEditionMode && !isEmptyPlaylist && <EditBtn onClick={()=>setIsEditionMode(!isEditionMode)} />}
+    {isEditionMode && !isEmptyPlaylist && <BackBtn onClick={()=>setIsEditionMode(!isEditionMode)}/>}
+    {/*isEditionMode && !isEmptyPlaylist && <SaveBtn onClick={()=>setIsEditionMode(!isEditionMode)}/>*/}
   </>)
 }

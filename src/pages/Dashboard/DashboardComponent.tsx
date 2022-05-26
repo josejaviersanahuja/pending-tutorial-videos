@@ -13,7 +13,7 @@ export default function DashboardComponent({iuser, setUser}: Props) {
   return (
     <Routes>
       <Route index element={<DashboardPlayList iuser = {iuser} setUser={setUser} />}/>
-      <Route path=':id' element={<DashboardVideos/>}/>
+      <Route path=':id' element={<DashboardVideos setUser={setUser}/>}/>
     </Routes>
   )
 }

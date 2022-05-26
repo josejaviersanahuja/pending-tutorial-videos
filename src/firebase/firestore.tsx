@@ -1,5 +1,5 @@
 import { User } from "firebase/auth";
-import { getFirestore, collection, doc, setDoc, getDoc, query, where, getDocs, addDoc, updateDoc, onSnapshot } from "firebase/firestore";
+import { getFirestore, collection, doc, setDoc, getDoc, query, where, getDocs, addDoc, updateDoc, onSnapshot, deleteDoc } from "firebase/firestore";
 import { Dispatch, SetStateAction } from "react";
 import { NavigateFunction } from "react-router-dom";
 import { EMPTY_USER_TYPE, IPlayList, IUser, IVideos } from "../interfaces";
@@ -166,6 +166,30 @@ export const sincronizePlayList = (
 }
 
 /**
+ * delete playlist, solo puede activarse en un playlist vacío.
+ * significa que el plid no existe en ningún vídeo
+ * significa que hay que ejecutar 2 acciones nada más
+ * 1. borrar el plid en user.videoPlaylists, por eso el SetUserCallBack
+ * 2. borrar el documento plid en playlists
+ */
+export const deletePlayList = (playlist: IPlayList, SetUserCallBack : Dispatch<IUser|null>) => {
+  const docRef = doc(db, "users", playlist.uid)
+  return getDoc(docRef)
+          .then((snapDoc)=>{
+            if (snapDoc.exists()) {
+              const iuser = userConverter(snapDoc)
+              iuser.videoPlayLists = iuser.videoPlayLists.filter(e=> e!== playlist.plid)
+              SetUserCallBack(iuser)
+              UpdateUser(iuser)
+              deleteDoc(doc(db, "playlists", playlist.plid));
+            } else {
+              deleteDoc(doc(db, "playlists", playlist.plid));
+            }
+          })
+          .catch((err)=> console.error(err))
+}
+
+/**
  * CRUD videos
  */
  export const addNewVideo = (
@@ -195,10 +219,8 @@ export const addNewVideoFromDB = (
   .then(docSnap => {
     if (docSnap.exists()) {
       const storedvideo = videoConverter(docSnap.data())
-      storedvideo.plids.push(playlist.plid)
-      if (!storedvideo.uids.includes(playlist.uid)) {
-        storedvideo.uids.push(playlist.uid)
-      }
+      storedvideo.plids.push(playlist.plid) // en el front se controla que solo haya 1 playlist. significa que no puede repetirse un video dentro del mismo playlist
+      storedvideo.uids.push(playlist.uid) // puede repetirse el uid en uids. un uid repetido 3 veces significaría que el vídeo aparece en 3 playlist distintos del mismo usuario
       updatePlayList(playlist)
       addNewVideo(storedvideo, callBackModal, SetIsLoadingCallBack)
     } else {
@@ -260,4 +282,32 @@ export const getVideosInPlayList = (
       
       return ()=>{}
     }
+}
+
+/**
+ * Eliminar un vídeo de una playlist significa varias cosas
+ * 1. en playlist coleccion, significa eliminar el vid en videos
+ * 2. en video colection, significa eliminar el plid en plids
+ * 3. en video colection, significa eliminar 1 uid en uids
+ */
+export const deleteVideoFromPlaylist = (video:IVideos, playlist:IPlayList) => {
+  // 1
+  const plvideos = playlist.videos.filter(e=> e!== video.vid)
+  playlist.videos= plvideos
+  // 2
+  const videoplids= video.plids.filter(e=> e!== playlist.plid)
+  video.plids= videoplids
+  // 3
+  const indexUID = video.uids.indexOf(playlist.uid)
+  video.uids.splice(indexUID,1)
+  
+  return setDoc(doc(db, 'videos', video.vid), video)
+          .then(()=>{
+            setDoc(doc(db,'playlists', playlist.plid), playlist)
+          })
+          .catch((err)=>{
+            console.error(err);
+            
+          })
+  
 }

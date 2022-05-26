@@ -1,4 +1,4 @@
-import React, { Dispatch, FormEvent, SetStateAction } from 'react'
+import React, { Dispatch, FormEvent, SetStateAction, useState } from 'react'
 import { addNewPlayList } from '../../firebase/firestore'
 import useAddPlayList from '../../hooks/useAddPlayList'
 import useToggle from '../../hooks/useToggle'
@@ -14,7 +14,7 @@ export default function AddPlayListComponent({ iuser, setUser }: Props) {
 
   const { value, toggleValue } = useToggle(false)
   const {nameValue , textAreaValue, name2Value, handleName2, handleName, handleTexteArea, reset } = useAddPlayList()
-  
+  const [isLoading, setIsLoading] = useState(false)
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const newplaylist : IPlayList = {
@@ -26,7 +26,10 @@ export default function AddPlayListComponent({ iuser, setUser }: Props) {
       likes:[],
       videos:[]
     }
+    setIsLoading(true)
     addNewPlayList(newplaylist, toggleValue, setUser, iuser)
+    .then(()=>setIsLoading(false))
+    .catch(()=>setIsLoading(false))
     reset()
   }
 
@@ -57,8 +60,8 @@ export default function AddPlayListComponent({ iuser, setUser }: Props) {
               value={name2Value}
               className="dashboard__playlist__input__imagen"
             />
-            <input type="submit" value="Añadir" className="dashboard__playlist__input__submit" />
-            <button onClick={() => { toggleValue(true) }}>Cerrar</button>
+            <input type="submit" value={isLoading ? "Cargando...":"Añadir"} className="dashboard__playlist__input__submit" />
+            <button onClick={() => { toggleValue(true) }}>{isLoading ? "Cargando...":"Cerrar"}</button>
           </form>
         </div>
       </div>

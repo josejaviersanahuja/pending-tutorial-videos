@@ -73,8 +73,8 @@ export default function AddPlayListComponent({ playlist }: Props) {
               className="dashboard__video__input__name"
               disabled={!!nameValue}
             />
-            <input type="submit" value="Añadir" className="dashboard__video__input__submit" disabled={isLoading}/>
-            <button onClick={() => { toggleValue(true) }} disabled={isLoading}>Cerrar</button>
+            <input type="submit" value={isLoading ? "Cargando...":"Añadir"} className="dashboard__video__input__submit" disabled={isLoading}/>
+            <button onClick={() => { toggleValue(true) }} disabled={isLoading}>{isLoading ? "Cargando...":"Cerrar"}</button>
           </form>
         </div>
       </div>
