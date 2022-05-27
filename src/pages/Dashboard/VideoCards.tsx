@@ -50,6 +50,7 @@ export default function VideoCards({video, playlist, setSincronizedPlaylist, isE
     .then(()=>setBlockButtons(false))
     .catch(()=>setBlockButtons(false))
   }
+  
   if (isDeletingVideo) return (
     <div className='videocard spinner'>
       <h4>.</h4>

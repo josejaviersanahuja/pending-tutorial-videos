@@ -81,7 +81,7 @@ export const FetchYoutubeInfo = (
   };
   return  fetch(YOUTUBE_API_BASE_URL+cod, requestOptions)
     .then(response => response.json())
-    .then(result => {
+    .then(result => {      
       const newvideo = convertFetchedYoutubeResult(result.items[0])
       newvideo.plids.push(playlist.plid)
       newvideo.uids.push(playlist.uid)
@@ -108,15 +108,15 @@ const convertFetchedYoutubeResult = (algo: any) : IVideos => {
     imgUrl: "",
     defaultLanguage:""
   }
+  console.log(algo, "Lo que trae youtube api");
   
   if ( algo && algo.id 
-      && algo.snippet 
-      && (algo.snippet.defaultLanguage || algo.snippet.defaultAudioLanguage) 
-      && algo.snippet.title
-      && algo.snippet.description
-      && algo.snippet.thumbnails
-      && algo.snippet.thumbnails.medium
-      && algo.snippet.thumbnails.medium.url
+    && algo.snippet 
+    && algo.snippet.title
+    && algo.snippet.description
+    && algo.snippet.thumbnails
+    && algo.snippet.thumbnails.medium
+    && algo.snippet.thumbnails.medium.url
     ) {
       newvideo.vid= typeof algo.id == "string"? algo.id : ""
       newvideo.title= typeof algo.snippet.title == "string"? algo.snippet.title : ""
@@ -143,4 +143,5 @@ export const videoConverter = (doc: DocumentData) : IVideos => {
 export const IDIOMA : {[index:string]: string} = {
   "es" : "(Español)",
   "en" : "(Inglés)",
+  "" : "N/S"
 }

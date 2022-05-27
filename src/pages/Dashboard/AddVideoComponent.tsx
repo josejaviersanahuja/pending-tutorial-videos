@@ -19,14 +19,13 @@ export default function AddPlayListComponent({ playlist }: Props) {
   
   const toggleAndRefresh = (v:boolean) :void => {
     toggleValue(v)
-    //setUpdateEffect(v=>v+1)
   }
   
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     let cod = ""
     if (nameValue.length > 32 && nameValue.substring(0,32) === YOUTUBE_BASE_URL ) {
-      cod = nameValue.substring(32,43) 
+      cod = nameValue.substring(32,43)
       if (playlist.videos.includes(cod)) {
         alert("Ya el video pertenece a este playlist")
       } else {
@@ -50,7 +49,7 @@ export default function AddPlayListComponent({ playlist }: Props) {
     }
     reset()
   }
-
+  
   return (
     <>
       {value && <div className="dashboard__video__modal__wrapper">
