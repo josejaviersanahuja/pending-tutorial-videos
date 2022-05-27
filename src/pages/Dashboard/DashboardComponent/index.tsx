@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { IUser } from '../../interfaces'
+import { IUser } from '../../../interfaces'
 import DashboardPlayList from './DashboardPlayList'
 import DashboardVideos from './DashboardVideos'
 

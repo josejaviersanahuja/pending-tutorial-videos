@@ -1,9 +1,10 @@
 import React, { Dispatch, FormEvent, SetStateAction, useState } from 'react'
-import { addNewPlayList } from '../../firebase/firestore'
-import useAddPlayList from '../../hooks/useAddPlayList'
-import useToggle from '../../hooks/useToggle'
-import AddIcon from '../../icons/AddIcon'
-import { IPlayList, IUser } from '../../interfaces'
+import { addNewPlayList } from '../../../../firebase/firestore'
+import useHandleForm from '../../../../hooks/useHandleForm'
+import useAddPlayList from '../../../../hooks/useHandleForm'
+import useToggle from '../../../../hooks/useToggle'
+import AddIcon from '../../../../icons/AddIcon'
+import { IPlayList, IUser } from '../../../../interfaces'
 
 type Props = {
   iuser: IUser,
@@ -12,9 +13,20 @@ type Props = {
 
 export default function AddPlayListComponent({ iuser, setUser }: Props) {
 
-  const { value, toggleValue } = useToggle(false)
-  const {nameValue , textAreaValue, name2Value, handleName2, handleName, handleTexteArea, reset } = useAddPlayList()
-  const [isLoading, setIsLoading] = useState(false)
+  const {
+    nameValue, 
+    textAreaValue, 
+    name2Value, 
+    handleName2, 
+    handleName, 
+    handleTexteArea, 
+    reset,
+    isLoading,
+    setIsLoading,
+    toggleValue, 
+    value
+  } = useHandleForm()
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const newplaylist : IPlayList = {

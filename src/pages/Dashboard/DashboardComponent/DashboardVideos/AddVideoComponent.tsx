@@ -1,9 +1,10 @@
 import { Dispatch, FormEvent, SetStateAction, useState } from 'react'
-import { FetchYoutubeInfo } from '../../firebase/lib'
-import useAddPlayList from '../../hooks/useAddPlayList'
-import useToggle from '../../hooks/useToggle'
-import VideosIcon from '../../icons/VideosIcon'
-import { IPlayList } from '../../interfaces'
+import { FetchYoutubeInfo } from '../../../../firebase/lib'
+import useHandleForm from '../../../../hooks/useHandleForm'
+import useAddPlayList from '../../../../hooks/useHandleForm'
+import useToggle from '../../../../hooks/useToggle'
+import VideosIcon from '../../../../icons/VideosIcon'
+import { IPlayList } from '../../../../interfaces'
 
 type Props = {
   playlist: IPlayList,
@@ -13,13 +14,17 @@ const YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v="
 
 export default function AddPlayListComponent({ playlist }: Props) {
 
-  const { value, toggleValue } = useToggle(false)
-  const {nameValue , name2Value, handleName2, handleName, reset } = useAddPlayList()
-  const [isLoading , setisLoading] = useState(false)
-  
-  const toggleAndRefresh = (v:boolean) :void => {
-    toggleValue(v)
-  }
+  const {
+    nameValue, 
+    name2Value, 
+    handleName2, 
+    handleName, 
+    reset, 
+    isLoading,
+    setIsLoading,
+    value,
+    toggleValue
+  } = useHandleForm()
   
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -34,14 +39,14 @@ export default function AddPlayListComponent({ playlist }: Props) {
         // check if the video exists in firestore
         // if exists, update it and update playlist
         // if not exists, addNeww and update playlist
-        FetchYoutubeInfo(cod, playlist, toggleAndRefresh, setisLoading) 
+        FetchYoutubeInfo(cod, playlist, toggleValue, setIsLoading) 
       }
     } else if (name2Value.length === 11){
       cod = name2Value
       if (playlist.videos.includes(cod)) {
         alert("Ya el video pertenece a este playlist")
       } else {
-        FetchYoutubeInfo(cod, playlist, toggleAndRefresh, setisLoading) 
+        FetchYoutubeInfo(cod, playlist, toggleValue, setIsLoading) 
       }
     } else {
       alert("El formato introducido no es válido")

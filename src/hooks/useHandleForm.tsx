@@ -1,11 +1,13 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from 'react'
+import useToggle from './useToggle'
 
-export default function useAddPlayList() {
+export default function useHandleForm() {
 
   const [nameValue, setNameValue] = useState("")
   const [textAreaValue, setTextAreaValue] = useState("")
   const [name2Value, setName2Value] = useState("")
-
+  const [isLoading, setIsLoading] = useState(false)
+  const { value, toggleValue } = useToggle(false)
   const handleName = (e:ChangeEvent<HTMLInputElement>) => {
     setNameValue(e.target.value)
   }
@@ -23,5 +25,18 @@ export default function useAddPlayList() {
     setName2Value("")
     setTextAreaValue("")
   }
-  return {nameValue, textAreaValue, handleName, handleName2, handleTexteArea, reset, name2Value}
+
+  return {
+    nameValue, 
+    textAreaValue, 
+    handleName, 
+    handleName2, 
+    handleTexteArea, 
+    name2Value, 
+    reset,
+    isLoading,
+    setIsLoading,
+    toggleValue,
+    value
+  }
 }

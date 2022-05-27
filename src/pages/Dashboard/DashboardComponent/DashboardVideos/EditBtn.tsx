@@ -1,18 +1,18 @@
 import React, { MouseEventHandler } from 'react'
-import SaveIcon from '../../icons/SaveIcon'
+import EditIcon from '../../../../icons/EditIcon'
 
 type Props = {
   onClick: MouseEventHandler<HTMLButtonElement>
 }
 
-export default function SaveBtn({onClick}: Props) {
+export default function EditBtn({onClick}: Props) {
   return (
     <button 
         className='dashboard__video__btn'
-        style={{right:"2rem"}}
+        style={{left:"2rem"}}
         onClick={onClick} 
       >
-        <SaveIcon width={48} height={48} />
+        <EditIcon width={48} height={48} />
     </button>
   )
 }
