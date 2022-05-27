@@ -1,5 +1,5 @@
 import { User } from "firebase/auth";
-import { getFirestore, collection, doc, setDoc, getDoc, query, where, getDocs, addDoc, updateDoc, onSnapshot, deleteDoc } from "firebase/firestore";
+import { getFirestore, collection, doc, setDoc, getDoc, query, where, getDocs, addDoc, updateDoc, onSnapshot, writeBatch } from "firebase/firestore";
 import { Dispatch, SetStateAction } from "react";
 import { NavigateFunction } from "react-router-dom";
 import { EMPTY_USER_TYPE, IPlayList, IUser, IVideos } from "../interfaces";
@@ -173,17 +173,25 @@ export const sincronizePlayList = (
  * 2. borrar el documento plid en playlists
  */
 export const deletePlayList = (playlist: IPlayList, SetUserCallBack : Dispatch<IUser|null>) => {
-  const docRef = doc(db, "users", playlist.uid)
-  return getDoc(docRef)
+  const userRef = doc(db, "users", playlist.uid)
+  const playlisRef = doc(db, "playlists", playlist.plid)
+  const batch = writeBatch(db)
+  batch.delete(playlisRef)
+  return getDoc(userRef)
           .then((snapDoc)=>{
             if (snapDoc.exists()) {
               const iuser = userConverter(snapDoc)
               iuser.videoPlayLists = iuser.videoPlayLists.filter(e=> e!== playlist.plid)
-              SetUserCallBack(iuser)
-              UpdateUser(iuser)
-              deleteDoc(doc(db, "playlists", playlist.plid));
+              batch.set(userRef, iuser)
+              batch.commit()
+              .then(()=>{
+                SetUserCallBack(iuser)
+              })
+              .catch(()=>{
+                alert("batch deleting playlist error")
+              })              
             } else {
-              deleteDoc(doc(db, "playlists", playlist.plid));
+              alert("usuario no existe pero playlist si? contacte con zitrojj@gmail.com")
             }
           })
           .catch((err)=> console.error(err))
@@ -192,22 +200,19 @@ export const deletePlayList = (playlist: IPlayList, SetUserCallBack : Dispatch<I
 /**
  * CRUD videos
  */
- export const addNewVideo = (
-  video : IVideos, 
-  callBackModal : (b:boolean)=>void,
-  SetIsLoadingCallBack : Dispatch<SetStateAction<boolean>>,
-) => {
-  return  setDoc(doc(db, "videos", video.vid), video)
-          .then((snapShot)=>{
-            callBackModal(true)
-            SetIsLoadingCallBack(false)          
-          })
-          .catch( err =>{
-            console.error('error', err);
-            SetIsLoadingCallBack(false)
-          })
-} 
 
+/**
+ * Este método se ejecuta cuando queremos añadir un vídeo nuevo a un playlist.
+ * No se usa addNewVideo porque no vamos añadir un video que ya exista en el playlist de otro usuario.
+ * Primero revisamos si existe el vídeo en la colección videos
+ * Si existe, hacemos update con nuevos datos.
+ * Si no, lo añadimos
+ * @param video es el nuevo valor de que deberá tener en la base de datos
+ * @param playlist es el nuevo valor del playlist, ya con el video incluido
+ * @param callBackModal va a cerrar el form de donde se añadió el video
+ * @param SetIsLoadingCallBack va a avisar cuando termina la transacción
+ * @returns 
+ */
 export const addNewVideoFromDB = (
   video : IVideos, // ya viene con uid y plid incluido
   playlist: IPlayList, // ya viene con vid en videos desde FetchYoutubeInfo
@@ -217,16 +222,31 @@ export const addNewVideoFromDB = (
   const docRef = doc(db, "videos", video.vid)
   return getDoc(docRef)
   .then(docSnap => {
+    // escritura en lotes inicializada
+    const batch = writeBatch(db)
+    const playlistRef = doc(db, 'playlists', playlist.plid)
+    const videoRef = doc(db, 'videos', video.vid)
+    batch.set(playlistRef, playlist)
+      
     if (docSnap.exists()) {
       const storedvideo = videoConverter(docSnap.data())
       storedvideo.plids.push(playlist.plid) // en el front se controla que solo haya 1 playlist. significa que no puede repetirse un video dentro del mismo playlist
       storedvideo.uids.push(playlist.uid) // puede repetirse el uid en uids. un uid repetido 3 veces significaría que el vídeo aparece en 3 playlist distintos del mismo usuario
-      updatePlayList(playlist)
-      addNewVideo(storedvideo, callBackModal, SetIsLoadingCallBack)
+      // si el video existia modificalo
+      batch.set(videoRef, storedvideo)    
     } else {
-      updatePlayList(playlist)
-      addNewVideo(video, callBackModal, SetIsLoadingCallBack)
+      batch.set(videoRef, video)
     }
+    // commit escritura en lote
+    batch.commit()
+      .then(()=>{
+        callBackModal(true)
+        SetIsLoadingCallBack(false)
+      })
+      .catch(()=>{
+        SetIsLoadingCallBack(false)
+        alert("batch setnewvideo failed")
+      })
   })
   .catch(err=>{
     console.error(err);
@@ -289,6 +309,9 @@ export const getVideosInPlayList = (
  * 1. en playlist coleccion, significa eliminar el vid en videos
  * 2. en video colection, significa eliminar el plid en plids
  * 3. en video colection, significa eliminar 1 uid en uids
+ * @param video video a eliminar
+ * @param playlist playlist donde se elimina
+ * @returns 
  */
 export const deleteVideoFromPlaylist = (video:IVideos, playlist:IPlayList) => {
   // 1
@@ -301,13 +324,16 @@ export const deleteVideoFromPlaylist = (video:IVideos, playlist:IPlayList) => {
   const indexUID = video.uids.indexOf(playlist.uid)
   video.uids.splice(indexUID,1)
   
-  return setDoc(doc(db, 'videos', video.vid), video)
-          .then(()=>{
-            setDoc(doc(db,'playlists', playlist.plid), playlist)
-          })
-          .catch((err)=>{
-            console.error(err);
-            
-          })
-  
+  const batch = writeBatch(db)
+  const videoRef = doc(db, 'videos', video.vid)
+  const playlistRef = doc(db, 'playlists', playlist.plid)
+
+  batch.set(playlistRef, playlist)
+  if (video.plids.length === 0) {
+    batch.delete(videoRef)
+  } else {
+    batch.set(videoRef, video)
+  }
+
+  return batch.commit()
 }

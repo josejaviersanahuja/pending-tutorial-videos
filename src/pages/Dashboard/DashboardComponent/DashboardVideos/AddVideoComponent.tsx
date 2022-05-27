@@ -1,8 +1,6 @@
-import { Dispatch, FormEvent, SetStateAction, useState } from 'react'
+import { FormEvent } from 'react'
 import { FetchYoutubeInfo } from '../../../../firebase/lib'
 import useHandleForm from '../../../../hooks/useHandleForm'
-import useAddPlayList from '../../../../hooks/useHandleForm'
-import useToggle from '../../../../hooks/useToggle'
 import VideosIcon from '../../../../icons/VideosIcon'
 import { IPlayList } from '../../../../interfaces'
 
@@ -34,7 +32,7 @@ export default function AddPlayListComponent({ playlist }: Props) {
       if (playlist.videos.includes(cod)) {
         alert("Ya el video pertenece a este playlist")
       } else {
-        // FetchYoutubeInfo -> addNewVideoFromDB -> (addNewVideo | updateNewVideo ) & updatePlayList
+        // FetchYoutubeInfo -> addNewVideoFromDB -> ( updateNewVideo ) & updatePlayList
         // fetch data from youtube
         // check if the video exists in firestore
         // if exists, update it and update playlist
