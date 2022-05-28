@@ -16,7 +16,7 @@ export default function PlayListComponent({plid}: Props) {
       <h3>{playlist?.name}</h3>
       <p>{playlist?.description}</p>
       <div className='playlistcard__footer'>
-        <button><LikeIcon/>{playlist?.likes.length}</button>
+        <button><LikeIcon/>{playlist?.numLikes}</button>
         <button><VideosIcon/>{playlist?.videos.length}</button>
       </div>
     </div>

@@ -47,7 +47,8 @@ export const playlistConverter = (doc: DocumentData) : IPlayList => {
     name: typeof doc.name == 'string' ? doc.name : "",
     plid: typeof doc.plid == 'string' ? doc.plid : "",
     uid: typeof doc.uid == 'string'? doc.uid : "",
-    videos: Array.isArray(doc.videos) ? doc.videos: []
+    videos: Array.isArray(doc.videos) ? doc.videos: [],
+    numLikes: Array.isArray(doc.likes) ? doc.likes.length : 0,
   }
   return ipl
 }
