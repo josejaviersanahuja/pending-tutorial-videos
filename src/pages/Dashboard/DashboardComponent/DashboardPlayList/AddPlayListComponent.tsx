@@ -36,7 +36,8 @@ export default function AddPlayListComponent({ iuser, setUser }: Props) {
       description: textAreaValue,
       imgUrl: "",
       likes:[],
-      videos:[]
+      videos:[],
+      numLikes:0
     }
     setIsLoading(true)
     addNewPlayList(newplaylist, toggleValue, setUser, iuser)

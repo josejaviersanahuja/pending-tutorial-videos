@@ -27,6 +27,7 @@ export interface IPlayList {
   imgUrl: string,
   likes: string[]
   videos: string[]
+  numLikes: number
 }
 
 export const EMPTY_IUSER : IUser = {
@@ -61,7 +62,8 @@ export const EMPTY_PLAYLIST : IPlayList= {
   description: "",
   imgUrl: "",
   likes: [],
-  videos: []
+  videos: [],
+  numLikes: 0
 }
 
 export interface IVideos {
@@ -82,4 +84,10 @@ export const EMPTY_VIDEO : IVideos = {
   title:"",
   uids:[],
   vid:""
+}
+
+export const OPTIONS_FOR_LISTOFPLAYLIST : {[index:string]:0|1|2} = {
+  "HomeAndUserTruthy" : 0,
+  "HomeAndUserFalsy" : 1,
+  "UserPage": 2
 }

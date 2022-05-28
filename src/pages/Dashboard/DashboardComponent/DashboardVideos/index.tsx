@@ -1,8 +1,8 @@
-import React, { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { deletePlayList, sincronizePlayList } from '../../../../firebase/firestore'
+import { deletePlayList } from '../../../../firebase/firestore'
 import { playlistConverterFromAny } from '../../../../firebase/lib'
-import { EMPTY_PLAYLIST, IPlayList, IUser, IVideos } from '../../../../interfaces'
+import { EMPTY_PLAYLIST, IUser, IVideos } from '../../../../interfaces'
 import AddVideoComponent from './AddVideoComponent'
 import BackBtn from './BackBtn'
 import EditBtn from './EditBtn'
@@ -11,9 +11,10 @@ import useSincronizePlaylist from '../../../../hooks/useSincronizePlaylist'
 
 type Props = {
   setUser : Dispatch<IUser|null>
+  iuser: IUser
 }
 
-export default function DashboardVideos({setUser}:Props) {
+export default function DashboardVideos({setUser, iuser}:Props) {
 
   // trayendo el stado del playlist de la pagina dashboard
   const {state} = useLocation()
@@ -31,11 +32,12 @@ export default function DashboardVideos({setUser}:Props) {
     if (isEmptyPlaylist) {
       setIsEditionMode(false)
     }
+    // eslint-disable-next-line 
   }, [])
 
   // función para borrar el playlist
   const handleDeletePlaylist = ()=>{
-    deletePlayList(playlist, setUser)
+    deletePlayList(playlist, iuser ,setUser)
     navigate("/dashboard")
   }
   

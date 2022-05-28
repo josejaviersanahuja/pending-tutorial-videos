@@ -2,7 +2,7 @@ import { User } from "firebase/auth";
 import { getFirestore, collection, doc, setDoc, getDoc, query, where, getDocs, addDoc, updateDoc, onSnapshot, writeBatch } from "firebase/firestore";
 import { Dispatch, SetStateAction } from "react";
 import { NavigateFunction } from "react-router-dom";
-import { EMPTY_USER_TYPE, IPlayList, IUser, IVideos } from "../interfaces";
+import { EMPTY_USER_TYPE, IPlayList, IUser, IVideos, OPTIONS_FOR_LISTOFPLAYLIST } from "../interfaces";
 import { logout } from "./auth";
 import { app } from './init'
 import { playlistConverter, userConverter, videoConverter } from "./lib";
@@ -172,29 +172,37 @@ export const sincronizePlayList = (
  * 1. borrar el plid en user.videoPlaylists, por eso el SetUserCallBack
  * 2. borrar el documento plid en playlists
  */
-export const deletePlayList = (playlist: IPlayList, SetUserCallBack : Dispatch<IUser|null>) => {
+export const deletePlayList = (playlist: IPlayList, iuser: IUser, SetUserCallBack : Dispatch<IUser|null>) => {
+  iuser.videoPlayLists = iuser.videoPlayLists.filter(e=> e!== playlist.plid)
   const userRef = doc(db, "users", playlist.uid)
   const playlisRef = doc(db, "playlists", playlist.plid)
   const batch = writeBatch(db)
   batch.delete(playlisRef)
-  return getDoc(userRef)
-          .then((snapDoc)=>{
-            if (snapDoc.exists()) {
-              const iuser = userConverter(snapDoc)
-              iuser.videoPlayLists = iuser.videoPlayLists.filter(e=> e!== playlist.plid)
-              batch.set(userRef, iuser)
-              batch.commit()
-              .then(()=>{
-                SetUserCallBack(iuser)
-              })
-              .catch(()=>{
-                alert("batch deleting playlist error")
-              })              
-            } else {
-              alert("usuario no existe pero playlist si? contacte con zitrojj@gmail.com")
-            }
-          })
-          .catch((err)=> console.error(err))
+  batch.set(userRef, iuser)
+  return batch.commit()
+        .then(()=>{
+          SetUserCallBack(iuser)
+        })
+        .catch(()=>{
+          alert("batch deleting playlist error")
+        })
+}
+
+export const sincronizeListOfPlayLists = (setListOfPlaylists:Dispatch<IPlayList[]>, options : 0|1|2, iuser : IUser|null) => {
+  const constraint = where("numLikes", ">", 0)
+  if (options === OPTIONS_FOR_LISTOFPLAYLIST["HomeAndUserTruthy"]) {
+    console.log("HomeAndUserTruthy");
+    
+  }
+  if (options === OPTIONS_FOR_LISTOFPLAYLIST["HomeAndUserFalsy"]) {
+    console.log("HomeAndUserFalsy");
+    
+  }
+  if (options === OPTIONS_FOR_LISTOFPLAYLIST["UserPage"]) {
+    console.log("UserPage");
+    
+  }
+  const q = query(collection(db, "playlists"), constraint);
 }
 
 /**
