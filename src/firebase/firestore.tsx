@@ -1,5 +1,5 @@
 import { User } from "firebase/auth";
-import { getFirestore, collection, doc, setDoc, getDoc, query, where, getDocs, addDoc, updateDoc, onSnapshot, writeBatch } from "firebase/firestore";
+import { getFirestore, collection, doc, setDoc, getDoc, query, where, getDocs, addDoc, updateDoc, onSnapshot, writeBatch, orderBy, limit } from "firebase/firestore";
 import { Dispatch, SetStateAction } from "react";
 import { NavigateFunction } from "react-router-dom";
 import { EMPTY_USER_TYPE, IPlayList, IUser, IVideos, OPTIONS_FOR_LISTOFPLAYLIST } from "../interfaces";
@@ -189,20 +189,29 @@ export const deletePlayList = (playlist: IPlayList, iuser: IUser, SetUserCallBac
 }
 
 export const sincronizeListOfPlayLists = (setListOfPlaylists:Dispatch<IPlayList[]>, options : 0|1|2, iuser : IUser|null) => {
-  const constraint = where("numLikes", ">", 0)
+  // if home and user falsy
+  let constraint = where("numLikes", ">=", 0)
   if (options === OPTIONS_FOR_LISTOFPLAYLIST["HomeAndUserTruthy"]) {
-    console.log("HomeAndUserTruthy");
-    
-  }
-  if (options === OPTIONS_FOR_LISTOFPLAYLIST["HomeAndUserFalsy"]) {
-    console.log("HomeAndUserFalsy");
+    if (iuser && iuser.following.length > 0) {
+      constraint = where("uid", "in", iuser.following)
+    }
     
   }
   if (options === OPTIONS_FOR_LISTOFPLAYLIST["UserPage"]) {
-    console.log("UserPage");
+    if (iuser) {
+      constraint = where("uid", "==", iuser.uid)
+      
+    }
     
   }
-  const q = query(collection(db, "playlists"), constraint);
+  const q = query(collection(db, "playlists"), constraint, orderBy("numLikes","desc"), limit(10));
+  return onSnapshot(q, (snapShot)=>{
+    const listOfPlaylist : IPlayList[] = []
+    snapShot.forEach((pldoc)=>{
+      listOfPlaylist.push(playlistConverter(pldoc.data()))
+    })
+    setListOfPlaylists(listOfPlaylist)
+  })
 }
 
 /**

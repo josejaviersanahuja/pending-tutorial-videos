@@ -21,7 +21,6 @@ export default function VideoCards({video, playlist, setSincronizedPlaylist, isE
       <p>.</p>
     </div>
   )
-  console.log(video.defaultLanguage);
   
   return (
     <div className='videocard'>

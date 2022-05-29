@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react'
+import ListsOfPlaylists from '../../components/ListsOfPlaylists'
 import { IUser } from '../../interfaces'
 import FullPresentationCard from './FullPresentationCard'
-import ShowUserCollection from './ShowUserCollection'
 import SpinnerFullPresentationCard from './SpinnerFullPresentationCard'
 
 type Props = {
@@ -19,7 +19,7 @@ export default function OtherUser({ otherUser, currentUser, setStateAction }: Pr
 				otherUser === undefined ? <SpinnerFullPresentationCard/>
 					: <>
 						{otherUser && <FullPresentationCard iuser={otherUser} isCurrentUser={false} currentUser = {currentUser} setStateAction={setStateAction}/>}
-						<ShowUserCollection iuser={otherUser} />
+						<ListsOfPlaylists user={otherUser} currentUser={currentUser}/>
 					</>
 			}
 		</>

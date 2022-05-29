@@ -62,7 +62,7 @@
   z-index: 1;
 }
 
-.playlistcard {
+.playlistcard, .playlistcard__component {
   background-color: darken($color: $secondColor, $amount: 10%);
   border-radius: 10px;
   aspect-ratio: 7/6;

@@ -1,0 +1,23 @@
+@use '../abstracts/' as *;
+
+.list__of__playlist {
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
+    gap: .5rem;
+
+    text-align: center;
+    position: relative;
+  }
+}
+
+.playlistcard__component {
+  &__likebtn {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    top:1rem;
+    left: 1rem;
+  }
+}
