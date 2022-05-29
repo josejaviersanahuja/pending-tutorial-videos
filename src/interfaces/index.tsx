@@ -86,8 +86,44 @@ export const EMPTY_VIDEO : IVideos = {
   vid:""
 }
 
-export const OPTIONS_FOR_LISTOFPLAYLIST : {[index:string]:0|1|2} = {
+export const OPTIONS_FOR_LISTOFPLAYLIST : {[index:string]:0|1|2|3|4} = {
   "HomeAndUserTruthy" : 0,
   "HomeAndUserFalsy" : 1,
-  "UserPage": 2
+  "UserPageCurrentUser": 2,
+  "UserPageOtherUser":3,
+  "HomeSearch":4
+}
+
+/**
+ * El onSnapShot de las playlist es reutilizado de acuerdo al lugar de donde se llama
+ * y a las playlists que se buscan. Las playlists a traer varian en base a los parametros
+ * @param path si se llama de la home o del userpage
+ * @param user si el usuario está autenticado, o si buscamos las playlist de un usuario distinto
+ * @param currentUser ? si buscamos un usuario distinto, quiero poder ver las playlists que me gustan
+ * @param search ? para buscar playlists en base al texto
+ * @returns 
+ */
+ export const ChooseOptionsForListOfPlaylist = (
+  path : string, 
+  user : IUser | null, 
+  currentUser : IUser | null, 
+  search : string | undefined
+  ) : 0|1|2|3|4|-1=> {
+    if (path ==="/") {
+      const HOMESEARCH = "HomeSearch";
+      if (typeof search == "string" && search) return OPTIONS_FOR_LISTOFPLAYLIST[HOMESEARCH]
+      const HOME_AND_USER_FALSY = "HomeAndUserFalsy";
+      if (user === null || user.uid === "") return OPTIONS_FOR_LISTOFPLAYLIST[HOME_AND_USER_FALSY]
+      const HOME_AND_USER_TRUTHY = "HomeAndUserTruthy";
+      if (user && user.uid) return OPTIONS_FOR_LISTOFPLAYLIST[HOME_AND_USER_TRUTHY]
+    } else {
+      if (currentUser && currentUser.uid) {
+        const USERPAGE_OTHER_USER = "UserPageOtherUser";
+        return OPTIONS_FOR_LISTOFPLAYLIST[USERPAGE_OTHER_USER]
+      } else {
+        const USERPAGE_CURRENT_USER = "UserPageCurrentUser";
+        return OPTIONS_FOR_LISTOFPLAYLIST[USERPAGE_CURRENT_USER]
+      }
+    }
+    return -1
 }

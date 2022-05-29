@@ -103,6 +103,30 @@ export const getAnotherUser = (
     })
 }
 
+export const getUser = (
+  uid: string, 
+  callbackUser: (value: SetStateAction<IUser | null>) => void,
+  IsLoadingCallback: (value: SetStateAction<boolean>) => void,
+) => {
+  const docRef = doc(db, "users", uid)
+  IsLoadingCallback(true) // gestión del isloading user
+  return getDoc(docRef)
+    .then((docData) => {
+      if (docData.exists()) {
+        callbackUser(userConverter(docData))
+        IsLoadingCallback(false)
+      } else {
+        callbackUser(null)
+        IsLoadingCallback(false)
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      callbackUser(null)
+      IsLoadingCallback(false)
+    })
+}
+
 export const getUsersInList = (list: string[], ComponentCallBack: (value: SetStateAction<IUser[]>) => void) => {
   const q = query(collection(db, "users"), where("uid", "in", list));
 
@@ -188,22 +212,22 @@ export const deletePlayList = (playlist: IPlayList, iuser: IUser, SetUserCallBac
         })
 }
 
-export const sincronizeListOfPlayLists = (setListOfPlaylists:Dispatch<IPlayList[]>, options : 0|1|2, iuser : IUser|null) => {
+export const sincronizeListOfPlayLists = (setListOfPlaylists:Dispatch<IPlayList[]>, options : 0|1|2|3|4|-1, iuser : IUser|null) => {
   // if home and user falsy
   let constraint = where("numLikes", ">=", 0)
+  // if home and user truthy
   if (options === OPTIONS_FOR_LISTOFPLAYLIST["HomeAndUserTruthy"]) {
     if (iuser && iuser.following.length > 0) {
       constraint = where("uid", "in", iuser.following)
     }
-    
   }
-  if (options === OPTIONS_FOR_LISTOFPLAYLIST["UserPage"]) {
+  // if userpage current user or other user
+  if (options === OPTIONS_FOR_LISTOFPLAYLIST["UserPageCurrentUser"] || options === OPTIONS_FOR_LISTOFPLAYLIST["UserPageOtherUser"]) {
     if (iuser) {
       constraint = where("uid", "==", iuser.uid)
-      
     }
-    
   }
+
   const q = query(collection(db, "playlists"), constraint, orderBy("numLikes","desc"), limit(10));
   return onSnapshot(q, (snapShot)=>{
     const listOfPlaylist : IPlayList[] = []

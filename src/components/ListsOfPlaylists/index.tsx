@@ -2,28 +2,30 @@ import React from 'react'
 import { useLocation } from 'react-router-dom';
 import { updatePlayList } from '../../firebase/firestore';
 import useListOfPlayLists from '../../hooks/useListOfPlayLists';
+import ForkIcon from '../../icons/ForkIcon';
 import LikeIcon from '../../icons/LikeIcon';
 import VideosIcon from '../../icons/VideosIcon';
-import { IPlayList, IUser, OPTIONS_FOR_LISTOFPLAYLIST } from '../../interfaces'
+import { ChooseOptionsForListOfPlaylist, IPlayList, IUser } from '../../interfaces'
+import FetchedAvatar from '../FetchedAvatar';
 
 type Props = {
   user: IUser|null
   currentUser ? : IUser | null
+  search ? : string | undefined
 }
+
+
 // @TODO en userPage no sale likebtn nunca. eso esta mal
-export default function ListsOfPlaylists({ user, currentUser}: Props) {
+export default function ListsOfPlaylists({ user, currentUser = null, search = undefined }: Props) {
 
   const location = useLocation()
 
-  let listOfPlaylistOption = user === null || user.uid === ""? OPTIONS_FOR_LISTOFPLAYLIST.HomeAndUserFalsy : OPTIONS_FOR_LISTOFPLAYLIST.HomeAndUserTruthy
-  if (location.pathname.substring(1,5)=== "user") {
-    listOfPlaylistOption = OPTIONS_FOR_LISTOFPLAYLIST.UserPage
-    
-  }
-  const {listOfPlaylists} = useListOfPlayLists({listOfPlaylistOption, iuser:user})
+  const listOfPlaylistOption = ChooseOptionsForListOfPlaylist(location.pathname, user, currentUser, search)
+  
+  const {listOfPlaylists, isUserFaulty} = useListOfPlayLists({listOfPlaylistOption, iuser:user})
 
   
-  const isUserFaulty = user===null || user?.uid===""
+  
   const isUserOwnerOfThisPlaylist = (pl: IPlayList) => {
     if (currentUser && currentUser.uid) {
       return false
@@ -68,18 +70,28 @@ export default function ListsOfPlaylists({ user, currentUser}: Props) {
   return (
     <div className='list__of__playlist__wrapper'>
       {listOfPlaylists.map((e)=> <div key={e.plid} className='playlistcard__component' onClick={()=>{}}>
+      <div className='playlistcard__component__avatar'>
+        <FetchedAvatar uid={e.uid} />
+      </div>
       <h3>{e.name}</h3>
       <p>{e.description}</p>
       {
         !isUserFaulty 
         && !isUserOwnerOfThisPlaylist(e) 
-        &&<button 
+        && <><button 
           className='playlistcard__component__likebtn'
           style={hasThisUserLikedThisPlayList(e) ? {opacity:1} : {opacity:0.35}}
           onClick={()=>{handleLikeBtn(e)}}
           >
             <LikeIcon/>
           </button>
+          <button 
+          className='playlistcard__component__fork'
+          onClick={()=>{}}
+          >
+            <ForkIcon />
+          </button>
+          </>
       }
       <div className='playlistcard__footer'>
         <button><LikeIcon/>{e.numLikes}</button>

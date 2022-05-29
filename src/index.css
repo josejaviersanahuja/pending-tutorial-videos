@@ -222,7 +222,7 @@ code {
   border-radius: 10px;
   aspect-ratio: 7/6;
   cursor: pointer;
-  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-vW17pDUvLc6sijPFuDulj9DZt3QvO0KFAA&usqp=CAU");
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/twitter-clone-d82aa.appspot.com/o/images%2Fplaylist.png?alt=media&token=3b777418-1843-418c-9a96-5bcbf4fc4df8");
   background-size: cover;
   padding-top: 2.75rem;
   display: flex;
@@ -400,19 +400,32 @@ code {
  */
 .list__of__playlist__wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 360px));
   gap: 0.5rem;
   text-align: center;
   position: relative;
 }
 
-.playlistcard__component__likebtn {
+.playlistcard__component {
+  position: relative;
+}
+.playlistcard__component__likebtn, .playlistcard__component__fork {
   position: absolute;
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  top: 1rem;
+  top: 0;
+}
+.playlistcard__component__likebtn {
+  right: 2rem;
+}
+.playlistcard__component__fork {
+  right: 5rem;
+}
+.playlistcard__component__avatar {
+  position: absolute;
   left: 1rem;
+  top: 1.5rem;
 }
 
 .presentation__card {

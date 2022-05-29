@@ -3,7 +3,7 @@
 .list__of__playlist {
   &__wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 360px));
     gap: .5rem;
 
     text-align: center;
@@ -12,12 +12,23 @@
 }
 
 .playlistcard__component {
-  &__likebtn {
+  position: relative;
+  &__likebtn, &__fork {
     position: absolute;
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    top:1rem;
+    top:0;
+  }
+  &__likebtn {
+    right: 2rem;
+  }
+  &__fork {
+    right: 5rem;
+  }
+  &__avatar {
+    position: absolute;
     left: 1rem;
+    top: 1.5rem;
   }
 }
