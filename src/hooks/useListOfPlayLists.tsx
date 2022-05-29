@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { sincronizeListOfPlayLists } from '../firebase/firestore'
 import { IPlayList, IUser } from '../interfaces'
 
@@ -17,10 +17,10 @@ export default function useListOfPlayLists({listOfPlaylistOption, iuser}: Props)
     const unsuscribe = sincronizeListOfPlayLists(setListOfPlaylists, listOfPlaylistOption, iuser)
   
     return () => {
-      //unsuscribe()
+      unsuscribe()
     }
-  }, [])
-  
+    // eslint-disable-next-line
+  }, [])  
 
   return {listOfPlaylists, isUserFaulty}
 }

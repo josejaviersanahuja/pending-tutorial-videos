@@ -15,6 +15,7 @@ export default function FetchedAvatar({uid}: Props) {
 
   useEffect(() => {
     getUser(uid, setuser, setIsLoading)
+    // eslint-disable-next-line 
   }, [])
   
   if (isLoading) return <SpinnerAvatar size={36} />
