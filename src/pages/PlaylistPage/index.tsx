@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
-import { Navigate, useLocation, useParams } from 'react-router-dom'
+import { useState } from 'react'
+import { Navigate, useLocation } from 'react-router-dom'
 import Header from '../../components/Header'
 import { playlistConverterFromAny } from '../../firebase/lib'
 import useUser from '../../hooks/useUser'
 
-type Props = {}
+export default function PlaylistPage() {
 
-export default function PlaylistPage({}: Props) {
-
-  const {id} = useParams()
+  // const {id} = useParams()
   const {state} = useLocation()
   const pl = playlistConverterFromAny(state)
   const {loginUser, setIsAuth} = useUser()
