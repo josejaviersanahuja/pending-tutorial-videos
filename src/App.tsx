@@ -9,6 +9,7 @@ import AllUsers from './pages/AllUsers';
 import Dashboard from './pages/Dashboard';
 import Followers from './pages/Followers';
 import Following from './pages/Following';
+import PlaylistPage from './pages/PlaylistPage';
 
 function App() {
   return (<>
@@ -19,6 +20,7 @@ function App() {
       <Route path="/user/:id" element={<><UserPage /><Footer/></>}/>
       <Route path="/followers/:id" element={<><Followers /><Footer/></>}/>
       <Route path="/following/:id" element={<><Following /><Footer/></>}/>
+      <Route path="/playlist/:id" element={<><PlaylistPage /><Footer/></>}/>
       <Route path="/allusers" element={<><AllUsers /><Footer/></>}/>
       <Route path="/dashboard/*" element={<><Dashboard /><Footer/></>}/>
       <Route path="*" element={<><NotFound /><Footer/></>}/>

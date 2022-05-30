@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { forkPlaylist, updatePlayList } from '../../firebase/firestore';
 import useListOfPlayLists from '../../hooks/useListOfPlayLists';
 import ForkIcon from '../../icons/ForkIcon';
@@ -19,6 +19,7 @@ type Props = {
 export default function ListsOfPlaylists({ user, currentUser = null, search = undefined }: Props) {
   
   const location = useLocation()
+  const navigate = useNavigate()
   
   const listOfPlaylistOption = ChooseOptionsForListOfPlaylist(location.pathname, user, currentUser, search)
   
@@ -82,7 +83,7 @@ export default function ListsOfPlaylists({ user, currentUser = null, search = un
 
   return (
     <div className='list__of__playlist__wrapper'>
-      {listOfPlaylists.map((e)=> <div key={e.plid} className='playlistcard__component' onClick={()=>{}}>
+      {listOfPlaylists.map((e)=> <div key={e.plid} className='playlistcard__component' onClick={()=>{navigate(`/playlist/${e.plid}`, {state:e})}}>
       <div className='playlistcard__component__avatar'>
         <FetchedAvatar uid={e.uid} />
       </div>
