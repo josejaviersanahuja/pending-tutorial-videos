@@ -1,8 +1,6 @@
-import React, { Dispatch, FormEvent, SetStateAction, useState } from 'react'
+import { Dispatch, FormEvent, SetStateAction } from 'react'
 import { addNewPlayList } from '../../../../firebase/firestore'
 import useHandleForm from '../../../../hooks/useHandleForm'
-import useAddPlayList from '../../../../hooks/useHandleForm'
-import useToggle from '../../../../hooks/useToggle'
 import AddIcon from '../../../../icons/AddIcon'
 import { IPlayList, IUser } from '../../../../interfaces'
 
@@ -40,9 +38,14 @@ export default function AddPlayListComponent({ iuser, setUser }: Props) {
       numLikes:0
     }
     setIsLoading(true)
-    addNewPlayList(newplaylist, toggleValue, setUser, iuser)
-    .then(()=>setIsLoading(false))
-    .catch(()=>setIsLoading(false))
+    if (iuser.videoPlayLists.length < 10) {
+      addNewPlayList(newplaylist, toggleValue, setUser, iuser)
+      .then(()=>setIsLoading(false))
+      .catch(()=>setIsLoading(false))  
+    } else {
+      alert("Solo puedes tener un máximo de 10 playlist")
+    }
+    
     reset()
   }
 

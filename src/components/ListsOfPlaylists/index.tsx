@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom';
-import { updatePlayList } from '../../firebase/firestore';
+import { forkPlaylist, updatePlayList } from '../../firebase/firestore';
 import useListOfPlayLists from '../../hooks/useListOfPlayLists';
 import ForkIcon from '../../icons/ForkIcon';
 import LikeIcon from '../../icons/LikeIcon';
@@ -66,6 +66,20 @@ export default function ListsOfPlaylists({ user, currentUser = null, search = un
     }
   }
 
+  const handleFork = (pl:IPlayList) => {
+    // por reusar ListsOfPlaylists en distintos sitios tengo el siguiente comportamiento anomalo
+    // si currentUser es null, el user es el currentUser
+    // si currentUser es truthy, user = otherUser
+    if (!isUserOwnerOfThisPlaylist(pl) && !isUserFaulty && user !== null) {
+      const userThatForks = currentUser === null ? user : currentUser
+      if (userThatForks.videoPlayLists.length < 10) {
+        forkPlaylist(pl, userThatForks)
+      } else {
+        alert("Máximo puedes tener 10 playlist")
+      }
+    }
+  }
+
   return (
     <div className='list__of__playlist__wrapper'>
       {listOfPlaylists.map((e)=> <div key={e.plid} className='playlistcard__component' onClick={()=>{}}>
@@ -86,7 +100,7 @@ export default function ListsOfPlaylists({ user, currentUser = null, search = un
           </button>
           <button 
           className='playlistcard__component__fork'
-          onClick={()=>{}}
+          onClick={()=>handleFork(e)}
           >
             <ForkIcon />
           </button>

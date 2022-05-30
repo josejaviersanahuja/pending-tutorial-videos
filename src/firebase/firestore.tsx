@@ -217,9 +217,7 @@ export const sincronizeListOfPlayLists = (
     options : 0|1|2|3|4|-1, 
     iuser : IUser|null,
     search: string | undefined
-  ) => {
-  console.log(options, "debe ser 1 para userfalsy");
-  
+  ) => {  
   // if home and user falsy
   let constraint = where("numLikes", ">=", 0)
   // if home and user truthy
@@ -236,7 +234,7 @@ export const sincronizeListOfPlayLists = (
   }
   if (options === OPTIONS_FOR_LISTOFPLAYLIST["HomeSearch"]) {
     if (search) {
-      console.log("Hay que hacer una busqueda: ", search);
+      // console.log("Hay que hacer una busqueda: ", search);
     }
   }
   const q = query(collection(db, "playlists"), constraint, orderBy("numLikes","desc"), limit(10));
@@ -244,14 +242,32 @@ export const sincronizeListOfPlayLists = (
     const listOfPlaylist : IPlayList[] = []
     snapShot.forEach((pldoc)=>{
       const pl = playlistConverter(pldoc.data());
-      listOfPlaylist.push(pl)
-      console.log(pl.numLikes);
-      
+      listOfPlaylist.push(pl)      
     })
     setListOfPlaylists(listOfPlaylist)
   })
 }
 
+export const forkPlaylist = (pl:IPlayList, user:IUser) =>{
+  pl.plid = ""
+  pl.uid = user.uid
+  pl.likes = []
+  pl.imgUrl = ""
+  pl.numLikes = 0
+  return addDoc(collection(db, 'playlists'), pl)
+  .then((snapShot)=>{
+    console.log("entro aqui?");
+    
+    const ref = doc(db, 'playlists', snapShot.id)
+    updateDoc(ref, {plid: snapShot.id})            
+    const updatedUser :IUser = {
+      ...user,
+      videoPlayLists:user.videoPlayLists.concat([snapShot.id])
+    } 
+    UpdateUser(updatedUser)   
+    alert("fork exitoso")
+  })
+}
 /**
  * CRUD videos
  */

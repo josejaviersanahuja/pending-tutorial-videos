@@ -3,7 +3,7 @@
 .list__of__playlist {
   &__wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 360px));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 380px));
     gap: .5rem;
 
     text-align: center;
