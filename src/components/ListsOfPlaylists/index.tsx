@@ -17,14 +17,12 @@ type Props = {
 
 // @TODO en userPage no sale likebtn nunca. eso esta mal
 export default function ListsOfPlaylists({ user, currentUser = null, search = undefined }: Props) {
-
+  
   const location = useLocation()
-
+  
   const listOfPlaylistOption = ChooseOptionsForListOfPlaylist(location.pathname, user, currentUser, search)
   
-  const {listOfPlaylists, isUserFaulty} = useListOfPlayLists({listOfPlaylistOption, iuser:user})
-
-  
+  const {listOfPlaylists, isUserFaulty} = useListOfPlayLists({listOfPlaylistOption, iuser:user, search}) 
   
   const isUserOwnerOfThisPlaylist = (pl: IPlayList) => {
     if (currentUser && currentUser.uid) {
@@ -50,10 +48,10 @@ export default function ListsOfPlaylists({ user, currentUser = null, search = un
     if (currentUser && currentUser.uid) {      
       if (hasThisUserLikedThisPlayList(pl)) {
         pl.likes = pl.likes.filter(e => e!== currentUser.uid)
-        console.log(currentUser.email, user?.email, pl.likes);
       } else {
         pl.likes.push(currentUser.uid)
       }
+      pl.numLikes= pl.likes.length
       updatePlayList(pl)
     } else {
       if (user && user.uid) {
@@ -62,6 +60,7 @@ export default function ListsOfPlaylists({ user, currentUser = null, search = un
         } else {
           pl.likes.push(user.uid)
         }
+        pl.numLikes= pl.likes.length
         updatePlayList(pl)
       }
     }

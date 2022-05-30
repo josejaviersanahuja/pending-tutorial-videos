@@ -21,6 +21,35 @@ code {
 .home__page main {
   justify-content: flex-start;
 }
+.home__page main .searchform {
+  margin-bottom: 0.75rem;
+}
+.home__page main .searchform input[type=submit] {
+  isolation: isolate;
+  position: relative;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+  background-color: hsl(0deg, 67%, 47%);
+  color: #eeeeee;
+  border-radius: 5px;
+  font-weight: 700;
+  padding: 0.25rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.home__page main .searchform input[type=text] {
+  position: relative;
+  top: -0.18rem;
+  padding: 0.28rem;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
 
 .login__page {
   min-height: calc(100vh - 2rem);

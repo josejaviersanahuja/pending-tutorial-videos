@@ -212,7 +212,14 @@ export const deletePlayList = (playlist: IPlayList, iuser: IUser, SetUserCallBac
         })
 }
 
-export const sincronizeListOfPlayLists = (setListOfPlaylists:Dispatch<IPlayList[]>, options : 0|1|2|3|4|-1, iuser : IUser|null) => {
+export const sincronizeListOfPlayLists = (
+    setListOfPlaylists:Dispatch<IPlayList[]>, 
+    options : 0|1|2|3|4|-1, 
+    iuser : IUser|null,
+    search: string | undefined
+  ) => {
+  console.log(options, "debe ser 1 para userfalsy");
+  
   // if home and user falsy
   let constraint = where("numLikes", ">=", 0)
   // if home and user truthy
@@ -227,12 +234,19 @@ export const sincronizeListOfPlayLists = (setListOfPlaylists:Dispatch<IPlayList[
       constraint = where("uid", "==", iuser.uid)
     }
   }
-
+  if (options === OPTIONS_FOR_LISTOFPLAYLIST["HomeSearch"]) {
+    if (search) {
+      console.log("Hay que hacer una busqueda: ", search);
+    }
+  }
   const q = query(collection(db, "playlists"), constraint, orderBy("numLikes","desc"), limit(10));
   return onSnapshot(q, (snapShot)=>{
     const listOfPlaylist : IPlayList[] = []
     snapShot.forEach((pldoc)=>{
-      listOfPlaylist.push(playlistConverter(pldoc.data()))
+      const pl = playlistConverter(pldoc.data());
+      listOfPlaylist.push(pl)
+      console.log(pl.numLikes);
+      
     })
     setListOfPlaylists(listOfPlaylist)
   })

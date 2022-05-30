@@ -110,7 +110,7 @@ export const OPTIONS_FOR_LISTOFPLAYLIST : {[index:string]:0|1|2|3|4} = {
   search : string | undefined
   ) : 0|1|2|3|4|-1=> {
     if (path ==="/") {
-      const HOMESEARCH = "HomeSearch";
+      const HOMESEARCH = "HomeSearch";      
       if (typeof search == "string" && search) return OPTIONS_FOR_LISTOFPLAYLIST[HOMESEARCH]
       const HOME_AND_USER_FALSY = "HomeAndUserFalsy";
       if (user === null || user.uid === "") return OPTIONS_FOR_LISTOFPLAYLIST[HOME_AND_USER_FALSY]

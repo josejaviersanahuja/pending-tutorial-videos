@@ -1,6 +1,6 @@
 import Header from "../../components/Header";
-import ListsOfPlaylists from "../../components/ListsOfPlaylists";
 import useUser from "../../hooks/useUser";
+import SearchForm from "./SearchForm";
 import SpinnerHome from "./SpinnerHome";
 
 export default function Home() {
@@ -16,9 +16,9 @@ export default function Home() {
         setIsAuth={setIsAuth}
       />
       <main className="home__page__main">
-        <h2>Esto es la Home</h2>
+        <SearchForm user={user}/>
         {isAuthLoading && <p>Loading...</p>}
-        <ListsOfPlaylists user={user} />
+        
       </main>
     </div>
   );

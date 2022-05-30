@@ -3,5 +3,21 @@
 .home__page {
     & main {
         justify-content: flex-start;
+        & .searchform {
+            margin-bottom: .75rem;
+            & input[type="submit"] {
+                @include cleanBotonStyle;
+                @include btn1;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+            & input[type="text"]{
+                position: relative;
+                top: -0.18rem;
+                padding: .28rem;
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+        }
     }
 }
