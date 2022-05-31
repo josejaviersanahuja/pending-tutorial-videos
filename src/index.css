@@ -228,6 +228,19 @@ code {
 .dashboard__playlist__modal form textarea {
   min-height: 5.5em;
 }
+.dashboard__playlist__modal form input[type=file] {
+  display: none;
+}
+.dashboard__playlist__modal form .dashboard__playlist__input__imagen {
+  background-color: hsl(0deg, 67%, 47%);
+  color: #eeeeee;
+  border-radius: 5px;
+  font-weight: 700;
+  padding: 0.25rem;
+  cursor: pointer;
+  width: 50%;
+  margin: 0.5rem;
+}
 .dashboard__playlist__input__submit {
   background-color: hsl(0deg, 67%, 47%);
   color: #eeeeee;

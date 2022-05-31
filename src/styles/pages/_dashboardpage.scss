@@ -45,6 +45,16 @@
       & textarea {
         min-height: 5.5em;
       }
+      & input[type="file"]{
+        display: none;
+      }
+      & .dashboard__playlist__input__imagen{
+        // display: inline-block;
+        @include btn1;
+        cursor: pointer;
+        width: 50%;
+        margin: .5rem;
+      }
     }
   }
   &__input__submit{

@@ -2,6 +2,7 @@ import { FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { updatePlayList } from '../../../../firebase/firestore'
 import useHandleForm from '../../../../hooks/useHandleForm'
+import useUploadFile from '../../../../hooks/useUploadFile'
 import { IPlayList } from '../../../../interfaces'
 import EditBtn from './EditBtn'
 
@@ -24,6 +25,7 @@ export default function EditPlaylistMetadata({pl}: Props) {
     toggleValue, 
     value
   } = useHandleForm()
+  const {imgURL, progress, handleInputFileChange} = useUploadFile(pl.plid)
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -32,7 +34,7 @@ export default function EditPlaylistMetadata({pl}: Props) {
       uid: pl.uid,
       name: nameValue,
       description: textAreaValue,
-      imgUrl: pl.imgUrl,
+      imgUrl: imgURL === "" ? pl.imgUrl: imgURL,
       likes:pl.likes,
       videos:pl.videos,
       numLikes:pl.numLikes
@@ -64,18 +66,19 @@ export default function EditPlaylistMetadata({pl}: Props) {
               value={textAreaValue}
               className="dashboard__playlist__input__descripcion"
             />
+            <label className='dashboard__playlist__input__imagen'>
             <input
               type="file"
-              placeholder="imagen"
-              onChange={handleName2}
-              value={name2Value}
-              className="dashboard__playlist__input__imagen"
+              accept='jpg, jpeg, png'
+              onChange={handleInputFileChange}
             />
+            {progress === 0 ? "Sube una imagen de fondo": `Carga al ${progress}%`}
+            </label>
             <input 
               type="submit" 
               value={isLoading ? "Cargando...":"Añadir"} 
               className="dashboard__playlist__input__submit" 
-              disabled = {nameValue === "" || textAreaValue === ""}
+              disabled = {nameValue === "" || textAreaValue === "" || (progress!==0 && progress !==100)}
             />
             <button onClick={() => { toggleValue(true) }}>{isLoading ? "Cargando...":"Cerrar"}</button>
           </form>
