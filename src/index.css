@@ -425,8 +425,38 @@ code {
   padding: 0 1rem;
 }
 
-/*@forward './notFound';
- */
+.playlistpage__main {
+  justify-content: flex-start;
+  overflow-y: hidden;
+  position: relative;
+}
+.playlistpage__main iframe {
+  width: 100%;
+  max-width: 100vw;
+  aspect-ratio: 112/63;
+  max-height: 56.25vw;
+  margin-bottom: 0.5rem;
+}
+
+.small__videocard {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border: 1px solid hsl(0deg, 67%, 47%);
+  border-radius: 5px;
+  padding: 0.15rem;
+  margin-bottom: 0.5rem;
+}
+.small__videocard img {
+  width: 35%;
+}
+.small__videocard h5 {
+  padding-inline: 0.5rem;
+}
+.small__videocard__wrapper {
+  overflow-y: scroll;
+}
+
 .list__of__playlist__wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 380px));
