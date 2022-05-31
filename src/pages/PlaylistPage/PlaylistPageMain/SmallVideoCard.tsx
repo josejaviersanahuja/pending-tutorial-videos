@@ -1,5 +1,5 @@
 import React, { Dispatch } from 'react'
-import { IVideos } from '../../interfaces'
+import { IVideos } from '../../../interfaces'
 
 type Props = {
   v: IVideos,

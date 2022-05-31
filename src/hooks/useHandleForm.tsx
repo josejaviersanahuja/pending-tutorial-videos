@@ -6,6 +6,7 @@ export default function useHandleForm() {
   const [nameValue, setNameValue] = useState("")
   const [textAreaValue, setTextAreaValue] = useState("")
   const [name2Value, setName2Value] = useState("")
+  // const [file, setFile] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const { value, toggleValue } = useToggle(false)
   const handleName = (e:ChangeEvent<HTMLInputElement>) => {

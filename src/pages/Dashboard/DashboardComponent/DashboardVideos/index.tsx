@@ -8,6 +8,7 @@ import BackBtn from './BackBtn'
 import EditBtn from './EditBtn'
 import VideoCards from '../../VideoCards'
 import useSincronizePlaylist from '../../../../hooks/useSincronizePlaylist'
+import EditPlaylistMetadata from './EditPlaylistMetadata'
 
 type Props = {
   setUser : Dispatch<IUser|null>
@@ -42,7 +43,7 @@ export default function DashboardVideos({setUser, iuser}:Props) {
   }
   
   return (<>
-    <h4>Playlist {playlist.name}</h4>
+    <h4>Playlist {playlist.name} {isEditionMode && <EditPlaylistMetadata pl={playlist}/>}</h4>
     <div className='videocard__wrapper'>
       {
         !isEmptyPlaylist
