@@ -16,8 +16,6 @@ export default function EditPlaylistMetadata({pl}: Props) {
   const {
     nameValue, 
     textAreaValue, 
-    name2Value, 
-    handleName2, 
     handleName, 
     handleTexteArea, 
     reset,
@@ -32,8 +30,8 @@ export default function EditPlaylistMetadata({pl}: Props) {
     const newplaylist : IPlayList = {
       plid: pl.plid,
       uid: pl.uid,
-      name: nameValue,
-      description: textAreaValue,
+      name: nameValue === "" ? pl.name : nameValue,
+      description: textAreaValue === "" ? pl.description : textAreaValue,
       imgUrl: imgURL === "" ? pl.imgUrl: imgURL,
       likes:pl.likes,
       videos:pl.videos,
@@ -78,7 +76,7 @@ export default function EditPlaylistMetadata({pl}: Props) {
               type="submit" 
               value={isLoading ? "Cargando...":"Añadir"} 
               className="dashboard__playlist__input__submit" 
-              disabled = {nameValue === "" || textAreaValue === "" || (progress!==0 && progress !==100)}
+              disabled = {nameValue === "" && textAreaValue === "" && progress!==100}
             />
             <button onClick={() => { toggleValue(true) }}>{isLoading ? "Cargando...":"Cerrar"}</button>
           </form>

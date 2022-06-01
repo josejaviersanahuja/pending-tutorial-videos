@@ -13,8 +13,6 @@ const metadata = {
 
 export const UploadImage = (file : File, plid: string, setProgress : Dispatch<number>, setUrl : Dispatch<string>) => {
   // Upload file and metadata to the object 'images/{plid}.jpeg'
-  console.log("esta aqui?", file.size);
-  
   const storageRef = ref(storage, 'images/' + plid + '.jpeg');
   const uploadTask = uploadBytesResumable(storageRef, file, metadata);
 
@@ -26,7 +24,6 @@ export const UploadImage = (file : File, plid: string, setProgress : Dispatch<nu
     (snapshot) => {
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done'); 
       setProgress(progress)
       switch (snapshot.state) {
         case 'paused':
@@ -66,7 +63,7 @@ export const UploadImage = (file : File, plid: string, setProgress : Dispatch<nu
      */
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        console.log('File available at', downloadURL);
+        //console.log('File available at', downloadURL);
         setUrl(downloadURL)
       });
     }

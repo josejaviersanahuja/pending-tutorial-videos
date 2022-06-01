@@ -110,7 +110,7 @@ const convertFetchedYoutubeResult = (algo: any) : IVideos => {
     imgUrl: "",
     defaultLanguage:""
   }
-  console.log(algo, "Lo que trae youtube api");
+  //console.log(algo, "Lo que trae youtube api");
   
   if ( algo && algo.id 
     && algo.snippet 

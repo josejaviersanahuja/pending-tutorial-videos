@@ -10,7 +10,7 @@ main {
     justify-content: center;
     align-items: center;
     height: calc(100vh - 10.75rem); // 4rem de footer y 6.75 de header
-
+    background-color: darken($color: $secondColor, $amount: 5%);
     overflow-y: scroll;
 }
 

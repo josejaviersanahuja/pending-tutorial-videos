@@ -13,6 +13,7 @@ export default function PlayListComponent({plid}: Props) {
   
   return (
     <div className='playlistcard' onClick={handleClick}>
+      {playlist.imgUrl !== "" && <img src={playlist.imgUrl} alt={playlist.plid} className="playlist__background__img"/>}
       <h3>{playlist?.name}</h3>
       <p>{playlist?.description}</p>
       <div className='playlistcard__footer'>

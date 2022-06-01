@@ -234,7 +234,7 @@ export const sincronizeListOfPlayLists = (
   }
   if (options === OPTIONS_FOR_LISTOFPLAYLIST["HomeSearch"]) {
     if (search) {
-      // console.log("Hay que hacer una busqueda: ", search);
+      // Aqui me di cuenta que firebase no es bueno para hacer queries.
     }
   }
   const q = query(collection(db, "playlists"), constraint, orderBy("numLikes","desc"), limit(10));
@@ -256,8 +256,6 @@ export const forkPlaylist = (pl:IPlayList, user:IUser) =>{
   pl.numLikes = 0
   return addDoc(collection(db, 'playlists'), pl)
   .then((snapShot)=>{
-    console.log("entro aqui?");
-    
     const ref = doc(db, 'playlists', snapShot.id)
     updateDoc(ref, {plid: snapShot.id})            
     const updatedUser :IUser = {

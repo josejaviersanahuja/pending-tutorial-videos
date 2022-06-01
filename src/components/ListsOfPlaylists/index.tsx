@@ -83,12 +83,13 @@ export default function ListsOfPlaylists({ user, currentUser = null, search = un
 
   return (
     <div className='list__of__playlist__wrapper'>
-      {listOfPlaylists.map((e)=> <div key={e.plid} className='playlistcard__component' onClick={()=>{navigate(`/playlist/${e.plid}`, {state:e})}}>
+      {listOfPlaylists.map((e)=> <div key={e.plid} className='playlistcard__component'>
       <div className='playlistcard__component__avatar'>
         <FetchedAvatar uid={e.uid} />
       </div>
+      {e.imgUrl !== "" && <img src={e.imgUrl} alt={e.name} className="playlist__background__img"/>}
       <h3>{e.name}</h3>
-      <p>{e.description}</p>
+      <p onClick={()=>{navigate(`/playlist/${e.plid}`, {state:e})}}>{e.description}</p>
       {
         !isUserFaulty 
         && !isUserOwnerOfThisPlaylist(e) 
@@ -107,7 +108,7 @@ export default function ListsOfPlaylists({ user, currentUser = null, search = un
           </button>
           </>
       }
-      <div className='playlistcard__footer'>
+      <div className='playlistcard__footer' onClick={()=>{navigate(`/playlist/${e.plid}`, {state:e})}}>
         <button><LikeIcon/>{e.numLikes}</button>
         <button><VideosIcon/>{e.videos.length}</button>
       </div>
