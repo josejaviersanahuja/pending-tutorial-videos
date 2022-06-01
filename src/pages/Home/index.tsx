@@ -4,7 +4,7 @@ import SearchForm from "./SearchForm";
 import SpinnerHome from "./SpinnerHome";
 
 export default function Home() {
-
+  
   const { user, loginUser, isAuthLoading, setIsAuth } = useUser()
  
   if (isAuthLoading) return <SpinnerHome />
