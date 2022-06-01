@@ -1,6 +1,6 @@
 
 export const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  apiKey: process.env.REACT_APP_YOUTUBE_API_KEY,
   authDomain: "videos-tutoriales-por-ver.firebaseapp.com",
   projectId: "videos-tutoriales-por-ver",
   storageBucket: "videos-tutoriales-por-ver.appspot.com",
