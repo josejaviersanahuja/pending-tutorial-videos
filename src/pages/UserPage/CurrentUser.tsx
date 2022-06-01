@@ -1,6 +1,5 @@
 import { User } from 'firebase/auth'
 import { EMPTY_USER_TYPE, IUser } from '../../interfaces'
-import { LoadingComponent } from './ChooseComponent'
 import FullPresentationCard from './FullPresentationCard'
 import ShowUserCollection from './ShowUserCollection'
 

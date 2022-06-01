@@ -1,6 +1,6 @@
 import { DocumentData } from "firebase/firestore"
 import { Dispatch, SetStateAction } from "react"
-import { IPlayList, IUser, IVideos } from "../interfaces"
+import { EMPTY_PLAYLIST, IPlayList, IUser, IVideos } from "../interfaces"
 import { YOUTUBE_API_KEY } from "./config"
 import { addNewVideoFromDB } from "./firestore"
 
@@ -54,7 +54,7 @@ export const playlistConverter = (doc: DocumentData) : IPlayList => {
 }
 
 export const playlistConverterFromAny = (doc: any) : IPlayList => {
-
+  if (!doc) return EMPTY_PLAYLIST
   const ipl : IPlayList = { 
     description: typeof doc.description == 'string' ? doc.description: "",
     imgUrl: typeof doc.imgUrl == 'string' ? doc.imgUrl: "",

@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect, useState } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { sincronizePlayList } from '../firebase/firestore'
 import { EMPTY_PLAYLIST, IPlayList, IVideos } from '../interfaces'
@@ -23,6 +23,7 @@ export default function useSincronizePlaylist({plid, initialPlaylist = EMPTY_PLA
     return () => {
       unsuscribe()
     }
+    // eslint-disable-next-line
   }, [plid])
 
   const handleClick = () => {
