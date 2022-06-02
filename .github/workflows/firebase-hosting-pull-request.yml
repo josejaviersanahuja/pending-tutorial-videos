@@ -10,9 +10,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         env: 
-            REACT_APP_YOUTUBE_API_KEY: ${{ secrets.REACT_APP_YOUTUBE_API_KEY }}
-            REACT_APP_APPID: ${{ secrets.REACT_APP_APPID }}
-            REACT_APP_MESSAGING_SENDER: ${{ secrets.REACT_APP_MESSAGING_SENDER }}
+          REACT_APP_YOUTUBE_API_KEY: ${{ secrets.REACT_APP_YOUTUBE_API_KEY }}
+          REACT_APP_APPID: ${{ secrets.REACT_APP_APPID }}
+          REACT_APP_MESSAGING_SENDER: ${{ secrets.REACT_APP_MESSAGING_SENDER }}
       - run:  npm install --only=production
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
