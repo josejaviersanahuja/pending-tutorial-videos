@@ -10,3 +10,4 @@ export const firebaseConfig = {
 };
 
 export const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY
+export const PUBLIC_VAPID_KEY= process.env.REACT_APP_PUBLIC_VAPID_KEY

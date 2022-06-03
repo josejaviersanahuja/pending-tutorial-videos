@@ -10,8 +10,20 @@ import Dashboard from './pages/Dashboard';
 import Followers from './pages/Followers';
 import Following from './pages/Following';
 import PlaylistPage from './pages/PlaylistPage';
+import { preguntarPermisos, suscribeMessaging } from './firebase/messaging';
+import { useEffect } from 'react';
 
 function App() {
+
+  useEffect(() => {
+    preguntarPermisos()
+    const unsuscribe = suscribeMessaging()
+    return () => {
+    unsuscribe()
+    }
+  }, [])
+  
+
   return (<>
   <BrowserRouter>
     <Routes>

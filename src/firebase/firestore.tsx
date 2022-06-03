@@ -7,7 +7,7 @@ import { logout } from "./auth";
 import { app } from './init'
 import { playlistConverter, userConverter, videoConverter } from "./lib";
 
-const db = getFirestore(app)
+export const db = getFirestore(app)
 
 /**
  * CRUD users
