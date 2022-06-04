@@ -19,9 +19,9 @@ export const preguntarPermisos = () => {
     return getToken(messaging,{vapidKey:PUBLIC_VAPID_KEY})
   })
   .then(token=>{
-    console.log("user token: ", token);
     // if token, send to firestore else log no token available
     if (token) {
+      console.log("user token: ", token);
       setDoc(doc(db, 'tokens', token), {"token":token})
     } else {
       console.log("no hay token");

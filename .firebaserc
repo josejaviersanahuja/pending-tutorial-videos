@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "videos-tutoriales-por-ver"
-  }
+    "default": "videos-tutoriales-por-ver",
+    "youtube-playlists": "videos-tutoriales-por-ver"
+  },
+  "targets": {}
 }
