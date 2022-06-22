@@ -32,3 +32,16 @@
   }
   
 }
+
+@include media-m {
+  .playlistpage__main {
+    overflow-y: scroll;
+    & iframe{
+      max-height: 500px;
+      max-width: 888px;
+    }
+  }
+  .small__videocard__wrapper {
+    overflow-y: visible;
+  }
+}

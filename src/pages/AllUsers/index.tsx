@@ -26,8 +26,10 @@ export default function AllUsers() {
       />
       <main className='main__allusers'>
         <h3>AllUsers</h3>
-        {isLoading && <SpinnerAllUsers />}
-        {allUsers.length > 0 && allUsers.map((u,i)=> <PresentationCard key={u.uid} genericUser={u}/>)}
+        <div className='presentation__card__wrapper'>
+          {isLoading && <SpinnerAllUsers />}
+          {allUsers.length > 0 && allUsers.map((u,i)=> <PresentationCard key={u.uid} genericUser={u}/>)}
+        </div>
       </main>
     </div>
   )

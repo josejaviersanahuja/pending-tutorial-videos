@@ -106,6 +106,16 @@ code {
   text-align: center;
 }
 
+@media screen and (min-width: 768px) {
+  .main__allusers .presentation__card__wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  .main__allusers .presentation__card__wrapper .presentation__card {
+    max-width: 500px;
+    margin: auto;
+  }
+}
 .user__page main {
   display: block;
   padding: 1rem;
@@ -498,6 +508,19 @@ code {
   overflow-y: scroll;
 }
 
+@media screen and (min-width: 768px) {
+  .playlistpage__main {
+    overflow-y: scroll;
+  }
+  .playlistpage__main iframe {
+    max-height: 500px;
+    max-width: 888px;
+  }
+
+  .small__videocard__wrapper {
+    overflow-y: visible;
+  }
+}
 .list__of__playlist__wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 380px));
@@ -604,6 +627,8 @@ header .login__logout__btn {
   color: hsl(0deg, 67%, 47%);
   text-align: center;
   height: 4rem;
+  position: sticky;
+  bottom: 0;
 }
 .footer .createdby {
   position: relative;
@@ -638,7 +663,17 @@ header .login__logout__btn {
     display: block;
   }
   .footer__btns {
-    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #eeeeee;
+    flex-direction: column;
+    transform: translateY(0);
+  }
+
+  body {
+    padding-left: 32px;
   }
 }
 /*@forward './tarjeta_del_curso';*/
