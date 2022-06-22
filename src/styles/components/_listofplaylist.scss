@@ -5,7 +5,6 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 380px));
     gap: .5rem;
-
     text-align: center;
     position: relative;
   }
@@ -30,5 +29,11 @@
     position: absolute;
     left: 1rem;
     top: 1.5rem;
+  }
+}
+
+@include media-m {
+  .list__of__playlist__wrapper {
+    width: 100%;
   }
 }
