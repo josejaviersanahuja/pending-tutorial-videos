@@ -8,7 +8,7 @@ type Props = {
 
 export default function ShowUserCollection({iuser}: Props) {
   return (<>
-    <h2>ShowUserCollection, {iuser.videoPlayLists.length}</h2>
+    <h2>Playlists con al menos 1 vídeo</h2>
     <ListsOfPlaylists user={iuser}/>
     </>)
 }

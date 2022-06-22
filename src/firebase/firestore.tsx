@@ -242,7 +242,7 @@ export const sincronizeListOfPlayLists = (
     const listOfPlaylist : IPlayList[] = []
     snapShot.forEach((pldoc)=>{
       const pl = playlistConverter(pldoc.data());
-      listOfPlaylist.push(pl)      
+      pl.videos.length > 0 && listOfPlaylist.push(pl)      
     })
     setListOfPlaylists(listOfPlaylist)
   })
