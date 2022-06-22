@@ -14,7 +14,10 @@ export default function PlaylistPageMain({ pl }: Props) {
   const [allVideos, setallVideos] = useState<IVideos[]>([])
   useSincronizePlaylist({plid:pl.plid, initialPlaylist:pl, setallVideos})
  
-  if (pl.videos.length === 0) return <Navigate to="/" replace/>
+  if (pl.videos.length === 0) {
+    alert("Ese Playlist está vacío. Selecciona otro")
+    return <Navigate to="/" replace/>
+  }
   return (
     <main className='playlistpage__main'>
       <iframe
