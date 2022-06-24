@@ -16,7 +16,7 @@ exports.registrarTopico = firestore
       const registrationTokens = [token];
 
       return messaging()
-          .subscribeToTopic(registrationTokens, "NuevosPlaylists")
+          .subscribeToTopic(registrationTokens, "NuevoPlaylist")
           .then(() => {
             return console.log("Adiciona correctamente al topico. TO DO?");
           })
@@ -35,7 +35,7 @@ exports.enviarNotificacion = firestore
           name: name,
           description: description,
         },
-        topic: "NuevosPlaylists",
+        topic: "NuevoPlaylist",
       };
 
       return messaging()
