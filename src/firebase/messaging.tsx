@@ -2,7 +2,7 @@ import {getMessaging, getToken, onMessage} from 'firebase/messaging'
 import { PUBLIC_VAPID_KEY } from './config';
 import {app} from './init'
 import {db} from './firestore'
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 const messaging = getMessaging(app)
 
@@ -37,6 +37,18 @@ export const suscribeMessaging = () => {
   return onMessage(messaging, (payload) => {
     console.log('Message received. ', payload);
     // ...TODO
+    const uid : string = payload.data ? String(payload.data.uid) : "";
+    const docRef = doc(db, "users", uid)
+    getDoc(docRef)
+      .then((docData) => {
+        if (docData.exists()) {
+          alert(docData.data().name + " ha creado un nuevo playlist " + payload.data?.titulo + " sobre " + payload.data?.descripcion)
+        } else {
+            console.error("algo paso en firesatore tras recibir el message");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      })
   });  
 }
-
