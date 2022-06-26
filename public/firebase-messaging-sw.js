@@ -26,9 +26,9 @@ messaging.usePublicVapidKey(
 messaging.onBackgroundMessage((payload) => {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
   // Customize notification here
-  const notificationTitle = 'Background Message Title';
+  const notificationTitle = 'Se ha creado un nuevo playlist';
   const notificationOptions = {
-    body: 'Background Message body.',
+    body: `Es sobre ${payload.data.titulo}. ${payload.data.descripcion}`,
     icon: '/firebase-logo.png'
   };
 
