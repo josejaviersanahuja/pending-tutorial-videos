@@ -27,19 +27,19 @@ export default function EditPlaylistMetadata({pl}: Props) {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const newplaylist : IPlayList = {
+    const newplaylist : Partial<IPlayList> = {
       plid: pl.plid,
-      uid: pl.uid,
       name: nameValue === "" ? pl.name : nameValue,
       description: textAreaValue === "" ? pl.description : textAreaValue,
       imgUrl: imgURL === "" ? pl.imgUrl: imgURL,
-      likes:pl.likes,
-      videos:pl.videos,
-      numLikes:pl.numLikes
     }
     updatePlayList(newplaylist)
     .then(()=>{
       navigate("/dashboard")
+    })
+    .catch((err) => {
+      alert("error al hacer update del playlist")
+      console.error(err);
     })
     reset()
   }

@@ -169,8 +169,15 @@ export const addNewPlayList = (
           })
 }
 
-export const updatePlayList = (playlist: IPlayList) => {
-  return setDoc(doc(db, "playlists", playlist.plid), playlist)
+export const updatePlayList = (playlist: Partial<IPlayList>) => {
+  if (playlist.plid) {
+    const plRef = doc(db, 'playlists', playlist.plid);
+
+    return setDoc(plRef, playlist, { merge: true });
+  }
+  return new Promise((resolv, rejec)=>{
+    rejec("Error al hacer update al playlist")
+  })
 }
 
 export const sincronizePlayList = (
