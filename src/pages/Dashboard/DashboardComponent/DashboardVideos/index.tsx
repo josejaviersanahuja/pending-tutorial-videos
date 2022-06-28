@@ -43,7 +43,7 @@ export default function DashboardVideos({setUser, iuser}:Props) {
   }
   
   return (<>
-    <h4>Playlist {playlist.name} {isEditionMode && <EditPlaylistMetadata pl={playlist}/>}</h4>
+    <h4>Playlist {playlist.name} {isEditionMode && <EditPlaylistMetadata pl={sincronizedPlaylist}/>}</h4>
     <div className='videocard__wrapper'>
       {
         !isEmptyPlaylist
